@@ -19,7 +19,6 @@ reportlab
 fpdf
 
 # For JSON and request handling
-requests
 json
 toml
 
