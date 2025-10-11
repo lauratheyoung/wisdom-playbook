@@ -9,8 +9,10 @@ from urllib.parse import urlparse, parse_qs
 creds_info = st.secrets['GOOGLE_CREDS']
 
 print(creds_info)
-creds_info['private_key'] = creds_info['private_key'].replace("/n", "\n")
-print(creds_info)
+dic = creds_info.copy()
+dic['private_key'] = dic['private_key'].replace("/n", "\n")
+
+print(dic)
 
 scopes = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 creds = Credentials.from_service_account_info(creds_info, scopes=scopes)
