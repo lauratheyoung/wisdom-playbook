@@ -16,7 +16,8 @@ google-auth-httplib2
 
 # PDF generation (if you're generating downloadable reports)
 reportlab
-fpdf
+fpdf>=1.7.2
+
 
 # For JSON and request handling
 json
