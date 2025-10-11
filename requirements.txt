@@ -1,5 +1,26 @@
+# Core Streamlit dependencies
 streamlit>=1.24.0
+
+# Data handling
 pandas>=2.0
 numpy>=1.25
+
+# Visualisation
 plotly>=5.20
+
+# Google Sheets & Auth
 gspread
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+
+# PDF generation (if you're generating downloadable reports)
+reportlab
+fpdf
+
+# For JSON and request handling
+requests
+json
+
+# Optional: if you're doing browser automation or screenshots
+pyppeteer
