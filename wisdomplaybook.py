@@ -1,13 +1,12 @@
 import gspread as gs
 import plotly as pl
-import toml
 from google.oauth2.service_account import Credentials
 import streamlit as st
 import pandas as pd
 from urllib.parse import urlparse, parse_qs
 
 #Google sheet setup
-creds_info = toml.loads(st.secrets["GOOGLE_CREDS"])
+creds_info = st.secrets["GOOGLE_CREDS"]
 
 print(creds_info)
 
@@ -52,3 +51,4 @@ if uuid_input:
         st.error("No report found for this ID.")
 
 # test update
+
