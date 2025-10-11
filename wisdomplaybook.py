@@ -12,7 +12,7 @@ print(creds_info)
 #dic = creds_info.copy()
 #dic['private_key'] = dic['private_key'].replace("/n", "\n")
 
-print(dic)
+#print(dic)
 
 scopes = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 creds = Credentials.from_service_account_info(creds_info, scopes=scopes)
