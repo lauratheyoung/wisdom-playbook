@@ -8,6 +8,9 @@ from urllib.parse import urlparse, parse_qs
 
 #Google sheet setup
 creds_info = toml.loads(st.secrets["GOOGLE_CREDS_JSON"])
+
+print(creds_info)
+
 scopes = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 creds = Credentials.from_service_account_info(creds_info, scopes=scopes)
 client = gs.authorize(creds)
