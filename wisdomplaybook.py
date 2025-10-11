@@ -4,6 +4,7 @@ from google.oauth2.service_account import Credentials
 import streamlit as st
 import pandas as pd
 from urllib.parse import urlparse, parse_qs
+import json
 
 #Google sheet setup
 creds_info = json.loads(st.secrets["GOOGLE_CREDS_JSON"])
