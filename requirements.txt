@@ -13,6 +13,7 @@ gspread
 google-auth
 google-auth-oauthlib
 google-auth-httplib2
+json
 
 # PDF generation (if you're generating downloadable reports)
 reportlab
