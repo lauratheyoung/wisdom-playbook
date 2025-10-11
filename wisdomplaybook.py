@@ -6,8 +6,10 @@ import pandas as pd
 from urllib.parse import urlparse, parse_qs
 
 #Google sheet setup
-creds_info = st.secrets["GOOGLE_CREDS"]
+creds_info = st.secrets['GOOGLE_CREDS']
 
+print(creds_info)
+creds_info['private_key'] = creds_info['private_key'].replace("/n", "\n")
 print(creds_info)
 
 scopes = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
@@ -51,4 +53,3 @@ if uuid_input:
         st.error("No report found for this ID.")
 
 # test update
-
