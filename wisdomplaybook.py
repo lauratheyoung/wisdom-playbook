@@ -9,8 +9,8 @@ from urllib.parse import urlparse, parse_qs
 creds_info = st.secrets['GOOGLE_CREDS']
 
 print(creds_info)
-dic = creds_info.copy()
-dic['private_key'] = dic['private_key'].replace("/n", "\n")
+#dic = creds_info.copy()
+#dic['private_key'] = dic['private_key'].replace("/n", "\n")
 
 print(dic)
 
