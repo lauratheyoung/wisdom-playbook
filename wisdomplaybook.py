@@ -7,16 +7,13 @@ from urllib.parse import urlparse, parse_qs
 
 #Google sheet setup
 creds_info = st.secrets
-
-print(creds_info)
-
-
+#print(creds_info)
 scopes = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 creds = Credentials.from_service_account_info(creds_info, scopes=scopes)
 client = gs.authorize(creds)
 
 # Test connection
-st.write("Connected sheets:", [s.title for s in client.openall()])
+#st.write("Connected sheets:", [s.title for s in client.openall()])
 
 # Open sheets
 sheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1XEIVMPSS69BHDBGPw8fKkuqze5iqXSP7JFfwdGQhSHk/edit#gid=406100282").worksheet("Form_Responses2")
