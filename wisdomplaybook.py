@@ -7,25 +7,25 @@ import pandas as pd
 from urllib.parse import urlparse, parse_qs
 
 #Google sheet setup
-
-creds_info = json.loads(st.secrets("GOOGLE_CREDS_JSON"))
+creds_info = json.loads(st.secrets["GOOGLE_CREDS_JSON"])
 scopes = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
-creds = Credentials.from_service_account_file(creds_info, scopes=scopes)
+creds = Credentials.from_service_account_info(creds_info, scopes=scopes)
 client = gs.authorize(creds)
 
 # Test connection
-
 st.write("Connected sheets:", [s.title for s in client.openall()])
 
-sheet = client.open("https://docs.google.com/spreadsheets/d/1XEIVMPSS69BHDBGPw8fKkuqze5iqXSP7JFfwdGQhSHk/edit?gid=406100282#gid=406100282").Individual('Form Responses2')
+# Open sheets
+sheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1XEIVMPSS69BHDBGPw8fKkuqze5iqXSP7JFfwdGQhSHk/edit#gid=406100282").worksheet("Individual")
 
-data = pd.Dataframe(sheet.get_all_records())
+#Load into dataframe
+data = pd.DataFrame(sheet.get_all_records())
 
+#Display first rows
 st.dataframe(data.head())
 
 
 #Streamlit UI
-
 st.set_page_config(layout="wide")
 st.title("Form Submission Report Viewer")
 
