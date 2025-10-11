@@ -21,6 +21,7 @@ fpdf
 # For JSON and request handling
 requests
 json
+toml
 
 # Optional: if you're doing browser automation or screenshots
 pyppeteer
