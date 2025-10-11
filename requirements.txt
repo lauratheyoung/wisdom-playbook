@@ -18,10 +18,5 @@ google-auth-httplib2
 reportlab
 fpdf>=1.7.2
 
-
-# For JSON and request handling
-json
-toml
-
 # Optional: if you're doing browser automation or screenshots
 pyppeteer
