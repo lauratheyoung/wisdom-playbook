@@ -16,7 +16,7 @@ client = gs.authorize(creds)
 st.write("Connected sheets:", [s.title for s in client.openall()])
 
 # Open sheets
-sheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1XEIVMPSS69BHDBGPw8fKkuqze5iqXSP7JFfwdGQhSHk/edit#gid=406100282").worksheet("Individual")
+sheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1XEIVMPSS69BHDBGPw8fKkuqze5iqXSP7JFfwdGQhSHk/edit#gid=406100282").worksheet("Form_Responses2")
 
 #Load into dataframe
 data = pd.DataFrame(sheet.get_all_records())
@@ -28,6 +28,8 @@ st.dataframe(data.head())
 #Streamlit UI
 st.set_page_config(layout="wide")
 st.title("Form Submission Report Viewer")
+st.title("Hello Streamlit!")
+st.write("If you see this, Streamlit is working.")
 
 #Get UUI from query params
 
