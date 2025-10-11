@@ -1,13 +1,6 @@
-#app script
-#Backend Logic to handle form data
-#UUID needed to be generated per use per form submission --> figure out condition of 1 user 3x friends per form accumulated results can be grouped/related
-#Push JSON to streamlit
-#Visualise the report in Streamlit
-#Email report with pdf attachment of results to user in two stages 1. when they submit their form, 2. when 3 friends complete their forms
-#Use admin email
-
 import gspread as gs
 import plotly as pl
+import json
 from google.oauth2.service_account import Credentials
 import streamlit as st
 import pandas as pd
@@ -15,13 +8,21 @@ from urllib.parse import urlparse, parse_qs
 
 #Google sheet setup
 
+creds_info = json.loads(st.secrets("GOOGLE_CREDS_JSON"))
 scopes = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
-creds = Credentials.from_service_account_file("wisdomplaybook.json", scopes=scopes)
+creds = Credentials.from_service_account_file(creds_info, scopes=scopes)
 client = gs.authorize(creds)
 
-sheet = client.open("https://docs.google.com/spreadsheets/d/1XEIVMPSS69BHDBGPw8fKkuqze5iqXSP7JFfwdGQhSHk/edit?gid=406100282#gid=406100282").Individual
+# Test connection
+
+st.write("Connected sheets:", [s.title for s in client.openall()])
+
+sheet = client.open("https://docs.google.com/spreadsheets/d/1XEIVMPSS69BHDBGPw8fKkuqze5iqXSP7JFfwdGQhSHk/edit?gid=406100282#gid=406100282").Individual('Form Responses2')
 
 data = pd.Dataframe(sheet.get_all_records())
+
+st.dataframe(data.head())
+
 
 #Streamlit UI
 
