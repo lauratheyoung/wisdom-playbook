@@ -4,16 +4,12 @@ from google.oauth2.service_account import Credentials
 import streamlit as st
 import pandas as pd
 from urllib.parse import urlparse, parse_qs
-import json
 
 #Google sheet setup
-creds_info = json.loads(st.secrets["GOOGLE_CREDS_JSON"])
+creds_info = st.secrets
 
 print(creds_info)
-#dic = creds_info.copy()
-#dic['private_key'] = dic['private_key'].replace("/n", "\n")
 
-#print(dic)
 
 scopes = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 creds = Credentials.from_service_account_info(creds_info, scopes=scopes)
