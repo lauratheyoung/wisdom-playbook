@@ -7,7 +7,7 @@ import pandas as pd
 from urllib.parse import urlparse, parse_qs
 
 #Google sheet setup
-creds_info = json.loads(st.secrets["GOOGLE_CREDS_JSON"])
+creds_info = json.loads(st.secrets["GOOGLE_CREDS"]["GOOGLE_CREDS_JSON"])
 
 print(creds_info)
 
