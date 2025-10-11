@@ -1,13 +1,13 @@
 import gspread as gs
 import plotly as pl
-import json
+import toml
 from google.oauth2.service_account import Credentials
 import streamlit as st
 import pandas as pd
 from urllib.parse import urlparse, parse_qs
 
 #Google sheet setup
-creds_info = json.loads(st.secrets["GOOGLE_CREDS"]["GOOGLE_CREDS_JSON"])
+creds_info = toml.loads(st.secrets["GOOGLE_CREDS"])
 
 print(creds_info)
 
