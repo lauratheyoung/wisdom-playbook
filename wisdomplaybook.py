@@ -95,10 +95,9 @@ def determine_strength_growth(user_row, trait_cols, top_n=3):
 
     return strengths, growth
 
-
+#Defining the traits
 trait_cols = ["Purposeful", "Playful", "Adventurous", "Adaptable",
               "Curious", "Charitable", "Engaged", "Ethical"]
-
 
 # --- Show only after UUID is entered ---
 if uuid_input:
@@ -134,12 +133,11 @@ else:
     st.info("Enter or pass your UUID in the URL to view your report.")
 
 
-
 # Link peer with individual through name match
 
 # Generate welcome
 
-welcome = st.title("Welcome"+"to the "+"Wisdom Playbook")
+welcome = st.title("Welcome"+ data["Name"]+" to the "+"Wisdom Playbook")
 
 # Generate congratulation message
 
