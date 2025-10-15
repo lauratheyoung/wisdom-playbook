@@ -66,7 +66,6 @@ def compute_trait_scores(df):
 df_traits = compute_trait_scores(data)
 
 # Backend logic to determine users strength and growth traits by aggregating trait scores and comparing  --> not sure what to do if there are ties
-
 def determine_strength_growth(user_row, trait_cols, top_n=3):
     """
     Determine the top and bottom traits for a given user.
@@ -100,60 +99,39 @@ def determine_strength_growth(user_row, trait_cols, top_n=3):
 trait_cols = ["Purposeful", "Playful", "Adventurous", "Adaptable",
               "Curious", "Charitable", "Engaged", "Ethical"]
 
-#df_traits["Strengths"] = ""
-#df_traits["Growth"] = ""
 
-for i, row in df_traits.iterrows():
-    strengths, growth = determine_strength_growth(row, trait_cols)
-    df_traits.at[i, "Strengths"] = ", ".join(strengths)
-    df_traits.at[i, "Growth"] = ", ".join(growth)
-
-    # Streamlit debug output
-    st.write(f"**User:** {row['What is your first name?']} | UUID: {row['UUID']}")
-    st.write(f"Strengths: {strengths}")
-    st.write(f"Growth: {growth}")
-    st.write("---")
-
-
-# --- Process and display data ---
+# --- Show only after UUID is entered ---
 if uuid_input:
     user_data = data[data["UUID"] == uuid_input]
 
     if not user_data.empty:
+        st.success(f"✅ Report found for UUID: {uuid_input}")
 
-        # Compute aggregated scores for all users
+        # Compute trait scores for all users
         df_traits = compute_trait_scores(data)
 
-        # Show only this user’s trait averages
+        # Filter to the current user's trait scores
         user_traits = df_traits[df_traits["UUID"] == uuid_input]
-        st.write("### Individual User Trait Scores")
-        st.dataframe(user_traits)
 
-        # Print raw values (optional, for debugging)
-        st.write("### Debug Output (Raw Values)")
-        st.write(user_traits.to_dict(orient="records")[0])
+        if not user_traits.empty:
+            user_row = user_traits.iloc[0]
 
-        user_row = user_traits.iloc[0]
+            # Compute strengths and growth only for this user
+            strengths, growth = determine_strength_growth(user_row, trait_cols)
 
-        # Compute strengths and growth
-        strengths, growth = determine_strength_growth(user_row, trait_cols)
-        user_traits["Strengths"] = ", ".join(strengths)
-        user_traits["Growth"] = ", ".join(growth)
+            # Display only this user’s traits
+            st.write("### Your Trait Scores")
+            st.dataframe(user_traits[trait_cols].T.rename(columns={user_traits.index[0]: "Score"}))
 
-        # Display results
-        st.success(f"✅ Report found for UUID: {uuid_input}")
-        st.write("### Individual Trait Scores")
-        st.dataframe(user_traits)
-
-        st.write("### Strengths and Growth Traits")
-        st.write(f"**Strengths:** {', '.join(strengths)}")
-        st.write(f"**Growth:** {', '.join(growth)}")
-
+            st.write("### 🧭 Your Strengths and Growth Areas")
+            st.write(f"**Top Strengths:** {', '.join(strengths)}")
+            st.write(f"**Growth Opportunities:** {', '.join(growth)}")
+        else:
+            st.error("No trait data found for this UUID.")
     else:
-        st.error("No report found for this ID.")
+        st.error("No report found for this UUID.")
 else:
-    st.info("Enter or pass your UUID in the URL to view this report.")
-
+    st.info("Enter or pass your UUID in the URL to view your report.")
 
 
 
