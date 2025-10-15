@@ -79,7 +79,8 @@ def compute_trait_scores(df):
             # Compute mean ignoring NaN
             df_traits[trait] = df_traits[cols].mean(axis=1)
 
-    id_cols = df.columns[:2]  # Timestamp, Name
+    id_cols = ["Timestamp", "What is your first name?", "UUID"]
+    id_cols = [col for col in id_cols if col in df_traits.columns]  # safeguard
     trait_cols = list(trait_ranges.keys())
     return df_traits[list(id_cols) + trait_cols]
 
