@@ -47,6 +47,7 @@ if uuid_input:
         st.dataframe(user_data)
     else:
         st.error("No report found for this ID.")
+        
 
 # Backend logic to determine user trait scores (1 trait = 4 Questions) order of traits: Purposeful, playful, adventurous, adaptable, curious, charitable, engaged, ethical
 
@@ -64,6 +65,10 @@ def compute_trait_scores(df):
     }
 
     df_traits = df.copy()
+    #Fixing UUID
+    df_traits.columns = df_traits.columns.str.strip()
+
+
 
     for trait, col_range in trait_ranges.items():
             cols = df.columns[list(col_range[0] - 1 + i for i in range(len(col_range)))]
