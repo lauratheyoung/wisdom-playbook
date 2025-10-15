@@ -66,11 +66,15 @@ def compute_trait_scores(df):
     df_traits = df.copy()
 
     for trait, col_range in trait_ranges.items():
-        # Convert 1-indexed to 0-indexed
-        cols = df.columns[list(col_range[0] - 1 + i for i in range(len(col_range)))]
-        df_traits[trait] = df_traits[cols].mean(axis=1)
+            cols = df.columns[list(col_range[0] - 1 + i for i in range(len(col_range)))]
+            
+            # Convert columns to numeric, coerce errors to NaN
+            df_traits[cols] = df_traits[cols].apply(pd.to_numeric, errors='coerce')
+            
+            # Compute mean ignoring NaN
+            df_traits[trait] = df_traits[cols].mean(axis=1)
 
-    id_cols = df.columns[:3]  # assuming columns: Timestamp, Name, UUID
+    id_cols = df.columns[:2]  # Timestamp, Name
     trait_cols = list(trait_ranges.keys())
     return df_traits[list(id_cols) + trait_cols]
 
@@ -102,7 +106,7 @@ if uuid_input:
         st.error("No report found for this ID.")
 else:
     st.info("Enter or pass your UUID in the URL to test the aggregation.")
-    
+
 # Backend logic to determine users strength and growth traits by aggregating trait scores and comparing  --> not sure what to do if there are ties
 
 # Link peer with individual through name match
