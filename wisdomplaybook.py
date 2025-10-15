@@ -110,6 +110,9 @@ if uuid_input:
 else:
     st.info("Enter or pass your UUID in the URL to test the aggregation.")
 
+# Compute aggregated scores for all users and get df_traits
+df_traits = compute_trait_scores(data)
+
 # Backend logic to determine users strength and growth traits by aggregating trait scores and comparing  --> not sure what to do if there are ties
 
 def determine_strength_growth(user_row, trait_cols, top_n=3):
@@ -147,15 +150,12 @@ df_traits["Strengths"] = ""
 df_traits["Growth"] = ""
 
 for i, row in df_traits.iterrows():
-    # Determine strength and growth traits
     strengths, growth = determine_strength_growth(row, trait_cols)
-    
-    # Save to DataFrame
     df_traits.at[i, "Strengths"] = ", ".join(strengths)
     df_traits.at[i, "Growth"] = ", ".join(growth)
     
-    # --- Debug: print the results for this user ---
-    print(f"User: {row['Name']} | UUID: {row['UUID']}")
+    # Debug output
+    print(f"User: {row['What is your first name?']} | UUID: {row['UUID']}")
     print(f"  Strengths: {strengths}")
     print(f"  Growth: {growth}")
     print("-" * 40)
