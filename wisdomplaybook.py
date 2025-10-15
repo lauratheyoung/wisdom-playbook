@@ -137,7 +137,7 @@ else:
 
 # Generate welcome
 
-welcome = st.title("Welcome"+ data["Name"]+" to the "+"Wisdom Playbook")
+welcome = st.title("Welcome"+ data["What is your name?"]+" to the "+"Wisdom Playbook")
 
 # Generate congratulation message
 
