@@ -69,32 +69,33 @@ df_traits = compute_trait_scores(data)
 
 def determine_strength_growth(user_row, trait_cols, top_n=3):
     """
-    user_row: a pandas Series with trait columns for a single user
-    trait_cols: list of trait column names
-    top_n: how many traits to pick for strengths/growth
+    Determine the top and bottom traits for a given user.
 
+    Parameters:
+        user_row: pandas Series representing a user's trait scores
+        trait_cols: list of trait column names
+        top_n: number of traits to include for strengths and growth areas
+
+    Returns:
+        strengths (list): top N trait names
+        growth (list): bottom N trait names
     """
-    traits = user_row[trait_cols]
-    print(traits)
+    # Extract only the numeric trait values
+    traits = user_row[trait_cols].astype(float)
 
-    #Strengths
+    # Sort traits descending for strengths, ascending for growth
+    sorted_traits = traits.sort_values(ascending=False)
 
-    max_score = traits.max()
-    strengths = traits[traits == max_score].index.tolist()
+    # Get top N strengths (including ties)
+    strengths_cutoff = sorted_traits.iloc[top_n - 1]
+    strengths = sorted_traits[sorted_traits >= strengths_cutoff].index.tolist()
 
-    # If more than top_n, show all ties
-    
-    if len(strengths) > top_n:
-        strengths = strengths[:top_n]
+    # Get bottom N growth traits (including ties)
+    growth_cutoff = sorted_traits.iloc[-top_n]
+    growth = sorted_traits[sorted_traits <= growth_cutoff].index.tolist()
 
-    #Growth
-    min_score = traits.min()
-    growth = traits[traits == min_score].index.tolist()
-    
-    if len(growth) > top_n:
-        growth = growth[:top_n]
-        
     return strengths, growth
+
 
 trait_cols = ["Purposeful", "Playful", "Adventurous", "Adaptable",
               "Curious", "Charitable", "Engaged", "Ethical"]
