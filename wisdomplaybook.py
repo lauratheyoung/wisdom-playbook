@@ -97,13 +97,13 @@ def determine_strength_growth(user_row, trait_cols, top_n=3):
     return strengths, growth
 
 
-#trait_cols = ["Purposeful", "Playful", "Adventurous", "Adaptable",
-              #"Curious", "Charitable", "Engaged", "Ethical"]
+trait_cols = ["Purposeful", "Playful", "Adventurous", "Adaptable",
+              "Curious", "Charitable", "Engaged", "Ethical"]
 
 #df_traits["Strengths"] = ""
 #df_traits["Growth"] = ""
 
-#for i, row in df_traits.iterrows():
+for i, row in df_traits.iterrows():
     strengths, growth = determine_strength_growth(row, trait_cols)
     df_traits.at[i, "Strengths"] = ", ".join(strengths)
     df_traits.at[i, "Growth"] = ", ".join(growth)
