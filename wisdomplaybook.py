@@ -154,12 +154,13 @@ for i, row in df_traits.iterrows():
     strengths, growth = determine_strength_growth(row, trait_cols)
     df_traits.at[i, "Strengths"] = ", ".join(strengths)
     df_traits.at[i, "Growth"] = ", ".join(growth)
-    
-    # Debug output
-    print(f"User: {row['What is your first name?']} | UUID: {row['UUID']}")
-    print(f"  Strengths: {strengths}")
-    print(f"  Growth: {growth}")
-    print("-" * 40)
+
+    # Streamlit debug output
+    st.write(f"**User:** {row['What is your first name?']} | UUID: {row['UUID']}")
+    st.write(f"Strengths: {strengths}")
+    st.write(f"Growth: {growth}")
+    st.write("---")
+
 
 
 
