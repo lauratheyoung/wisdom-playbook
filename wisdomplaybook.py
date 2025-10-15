@@ -123,6 +123,7 @@ def determine_strength_growth(user_row, trait_cols, top_n=3):
 
     """
     traits = user_row[trait_cols]
+    print(traits)
 
     #Strengths
 
