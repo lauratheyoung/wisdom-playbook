@@ -12,18 +12,11 @@ scopes = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 creds = Credentials.from_service_account_info(creds_info, scopes=scopes)
 client = gs.authorize(creds)
 
-# Test connection
-#st.write("Connected sheets:", [s.title for s in client.openall()])
-
 # Open sheets
 sheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1XEIVMPSS69BHDBGPw8fKkuqze5iqXSP7JFfwdGQhSHk/edit#gid=406100282").worksheet("Individual")
 
 #Load into dataframe
 data = pd.DataFrame(sheet.get_all_records())
-
-#Display first rows
-#st.dataframe(data.head())
-
 
 #Streamlit UI
 st.set_page_config(layout="wide")
@@ -35,16 +28,6 @@ uuid_param = query_params.get("uuid", [None])[0]
 
 # Optional: let user input manually if query param not provided
 uuid_input = st.text_input("Enter your report code:", value=uuid_param or "")
-
-if uuid_input:
-    user_data = data[data["UUID"] == uuid_input]
-    if not user_data.empty:
-        st.success("✅ Report found")
-        # TODO: Replace with your designed report
-        st.dataframe(user_data)
-    else:
-        st.error("No report found for this ID.")
-        
 
 # Backend logic to determine user trait scores (1 trait = 4 Questions) order of traits: Purposeful, playful, adventurous, adaptable, curious, charitable, engaged, ethical
 
@@ -65,8 +48,6 @@ def compute_trait_scores(df):
     #Fixing UUID
     df_traits.columns = df_traits.columns.str.strip()
 
-
-
     for trait, col_range in trait_ranges.items():
             cols = df.columns[list(col_range[0] - 1 + i for i in range(len(col_range)))]
             
@@ -80,35 +61,6 @@ def compute_trait_scores(df):
     id_cols = [col for col in id_cols if col in df_traits.columns]  # safeguard
     trait_cols = list(trait_ranges.keys())
     return df_traits[list(id_cols) + trait_cols]
-
-
-# --- Process and display data ---
-if uuid_input:
-    user_data = data[data["UUID"] == uuid_input]
-
-    if not user_data.empty:
-        st.success("✅ Report found for this UUID")
-
-        # Compute aggregated scores for all users
-        df_traits = compute_trait_scores(data)
-
-        # Display all computed trait scores
-        st.write("### Full Aggregated Table (for testing)")
-        st.dataframe(df_traits)
-
-        # Show only this user’s trait averages
-        user_traits = df_traits[df_traits["UUID"] == uuid_input]
-        st.write("### Individual User Trait Scores")
-        st.dataframe(user_traits)
-
-        # Print raw values (optional, for debugging)
-        st.write("### Debug Output (Raw Values)")
-        st.write(user_traits.to_dict(orient="records")[0])
-
-    else:
-        st.error("No report found for this ID.")
-else:
-    st.info("Enter or pass your UUID in the URL to test the aggregation.")
 
 # Compute aggregated scores for all users and get df_traits
 df_traits = compute_trait_scores(data)
@@ -160,6 +112,46 @@ for i, row in df_traits.iterrows():
     st.write(f"Strengths: {strengths}")
     st.write(f"Growth: {growth}")
     st.write("---")
+
+
+# --- Process and display data ---
+if uuid_input:
+    user_data = data[data["UUID"] == uuid_input]
+
+    if not user_data.empty:
+
+        # Compute aggregated scores for all users
+        df_traits = compute_trait_scores(data)
+
+        # Show only this user’s trait averages
+        user_traits = df_traits[df_traits["UUID"] == uuid_input]
+        st.write("### Individual User Trait Scores")
+        st.dataframe(user_traits)
+
+        # Print raw values (optional, for debugging)
+        st.write("### Debug Output (Raw Values)")
+        st.write(user_traits.to_dict(orient="records")[0])
+
+        user_row = user_traits.iloc[0]
+
+        # Compute strengths and growth
+        strengths, growth = determine_strength_growth(user_row, trait_cols)
+        user_traits["Strengths"] = ", ".join(strengths)
+        user_traits["Growth"] = ", ".join(growth)
+
+        # Display results
+        st.success(f"✅ Report found for UUID: {uuid_input}")
+        st.write("### Individual Trait Scores")
+        st.dataframe(user_traits)
+
+        st.write("### Strengths and Growth Traits")
+        st.write(f"**Strengths:** {', '.join(strengths)}")
+        st.write(f"**Growth:** {', '.join(growth)}")
+
+    else:
+        st.error("No report found for this ID.")
+else:
+    st.info("Enter or pass your UUID in the URL to view this report.")
 
 
 
