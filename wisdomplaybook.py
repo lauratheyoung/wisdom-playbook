@@ -76,10 +76,9 @@ def compute_trait_scores(df):
     # Keep only identifying columns + computed traits
     id_cols = df.columns[:2]  #col1 = Timestamp, col2 = Name
     trait_cols = list(trait_ranges.keys())
+    print(df_traits)
     
     return df_traits[list(id_cols) + trait_cols]
-
-print(compute_trait_scores)
 
 
 # Backend logic to determine users strength and growth traits by aggregating trait scores and comparing  --> not sure what to do if there are ties
