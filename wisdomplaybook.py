@@ -27,9 +27,6 @@ data = pd.DataFrame(sheet.get_all_records())
 
 #Streamlit UI
 st.set_page_config(layout="wide")
-st.title("Form Submission Report Viewer")
-st.title("Hello Streamlit!")
-st.write("If you see this, Streamlit is working.")
 
 #Get UUI from query params
 
@@ -37,7 +34,7 @@ query_params = st.query_params
 uuid_param = query_params.get("uuid", [None])[0]
 
 # Optional: let user input manually if query param not provided
-uuid_input = st.text_input("Enter your report UUID:", value=uuid_param or "")
+uuid_input = st.text_input("Enter your report code:", value=uuid_param or "")
 
 if uuid_input:
     user_data = data[data["UUID"] == uuid_input]
@@ -77,7 +74,7 @@ def compute_trait_scores(df):
             df_traits[cols] = df_traits[cols].apply(pd.to_numeric, errors='coerce')
             
             # Compute mean ignoring NaN
-            df_traits[trait] = df_traits[cols].mean(axis=1)
+            df_traits[trait] = df_traits[cols].mean(axis=1).round(1)
 
     id_cols = ["Timestamp", "What is your first name?", "UUID"]
     id_cols = [col for col in id_cols if col in df_traits.columns]  # safeguard
@@ -115,11 +112,42 @@ else:
 
 # Backend logic to determine users strength and growth traits by aggregating trait scores and comparing  --> not sure what to do if there are ties
 
+def determine_strength_growth(user_row, trait_cols, top_n=3):
+    """
+    user_row: a pandas Series with trait columns for a single user
+    trait_cols: list of trait column names
+    top_n: how many traits to pick for strengths/growth
+
+    """
+    traits = user_row[trait_cols]
+
+    #Strengths
+
+    max_score = traits.max()
+    strengths = traits[traits == max_score].index.tolist()
+
+    # If more than top_n, show all ties
+    
+    if len(strengths) > top_n:
+        strengths = strengths[:top_n]
+
+    #Growth
+    min_score = traits.min()
+    growth = traits[traits == min_score].index.tolist()
+    
+    if len(growth) > top_n:
+        growth = growth[:top_n]
+        
+    return print(strengths, growth)
+
+
+
+
 # Link peer with individual through name match
 
 # Generate welcome
 
-welcome = st.title("Welcome"+"to the"+"Wisdom Playbook")
+welcome = st.title("Welcome"+"to the "+"Wisdom Playbook")
 
 # Generate congratulation message
 
