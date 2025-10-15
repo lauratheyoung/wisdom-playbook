@@ -22,7 +22,7 @@ sheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1XEIVMPSS69BH
 data = pd.DataFrame(sheet.get_all_records())
 
 #Display first rows
-st.dataframe(data.head())
+#st.dataframe(data.head())
 
 
 #Streamlit UI
@@ -48,4 +48,55 @@ if uuid_input:
     else:
         st.error("No report found for this ID.")
 
-# test update
+# Backend logic to determine user trait scores (1 trait = 4 Questions) order of traits: Purposeful, playful, adventurous, adaptable, curious, charitable, engaged, ethical
+
+def compute_trait_scores(df):
+
+    # Define the trait colimn ranges (indexed to sheet)
+    trait_ranges = {
+        "Purposeful": range(3,7),
+        "Playful": range(7, 11),
+        "Adventurous": range(11, 15),
+        "Adaptable": range(15, 19),
+        "Curious": range(19, 22),
+        "Charitable": range(22, 26),
+        "Engaged": range(26, 30),
+        "Ethical": range(30, 34)
+    }
+
+    # Copy to avoid modifying original
+    df_traits = df.copy()
+
+    # Compute mean per trait
+    for trait, col_range in trait_ranges.items():
+        # Convert to 0-based indexes
+        cols = df.columns[list(col_range[0] - 1 + i for i in range(len(col_range)))]
+        df_traits[trait] = df_traits[cols].mean(axis=1)
+
+    # Keep only identifying columns + computed traits
+    id_cols = df.columns[:2]  #col1 = Timestamp, col2 = Name
+    trait_cols = list(trait_ranges.keys())
+    
+    return df_traits[list(id_cols) + trait_cols]
+
+print(compute_trait_scores)
+
+
+# Backend logic to determine users strength and growth traits by aggregating trait scores and comparing  --> not sure what to do if there are ties
+
+# Link peer with individual through name match
+
+# Generate welcome
+
+welcome = st.title("Welcome"+"to the"+"Wisdom Playbook")
+
+# Generate congratulation message
+
+def congrats_message():
+    "Congratulations!\nYou've taken first steps towards reflecting on your own wisdom. Your self-assessment shows your areas of strength are:"
+
+# Generate overview graph
+
+# Generate trait detailed graphs --> create funciton as the only thing changing will be the trait/results
+
+# Generate summary statement
