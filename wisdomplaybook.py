@@ -138,8 +138,27 @@ def determine_strength_growth(user_row, trait_cols, top_n=3):
     if len(growth) > top_n:
         growth = growth[:top_n]
         
-    return print(strengths, growth)
+    return strengths, growth
 
+trait_cols = ["Purposeful", "Playful", "Adventurous", "Adaptable",
+              "Curious", "Charitable", "Engaged", "Ethical"]
+
+df_traits["Strengths"] = ""
+df_traits["Growth"] = ""
+
+for i, row in df_traits.iterrows():
+    # Determine strength and growth traits
+    strengths, growth = determine_strength_growth(row, trait_cols)
+    
+    # Save to DataFrame
+    df_traits.at[i, "Strengths"] = ", ".join(strengths)
+    df_traits.at[i, "Growth"] = ", ".join(growth)
+    
+    # --- Debug: print the results for this user ---
+    print(f"User: {row['Name']} | UUID: {row['UUID']}")
+    print(f"  Strengths: {strengths}")
+    print(f"  Growth: {growth}")
+    print("-" * 40)
 
 
 
