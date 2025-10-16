@@ -20,52 +20,79 @@ peersheet = spreadsheet.worksheet("Peer Review")
 
 #Load into dataframe
 data = pd.DataFrame(sheet.get_all_records())
-#Create peer dataframe
 peerdata = pd.DataFrame(peersheet.get_all_records())
 
 #Streamlit UI
 st.set_page_config(layout="wide")
-
-#Get UUI from query params
-
 query_params = st.query_params
 uuid_param = query_params.get("uuid", [None])[0]
-
-# Optional: let user input manually if query param not provided
 uuid_input = st.text_input("Enter your report code:", value=uuid_param or "")
+
+# List of traits in order
+TRAIT_COLS = ["Purposeful", "Playful", "Adventurous", "Adaptable",
+              "Curious", "Charitable", "Engaged", "Ethical"]
+
+# Column ranges for each trait (0-indexed for pandas)
+TRAIT_RANGES = {
+    "Purposeful": range(2, 5),
+    "Playful": range(6, 9),
+    "Adventurous": range(10, 13),
+    "Adaptable": range(14, 17),
+    "Curious": range(18, 20),
+    "Charitable": range(21, 24),
+    "Engaged": range(25, 28),
+    "Ethical": range(29, 32),
+}
+
 
 # Backend logic to determine user trait scores (1 trait = 4 Questions) order of traits: Purposeful, playful, adventurous, adaptable, curious, charitable, engaged, ethical
 
 def compute_trait_scores(df):
-    # Define the question ranges for each trait (1-indexed)
-    trait_ranges = {
-        "Purposeful": range(3, 6),
-        "Playful": range(7, 10),
-        "Adventurous": range(11, 14),
-        "Adaptable": range(15, 18),
-        "Curious": range(19, 21),
-        "Charitable": range(22, 25),
-        "Engaged": range(26, 29),
-        "Ethical": range(30, 33),
-    }
-
     df_traits = df.copy()
-    #Fixing UUID
     df_traits.columns = df_traits.columns.str.strip()
+    
+    # Convert all relevant columns to numeric at once
+    numeric_cols = sum([list(r) for r in TRAIT_RANGES.values()], [])
+    df_traits.iloc[:, numeric_cols] = df_traits.iloc[:, numeric_cols].apply(pd.to_numeric, errors='coerce')
 
-    for trait, col_range in trait_ranges.items():
-            cols = df.columns[list(col_range[0] - 1 + i for i in range(len(col_range)))]
-            
-            # Convert columns to numeric, coerce errors to NaN
-            df_traits[cols] = df_traits[cols].apply(pd.to_numeric, errors='coerce')
-            
-            # Compute mean ignoring NaN
-            df_traits[trait] = df_traits[cols].mean(axis=1).round(1)
+    for trait, col_range in TRAIT_RANGES.items():
+        df_traits[trait] = df_traits.iloc[:, list(col_range)].mean(axis=1).round(1)
 
     id_cols = ["Timestamp", "What is your first name?", "UUID"]
-    id_cols = [col for col in id_cols if col in df_traits.columns]  # safeguard
-    trait_cols = list(trait_ranges.keys())
-    return df_traits[list(id_cols) + trait_cols]
+    id_cols = [col for col in id_cols if col in df_traits.columns]
+    return df_traits[id_cols + TRAIT_COLS]
+
+
+# def compute_trait_scores(df):
+#     # Define the question ranges for each trait (1-indexed)
+#     trait_ranges = {
+#         "Purposeful": range(3, 6),
+#         "Playful": range(7, 10),
+#         "Adventurous": range(11, 14),
+#         "Adaptable": range(15, 18),
+#         "Curious": range(19, 21),
+#         "Charitable": range(22, 25),
+#         "Engaged": range(26, 29),
+#         "Ethical": range(30, 33),
+#     }
+
+#     df_traits = df.copy()
+#     #Fixing UUID
+#     df_traits.columns = df_traits.columns.str.strip()
+
+#     for trait, col_range in trait_ranges.items():
+#             cols = df.columns[list(col_range[0] - 1 + i for i in range(len(col_range)))]
+            
+#             # Convert columns to numeric, coerce errors to NaN
+#             df_traits[cols] = df_traits[cols].apply(pd.to_numeric, errors='coerce')
+            
+#             # Compute mean ignoring NaN
+#             df_traits[trait] = df_traits[cols].mean(axis=1).round(1)
+
+#     id_cols = ["Timestamp", "What is your first name?", "UUID"]
+#     id_cols = [col for col in id_cols if col in df_traits.columns]  # safeguard
+#     trait_cols = list(trait_ranges.keys())
+#     return df_traits[list(id_cols) + trait_cols]
 
 # Compute aggregated scores for all users and get df_traits
 df_traits = compute_trait_scores(data)
