@@ -56,7 +56,12 @@ def compute_trait_scores(df):
     df_traits.iloc[:, numeric_cols] = df_traits.iloc[:, numeric_cols].apply(pd.to_numeric, errors='coerce')
 
     for trait, col_range in TRAIT_RANGES.items():
-        df_traits[trait] = df_traits.iloc[:, list(col_range)].mean(axis=1).round(1)
+        cols = df_traits.columns[list(col_range)]  # get actual column names
+        # Convert to numeric safely (turn invalid entries into NaN)
+        df_traits[cols] = df_traits[cols].apply(pd.to_numeric, errors='coerce')
+        # Compute mean ignoring NaN
+        df_traits[trait] = df_traits[cols].mean(axis=1).round(1)
+
 
     id_cols = ["Timestamp", "What is your first name?", "UUID"]
     id_cols = [col for col in id_cols if col in df_traits.columns]
