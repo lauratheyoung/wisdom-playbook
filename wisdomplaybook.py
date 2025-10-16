@@ -40,14 +40,14 @@ uuid_input = st.text_input("Enter your report code:", value=uuid_param or "")
 def compute_trait_scores(df):
     # Define the question ranges for each trait (1-indexed)
     trait_ranges = {
-        "Purposeful": range(3, 7),
-        "Playful": range(7, 11),
-        "Adventurous": range(11, 15),
-        "Adaptable": range(15, 19),
-        "Curious": range(19, 22),
-        "Charitable": range(22, 26),
-        "Engaged": range(26, 30),
-        "Ethical": range(30, 34),
+        "Purposeful": range(3, 6),
+        "Playful": range(7, 10),
+        "Adventurous": range(11, 14),
+        "Adaptable": range(15, 18),
+        "Curious": range(19, 21),
+        "Charitable": range(22, 25),
+        "Engaged": range(26, 29),
+        "Ethical": range(30, 33),
     }
 
     df_traits = df.copy()
