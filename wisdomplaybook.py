@@ -227,8 +227,6 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     )
     return fig
 
-fig = plot_trait_comparison(user_row, peer_mean_scores, TRAIT_COLS)
-st.plotly_chart(fig, use_container_width=True)
 
 
 # --- Main logic ---
@@ -272,6 +270,9 @@ display_dynamic_message(
     peer_strengths, peer_growth, 
     consistency_pct, consistent_traits, inconsistent_traits
 )
+
+fig = plot_trait_comparison(user_row, peer_mean_scores, TRAIT_COLS)
+st.plotly_chart(fig, use_container_width=True)
 
 
 
