@@ -129,12 +129,12 @@ if uuid_input:
             strengths, growth = determine_strength_growth(user_row, trait_cols)
 
             # Display only this user’s traits
-            st.write("### Your Trait Scores")
+            #st.write("### Your Trait Scores")
             st.dataframe(user_traits[trait_cols].T.rename(columns={user_traits.index[0]: "Score"}))
 
-            st.write("### Your Strengths and Growth Areas")
-            st.write(f"**Top Strengths:** {', '.join(strengths)}")
-            st.write(f"**Growth Opportunities:** {', '.join(growth)}")
+            #st.write("### Your Strengths and Growth Areas")
+            #st.write(f"**Top Strengths:** {', '.join(strengths)}")
+            #st.write(f"**Growth Opportunities:** {', '.join(growth)}")
 
             #Get user's name
             user_name = user_data["What is your first name?"].iloc[0]
@@ -159,11 +159,8 @@ if uuid_input:
                 </div>
                 """
 
-                #Remove leading spaces for HTML render
+                #Display html remove formatting
                 components.html(message_html, height=400)
-
-                # display HTML
-                #st.markdown(message_html, unsafe_allow_html=True)
 
             # Call function to display message
             display_dynamic_message(user_name, strengths, growth)
