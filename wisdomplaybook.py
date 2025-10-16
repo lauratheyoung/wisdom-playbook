@@ -227,6 +227,10 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     )
     return fig
 
+fig = plot_trait_comparison(user_row, peer_mean_scores, TRAIT_COLS)
+st.plotly_chart(fig, use_container_width=True)
+
+
 # --- Main logic ---
 if not uuid_input:
     st.info("Enter or pass your report code in the URL to view your report.")
