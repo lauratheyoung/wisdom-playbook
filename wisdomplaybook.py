@@ -181,8 +181,8 @@ def main():
 
     # Compute trait score frames
     try:
-        df_traits = compute_trait_scores_from_ranges(data, TRAIT_QUESTION_RANGES)
-        df_peer_traits = compute_trait_scores_from_ranges(peerdata, TRAIT_QUESTION_RANGES)
+        df_traits = compute_trait_scores_from_ranges(data, TRAITS)
+        df_peer_traits = compute_trait_scores_from_ranges(peerdata, TRAITS)
         st.write("Columns in df_peer_traits:", df_peer_traits.columns.tolist())
 
     except KeyError as e:
