@@ -180,8 +180,8 @@ def main():
 
     # Compute trait score frames
     try:
-        df_traits = compute_trait_scores_from_questions(data, TRAIT_QUESTION_COLUMNS)
-        df_peer_traits = compute_trait_scores_from_questions(peerdata, TRAIT_QUESTION_COLUMNS)
+        df_traits = compute_trait_scores_from_questions(data, TRAIT_QUESTION_RANGES)
+        df_peer_traits = compute_trait_scores_from_questions(peerdata, TRAIT_QUESTION_RANGES)
     except KeyError as e:
         st.error(f"Sheet format problem: {e}")
         st.stop()
