@@ -77,6 +77,11 @@ def compute_trait_scores_from_ranges(df: pd.DataFrame,
     all_q_cols = [col for cols in trait_columns_mapping.values() for col in cols]
     df = ensure_numeric(df, all_q_cols)
 
+    missing_traits = [t for t in TRAITS if t not in df_peer_traits.columns]
+    if missing_traits:
+        raise KeyError(f"Peer trait columns missing: {missing_traits}")
+
+
     for trait, cols in trait_columns_mapping.items():
         df[trait] = df[cols].mean(axis=1).round(1)
 
@@ -193,9 +198,6 @@ def main():
 
     # Aggregate peer means safely
     peer_means_df = aggregate_peer_means(df_peer_traits, TRAITS, name_col="Full Name")
-
-
-
 
     # UI: get uuid param or input
     query_params = st.experimental_get_query_params()
