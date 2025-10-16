@@ -129,34 +129,38 @@ if uuid_input:
             st.write("### Your Trait Scores")
             st.dataframe(user_traits[trait_cols].T.rename(columns={user_traits.index[0]: "Score"}))
 
-            st.write("### Your Strengths and Growth Areas")
+            st.write("###Your Strengths and Growth Areas")
             st.write(f"**Top Strengths:** {', '.join(strengths)}")
             st.write(f"**Growth Opportunities:** {', '.join(growth)}")
 
-            # Get the user's first name
-            user_name = user_data["What is your first name?"].iloc[0]
 
-            # Format strengths and growth as comma-separated strings
-            strengths_str = ", ".join(strengths)
-            growth_str = ", ".join(growth)
+            def display_dynamic_message(user_name, strengths, growth):
+                
+                #Get user's name
+                user_name = user_data["What is your first name?"].iloc[0]
 
-            # Combined welcome + congrats HTML
-            message_html = f"""
-            <div class="welcome-card">
-                <h2>Welcome, {user_name}, to the Wisdom Playbook 🧭</h2>
+                #get strengths/growth traits and format from list
+                strengths_str = ", ".join(strengths)
+                growth_str = ", ".join(growth)
 
-                <div class="congrats-card">
-                    <h1>🎉 Congratulations, {user_name}!</h1>
-                    <p>You’ve taken the first steps toward reflecting on your own wisdom.</p>
-                    <p>Your <strong>strength traits</strong> are: <span class="strengths">{strengths_str}</span>.</p>
-                    <p>This means you excel at applying these strengths in daily life.</p>
-                    <p>Your <strong>growth traits</strong> are: <span class="growth">{growth_str}</span>.</p>
-                    <p>These are the areas with the most potential for reflection and development.</p>
+                # Combined welcome + congrats HTML
+                message_html = f"""
+                <div class="welcome-card">
+                    <h2>Welcome, {user_name}, to the Wisdom Playbook 🧭</h2>
+
+                    <div class="congrats-card">
+                        <h1>🎉 Congratulations, {user_name}!</h1>
+                        <p>You’ve taken the first steps toward reflecting on your own wisdom.</p>
+                        <p>Your <strong>strength traits</strong> are: <span class="strengths">{strengths_str}</span>.</p>
+                        <p>This means you excel at applying these strengths in daily life.</p>
+                        <p>Your <strong>growth traits</strong> are: <span class="growth">{growth_str}</span>.</p>
+                        <p>These are the areas with the most potential for reflection and development.</p>
+                    </div>
                 </div>
-            </div>
-            """
-
-            st.markdown(message_html, unsafe_allow_html=True)
+                """
+                
+                #visualise message
+                return st.markdown(message_html, unsafe_allow_html=True)
 
         else:
             st.error("No trait data found for this UUID.")
@@ -170,6 +174,10 @@ else:
 
 
 
+# Generate congratulation message
+
+def congrats_message():
+    "Congratulations!\nYou've taken first steps towards reflecting on your own wisdom. Your self-assessment shows your areas of strength are:"
 
 # Generate overview graph
 
