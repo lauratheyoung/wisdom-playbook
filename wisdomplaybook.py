@@ -165,9 +165,8 @@ if uuid_input:
                 # display HTML
                 st.markdown(message_html, unsafe_allow_html=True)
 
-
             # Call function to display message
-            #display_dynamic_message(user_name, strengths, growth)
+            display_dynamic_message(user_name, strengths, growth)
 
         else:
             st.error("No trait data found for this UUID.")
