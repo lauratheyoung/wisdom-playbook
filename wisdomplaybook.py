@@ -103,9 +103,6 @@ def determine_strength_growth(user_row, trait_cols, top_n=3):
 
     return strengths, growth
 
-# #Defining the traits
-# trait_cols = ["Purposeful", "Playful", "Adventurous", "Adaptable",
-#               "Curious", "Charitable", "Engaged", "Ethical"]
 
 # --- Show only after UUID is entered ---
 if uuid_input:
@@ -113,13 +110,29 @@ if uuid_input:
 
     if not user_data.empty:
 
-        # Compute strengths/growth for peer assessments
-        df_peer_traits["Peer_Strengths"] = ""
-        df_peer_traits["Peer_Growth"] = ""
-        for i, row in df_peer_traits.iterrows():
-            s, g = determine_strength_growth(row, TRAIT_COLS)
-            df_peer_traits.at[i, "Peer_Strengths"] = ", ".join(s)
-            df_peer_traits.at[i, "Peer_Growth"] = ", ".join(g)
+        # # Compute strengths/growth for peer assessments
+        # df_peer_traits["Peer_Strengths"] = ""
+        # df_peer_traits["Peer_Growth"] = ""
+        # for i, row in df_peer_traits.iterrows():
+        #     s, g = determine_strength_growth(row, TRAIT_COLS)
+        #     df_peer_traits.at[i, "Peer_Strengths"] = ", ".join(s)
+        #     df_peer_traits.at[i, "Peer_Growth"] = ", ".join(g)
+
+        def compute_peer_strengths(df):
+            strengths_list = []
+            growth_list = []
+
+            for _, row in df.iterrows():  # still small, okay; can optimize later with numpy if huge
+                s, g = determine_strength_growth(row, TRAIT_COLS)
+                strengths_list.append(", ".join(s))
+                growth_list.append(", ".join(g))
+            
+            df["Peer_Strengths"] = strengths_list
+            df["Peer_Growth"] = growth_list
+            return df
+
+        df_peer_traits = compute_peer_strengths(df_peer_traits)
+
 
         # Merge self and peer data via FullName
         df_traits["Full Name"] = data["What is your first name?"].str.strip() + " " + data["What is your last name?"].str.strip()
