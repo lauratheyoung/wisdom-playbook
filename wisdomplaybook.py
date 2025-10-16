@@ -122,7 +122,10 @@ if uuid_input:
             df_peer_traits.at[i, "Peer_Growth"] = ", ".join(g)
 
         # Merge self and peer data via FullName
-        data["FullName"] = data["What is your first name?"].str.strip() + " " + data["What is your last name?"].str.strip()
+        df_traits["FullName"] = data["What is your first name?"].str.strip() + " " + data["What is your last name?"].str.strip()
+        df_peer_traits["FullName"] = peerdata["Who are you peer reviewing? (First and Last Name)"].str.strip()
+        
+
         st.write(df_peer_traits)
 
         # Filter to the current user's trait scores
