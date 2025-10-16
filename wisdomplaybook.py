@@ -214,7 +214,7 @@ if uuid_input:
                 """
 
                 #Add peer feedback section only if peer reviews exist
-                
+
                 if peer_strengths and peer_growth and consistency_pct is not None:
                     #format peer list
                     peer_strengths_str = ", ".join(peer_strengths)
@@ -237,7 +237,7 @@ if uuid_input:
                 components.html(message_html, height=400)
 
             # Call function to display message
-            display_dynamic_message(user_name, strengths, growth, s, g)
+            display_dynamic_message(user_name, strengths, growth, s, g, consistency_pct, consistent_traits, inconsistent_traits)
 
         else:
             st.error("No trait data found for this report code.")
