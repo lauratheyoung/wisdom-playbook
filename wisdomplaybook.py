@@ -104,8 +104,6 @@ if uuid_input:
     user_data = data[data["UUID"] == uuid_input]
 
     if not user_data.empty:
-        st.success(f"✅ Report found for UUID: {uuid_input}")
-
         # Compute trait scores for all users
         df_traits = compute_trait_scores(data)
 
@@ -113,6 +111,15 @@ if uuid_input:
         user_traits = df_traits[df_traits["UUID"] == uuid_input]
 
         if not user_traits.empty:
+
+            #load styles.css
+            def load_css(file_name: str):
+                with open(file_name) as f:
+                    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+            # Call this at the top of your Streamlit app
+            load_css("styles.css")
+
             user_row = user_traits.iloc[0]
 
             # Compute strengths and growth only for this user
@@ -122,13 +129,28 @@ if uuid_input:
             st.write("### Your Trait Scores")
             st.dataframe(user_traits[trait_cols].T.rename(columns={user_traits.index[0]: "Score"}))
 
-            st.write("### 🧭 Your Strengths and Growth Areas")
+            st.write("###Your Strengths and Growth Areas")
             st.write(f"**Top Strengths:** {', '.join(strengths)}")
             st.write(f"**Growth Opportunities:** {', '.join(growth)}")
 
             #Generate welcome message
             user_name = user_data["What is your first name?"].iloc[0]
             st.title(f"Welcome {user_name} to the Wisdom Playbook")
+
+            #Generate congrats message
+            message_html = f"""
+            <div class="congrats-card">
+                <h1>🎉 Congratulations, {user_name}!</h1>
+                <p>You’ve taken the first steps toward reflecting on your own wisdom.</p>
+                <p>Your <strong>strength traits</strong> are: <span class="strengths">{strengths}</span>.</p>
+                <p>This means you excel at applying these strengths in daily life.</p>
+                <p>Your <strong>growth traits</strong> are: <span class="growth">{growth}</span>.</p>
+                <p>These are the areas with the most potential for reflection and development.</p>
+            </div>
+            """
+
+            st.markdown(message_html, unsafe_allow_html=True)
+
         else:
             st.error("No trait data found for this UUID.")
     else:
