@@ -227,35 +227,33 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     )
     return fig
 
-def trait_plots(uuid, data, TRAIT_COL, TRAIT_RANGES):
+def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
     """
     Generate pie chart for overall trait score and bar chart per question for each trait for a specific user.
-    
-    Parameters:
-    - uuid: user UUID to select the row from raw data
-    - data: original DataFrame with all question responses
-    - TRAIT_COLS: list of trait names
-    - TRAIT_RANGES: dict mapping trait names to question column indices or labels
     """
-
-    #Filter the user row from raw data
+    # Filter the user row from raw data
     user_row = data[data["UUID"] == uuid]
-
+    
     if user_row.empty:
-        st.error("No data for this UUID")
+        st.error("No data found for this UUID.")
         return
     
-    user_row = user_row.iloc[0] # convert to a series
-
+    user_row = user_row.iloc[0]  # convert to Series
+    
     for trait in TRAIT_COLS:
-        # Get the original q columns for this trait
-        questions_cols = list(TRAIT_RANGES[trait])
-
-        # If using integer positions, convert to column names
-        question_cols = [data.columns[i] for i in question_cols]
+        # Get the original question columns for this trait
+        raw_range = TRAIT_RANGES.get(trait)
+        if not raw_range:  # skip if empty or invalid
+            continue
         
-        # Extract question scores
-        question_scores = user_row[question_cols].astype(float).tolist()
+        # Convert to column names if indices are provided
+        if all(isinstance(i, int) for i in raw_range):
+            question_cols = [data.columns[i] for i in raw_range]
+        else:
+            question_cols = list(raw_range)
+        
+        # Extract question scores safely
+        question_scores = pd.to_numeric(user_row[question_cols], errors='coerce').fillna(0).tolist()
         
         # --- Bar chart for individual questions ---
         bar_fig = go.Figure(go.Bar(
@@ -272,7 +270,11 @@ def trait_plots(uuid, data, TRAIT_COL, TRAIT_RANGES):
         st.plotly_chart(bar_fig, use_container_width=True)
         
         # --- Pie chart for overall trait score ---
-        overall_score = sum(question_scores) / len(question_scores)
+        if len(question_scores) > 0:
+            overall_score = sum(question_scores) / len(question_scores)
+        else:
+            overall_score = 0
+        
         pie_fig = go.Figure(go.Pie(
             labels=[f"{trait} Score", "Remaining"],
             values=[overall_score, 6 - overall_score],
@@ -283,7 +285,8 @@ def trait_plots(uuid, data, TRAIT_COL, TRAIT_RANGES):
         pie_fig.update_layout(
             title=f"{trait} - Overall Score"
         )
-        st.plotly_chart(pie_fig, use_container_width=True)  
+        st.plotly_chart(pie_fig, use_container_width=True)
+
 
 
 
