@@ -64,49 +64,26 @@ def ensure_numeric(df: pd.DataFrame, cols: List[str]) -> pd.DataFrame:
 
 def compute_trait_scores_from_ranges(df: pd.DataFrame,
                                      trait_ranges: Dict[str, Tuple[int,int]]) -> pd.DataFrame:
-    """
-    Given a mapping of trait -> (start_col_index, end_col_index) 1-indexed,
-    compute mean per trait and return DataFrame with ID cols + trait columns.
-    
-    Parameters:
-        df: pandas DataFrame containing all question columns.
-        trait_ranges: dict mapping trait name -> (start, end) column indices (1-indexed, end exclusive)
-    
-    Returns:
-        DataFrame with ID columns + trait scores.
-    """
     df = df.copy()
     trait_columns_mapping = {}
 
-    # Convert index ranges to actual column names
     for trait, (start, end) in trait_ranges.items():
-        # Adjust for 0-indexing in pandas
-        trait_columns_mapping[trait] = list(df.columns[start-1:end])
+        start_idx = max(0, start-1)
+        end_idx = min(len(df.columns), end)  # end exclusive
+        trait_columns_mapping[trait] = list(df.columns[start_idx:end_idx])
+        if len(trait_columns_mapping[trait]) == 0:
+            raise ValueError(f"No columns found for trait {trait} with range {start}-{end}")
 
-    # Flatten all question columns needed
     all_q_cols = [col for cols in trait_columns_mapping.values() for col in cols]
-
-    # Check missing columns
-    missing = [col for col in all_q_cols if col not in df.columns]
-    if missing:
-        raise KeyError(f"Missing expected question columns: {missing}")
-
-    # Ensure numeric
     df = ensure_numeric(df, all_q_cols)
 
-    # Compute mean per trait
     for trait, cols in trait_columns_mapping.items():
-        if not cols:
-            raise ValueError(f"No columns found for trait '{trait}' using range {trait_ranges[trait]}")
-        missing = [col for col in cols if col not in df.columns]
-        if missing:
-            raise ValueError(f"Columns not found in DataFrame for trait '{trait}': {missing}")
         df[trait] = df[cols].mean(axis=1).round(1)
 
-    # Pick ID columns if they exist
     id_cols = [c for c in ["Timestamp", "What is your first name?", "What is your last name?", "UUID"] if c in df.columns]
 
     return df[id_cols + list(trait_columns_mapping.keys())].copy()
+
 
 
 def determine_strength_growth(user_row: pd.Series, trait_cols: List[str], top_n: int = 3
