@@ -167,7 +167,7 @@ if uuid_input:
 
 
             # Call function to display message
-            display_dynamic_message(user_name, strengths, growth)
+            #display_dynamic_message(user_name, strengths, growth)
 
         else:
             st.error("No trait data found for this UUID.")
