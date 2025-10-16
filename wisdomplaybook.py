@@ -285,9 +285,11 @@ if uuid_input:
                 yaxis=dict(title='Trait'),
                 height=50*len(trait_cols) + 100,
                 margin=dict(l=150, r=50, t=50, b=50)
+                )
 
                 return fig
-            )
+
+                
                 
             # Example call after computing user_row and peer_mean_scores
             fig = plot_trait_comparison(user_row, peer_mean_scores, trait_cols)
