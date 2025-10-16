@@ -196,6 +196,8 @@ def main():
 
     # Now aggregate peer means safely
     peer_means_df = aggregate_peer_means(df_peer_traits, TRAITS, name_col="Full Name")
+    st.write(peer_means_df)
+
 
 
     # UI: get uuid param or input
