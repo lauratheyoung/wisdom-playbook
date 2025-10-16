@@ -184,7 +184,7 @@ def main():
         df_traits = compute_trait_scores_from_ranges(data, TRAIT_QUESTION_RANGES)
         df_peer_traits = compute_trait_scores_from_ranges(peerdata, TRAIT_QUESTION_RANGES)
         # Then aggregate peer means
-        peer_means_df = aggregate_peer_means(df_peer_traits, TRAITS, name_col="Full Name")
+        peer_means_df = aggregate_peer_means(df_peer_traits, TRAITS, name_col="Who are you peer reviewing? (First and Last Name)")
     except KeyError as e:
         st.error(f"Sheet format problem: {e}")
         st.stop()
