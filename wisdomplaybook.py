@@ -160,7 +160,7 @@ if uuid_input:
                 """
 
                 #Remove leading spaces for HTML render
-                message_html=components.html(message_html, height=400)
+                components.html(message_html, height=400)
 
                 # display HTML
                 st.markdown(message_html, unsafe_allow_html=True)
