@@ -5,6 +5,7 @@ import streamlit as st
 import pandas as pd
 from urllib.parse import urlparse, parse_qs
 import textwrap
+import streamlit.components.v1 as components
 
 
 #Google sheet setup
@@ -159,7 +160,7 @@ if uuid_input:
                 """
 
                 #Remove leading spaces for HTML render
-                message_html = textwrap.dedent(message_html)
+                message_html=components.html(message_html, height=400)
 
                 # display HTML
                 st.markdown(message_html, unsafe_allow_html=True)
