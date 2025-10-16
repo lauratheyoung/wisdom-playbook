@@ -62,42 +62,10 @@ def compute_trait_scores(df):
         # Compute mean ignoring NaN
         df_traits[trait] = df_traits[cols].mean(axis=1).round(1)
 
-
     id_cols = ["Timestamp", "What is your first name?", "UUID"]
     id_cols = [col for col in id_cols if col in df_traits.columns]
     return df_traits[id_cols + TRAIT_COLS]
 
-
-# def compute_trait_scores(df):
-#     # Define the question ranges for each trait (1-indexed)
-#     trait_ranges = {
-#         "Purposeful": range(3, 6),
-#         "Playful": range(7, 10),
-#         "Adventurous": range(11, 14),
-#         "Adaptable": range(15, 18),
-#         "Curious": range(19, 21),
-#         "Charitable": range(22, 25),
-#         "Engaged": range(26, 29),
-#         "Ethical": range(30, 33),
-#     }
-
-#     df_traits = df.copy()
-#     #Fixing UUID
-#     df_traits.columns = df_traits.columns.str.strip()
-
-#     for trait, col_range in trait_ranges.items():
-#             cols = df.columns[list(col_range[0] - 1 + i for i in range(len(col_range)))]
-            
-#             # Convert columns to numeric, coerce errors to NaN
-#             df_traits[cols] = df_traits[cols].apply(pd.to_numeric, errors='coerce')
-            
-#             # Compute mean ignoring NaN
-#             df_traits[trait] = df_traits[cols].mean(axis=1).round(1)
-
-#     id_cols = ["Timestamp", "What is your first name?", "UUID"]
-#     id_cols = [col for col in id_cols if col in df_traits.columns]  # safeguard
-#     trait_cols = list(trait_ranges.keys())
-#     return df_traits[list(id_cols) + trait_cols]
 
 # Compute aggregated scores for all users and get df_traits
 df_traits = compute_trait_scores(data)
@@ -135,9 +103,9 @@ def determine_strength_growth(user_row, trait_cols, top_n=3):
 
     return strengths, growth
 
-#Defining the traits
-trait_cols = ["Purposeful", "Playful", "Adventurous", "Adaptable",
-              "Curious", "Charitable", "Engaged", "Ethical"]
+# #Defining the traits
+# trait_cols = ["Purposeful", "Playful", "Adventurous", "Adaptable",
+#               "Curious", "Charitable", "Engaged", "Ethical"]
 
 # --- Show only after UUID is entered ---
 if uuid_input:
@@ -149,7 +117,7 @@ if uuid_input:
         df_peer_traits["Peer_Strengths"] = ""
         df_peer_traits["Peer_Growth"] = ""
         for i, row in df_peer_traits.iterrows():
-            s, g = determine_strength_growth(row, trait_cols)
+            s, g = determine_strength_growth(row, TRAIT_COLS)
             df_peer_traits.at[i, "Peer_Strengths"] = ", ".join(s)
             df_peer_traits.at[i, "Peer_Growth"] = ", ".join(g)
 
@@ -176,10 +144,10 @@ if uuid_input:
             user_row = user_traits.iloc[0]
 
             # Compute strengths and growth only for this user
-            strengths, growth = determine_strength_growth(user_row, trait_cols)
+            strengths, growth = determine_strength_growth(user_row, TRAIT_COLS)
 
             # Display only this user’s traits & rename mean to score
-            st.dataframe(user_traits[trait_cols].T.rename(columns={user_traits.index[0]: "Individual Score"}))
+            st.dataframe(user_traits[TRAIT_COLS].T.rename(columns={user_traits.index[0]: "Individual Score"}))
 
             #Get user's name
             user_name = user_data["What is your first name?"].iloc[0]
@@ -189,7 +157,7 @@ if uuid_input:
 
             if not peer_rows.empty:
                 # Aggregate by mean across all peer reviews for each trait
-                peer_mean_scores = peer_rows[trait_cols].astype(float).mean()
+                peer_mean_scores = peer_rows[TRAIT_COLS].astype(float).mean()
             else:
                 peer_mean_scores = None
 
@@ -212,7 +180,7 @@ if uuid_input:
                 consistency_pct = round(len(consistent_traits) / len(trait_cols) * 100, 1)
                 return consistency_pct, consistent_traits, inconsistent_traits
 
-            consistency_pct, consistent_traits, inconsistent_traits = compute_consistency(user_row, peer_mean_scores, trait_cols)
+            consistency_pct, consistent_traits, inconsistent_traits = compute_consistency(user_row, peer_mean_scores, TRAIT_COLS)
 
             def display_dynamic_message(user_name, strengths, growth, 
                             peer_strengths=None, peer_growth=None, 
@@ -326,7 +294,7 @@ if uuid_input:
                 return fig
                 
             # Example call after computing user_row and peer_mean_scores
-            fig = plot_trait_comparison(user_row, peer_mean_scores, trait_cols)
+            fig = plot_trait_comparison(user_row, peer_mean_scores, TRAIT_COLS)
             st.plotly_chart(fig, use_container_width=True)
 
         else:
