@@ -20,6 +20,7 @@ peersheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1XEIVMPSS
 
 #Load into dataframe
 data = pd.DataFrame(sheet.get_all_records())
+#Create peer dataframe
 peerdata = pd.DataFrame(peersheet.get_all_records())
 
 #Streamlit UI
@@ -68,9 +69,9 @@ def compute_trait_scores(df):
 
 # Compute aggregated scores for all users and get df_traits
 df_traits = compute_trait_scores(data)
+# Compute for peer data
 df_peer_traits = compute_trait_scores(peerdata)
 
-st.write(df_peer_traits)
 
 # Backend logic to determine users strength and growth traits by aggregating trait scores and comparing  --> not sure what to do if there are ties
 def determine_strength_growth(user_row, trait_cols, top_n=3):
@@ -113,6 +114,16 @@ if uuid_input:
     if not user_data.empty:
         # Compute trait scores for all users
         df_traits = compute_trait_scores(data)
+        # Compute peer trait scores
+        df_peer_traits = compute_trait_scores(peerdata)
+
+        # Compute strengths/growth for peer assessments
+        df_peer_traits["Peer_Strengths"] = ""
+        df_peer_traits["Peer_Growth"] = ""
+        for i, row in df_peer_traits.iterrows():
+            s, g = determine_strength_growth(row, trait_cols)
+            df_peer_traits.at[i, "Peer_Strengths"] = ", ".join(s)
+            df_peer_traits.at[i, "Peer_Growth"] = ", ".join(g)
 
         # Filter to the current user's trait scores
         user_traits = df_traits[df_traits["UUID"] == uuid_input]
