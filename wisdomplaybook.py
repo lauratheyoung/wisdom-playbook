@@ -4,7 +4,6 @@ from google.oauth2.service_account import Credentials
 import streamlit as st
 import pandas as pd
 from urllib.parse import urlparse, parse_qs
-import textwrap
 import streamlit.components.v1 as components
 
 
@@ -17,6 +16,7 @@ client = gs.authorize(creds)
 
 # Open sheets
 sheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1XEIVMPSS69BHDBGPw8fKkuqze5iqXSP7JFfwdGQhSHk/edit#gid=406100282").worksheet("Individual")
+peersheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1XEIVMPSS69BHDBGPw8fKkuqze5iqXSP7JFfwdGQhSHk/edit#gid=406100282").worksheet("Peer Review")
 
 #Load into dataframe
 data = pd.DataFrame(sheet.get_all_records())
@@ -128,13 +128,8 @@ if uuid_input:
             # Compute strengths and growth only for this user
             strengths, growth = determine_strength_growth(user_row, trait_cols)
 
-            # Display only this user’s traits
-            #st.write("### Your Trait Scores")
+            # Display only this user’s traits & rename mean to score
             st.dataframe(user_traits[trait_cols].T.rename(columns={user_traits.index[0]: "Score"}))
-
-            #st.write("### Your Strengths and Growth Areas")
-            #st.write(f"**Top Strengths:** {', '.join(strengths)}")
-            #st.write(f"**Growth Opportunities:** {', '.join(growth)}")
 
             #Get user's name
             user_name = user_data["What is your first name?"].iloc[0]
@@ -166,21 +161,24 @@ if uuid_input:
             display_dynamic_message(user_name, strengths, growth)
 
         else:
-            st.error("No trait data found for this UUID.")
+            st.error("No trait data found for this report code.")
     else:
-        st.error("No report found for this UUID.")
+        st.error("No report found for this report code.")
 else:
-    st.info("Enter or pass your UUID in the URL to view your report.")
+    st.info("Enter or pass your report code in the URL to view your report.")
 
 
 # Link peer with individual through name match
 
+# Create full name columns
+data["FullName"] = data["What is your first name?"].str.strip() + " " + data["What is your last name?"].str.strip()
+peersheet["FullName"] = peersheet["Who are you peer reviewing? (First and Last Name)"].str.strip()
 
+# Merge individual with peer data
+merged = pd.merge(data, peersheet, on="FullName", how="left")
 
-# Generate congratulation message
-
-def congrats_message():
-    "Congratulations!\nYou've taken first steps towards reflecting on your own wisdom. Your self-assessment shows your areas of strength are:"
+# Now each row in 'merged' contains the individual assessment + all peer review columns
+st.dataframe(merged)
 
 # Generate overview graph
 
