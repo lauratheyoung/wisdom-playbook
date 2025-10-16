@@ -133,11 +133,10 @@ if uuid_input:
             st.write(f"**Top Strengths:** {', '.join(strengths)}")
             st.write(f"**Growth Opportunities:** {', '.join(growth)}")
 
+            #Get user's name
+            user_name = user_data["What is your first name?"].iloc[0]
 
             def display_dynamic_message(user_name, strengths, growth):
-                
-                #Get user's name
-                user_name = user_data["What is your first name?"].iloc[0]
 
                 #get strengths/growth traits and format from list
                 strengths_str = ", ".join(strengths)
@@ -160,7 +159,10 @@ if uuid_input:
                 """
                 
                 #visualise message
-                return st.markdown(message_html, unsafe_allow_html=True)
+                st.markdown(message_html, unsafe_allow_html=True)
+
+            # Call function to display message
+            display_dynamic_message(user_name, strengths, growth)
 
         else:
             st.error("No trait data found for this UUID.")
