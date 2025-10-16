@@ -187,16 +187,13 @@ def main():
         st.error(f"Sheet format problem: {e}")
         st.stop()
 
-    # Add full name columns for matching (strip whitespace)
-    if "What is your first name?" in data.columns and "What is your last name?" in data.columns:
-        df_traits["Full Name"] = data["What is your first name?"].str.strip() + " " + data["What is your last name?"].str.strip()
+    # Add full name columns
+    df_traits["Full Name"] = data["What is your first name?"].str.strip() + " " + data["What is your last name?"].str.strip()
+    df_peer_traits["Full Name"] = peerdata["Who are you peer reviewing? (First and Last Name)"].str.strip()
 
-    if "Who are you peer reviewing? (First and Last Name)" in peerdata.columns:
-        df_peer_traits["Full Name"] = peerdata["Who are you peer reviewing? (First and Last Name)"].str.strip()
-
-    # Now aggregate peer means safely
+    # Aggregate peer means safely
     peer_means_df = aggregate_peer_means(df_peer_traits, TRAITS, name_col="Full Name")
-    st.write(peer_means_df)
+
 
 
 
