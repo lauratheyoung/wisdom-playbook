@@ -126,13 +126,13 @@ if uuid_input:
         st.write(df_peer_traits)
         #df_peer_traits["FullName"] = df_peer_traits["Who are you peer reviewing? (First and Last Name)"].str.strip()
 
-        merged = pd.merge(
-            df_traits,
-            df_peer_traits[["FullName"] + trait_cols + ["Peer_Strengths", "Peer_Growth"]],
-            on="FullName",
-            how="left",
-            suffixes=("_Self", "_Peer")
-        )
+        #merged = pd.merge(
+            #df_traits,
+            #df_peer_traits[["FullName"] + trait_cols + ["Peer_Strengths", "Peer_Growth"]],
+            #on="FullName",
+            #how="left",
+            #suffixes=("_Self", "_Peer")
+        #)
 
         # Filter to the current user's trait scores
         user_traits = merged[merged["UUID_Self"] == uuid_input]
