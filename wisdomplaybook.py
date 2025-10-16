@@ -40,11 +40,11 @@ def get_gspread_client(_creds_info: dict):
     return gspread.authorize(creds)
 
 @st.cache_data(ttl=300)  # cache sheet content for 5min (adjust TTL as needed)
-def fetch_sheet_df(client: gspread.client.Client, sheet_name: str) -> pd.DataFrame:
+def fetch_sheet_df(_client: gspread.client.Client, sheet_name: str) -> pd.DataFrame:
     """
     Fetch worksheet by name from the same spreadsheet URL and return DataFrame.
     """
-    sh = client.open_by_url(SPREADSHEET_URL)
+    sh = _client.open_by_url(SPREADSHEET_URL)
     try:
         ws = sh.worksheet(sheet_name)
     except Exception as e:
