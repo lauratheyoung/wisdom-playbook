@@ -129,23 +129,30 @@ if uuid_input:
             st.write("### Your Trait Scores")
             st.dataframe(user_traits[trait_cols].T.rename(columns={user_traits.index[0]: "Score"}))
 
-            st.write("###Your Strengths and Growth Areas")
+            st.write("### Your Strengths and Growth Areas")
             st.write(f"**Top Strengths:** {', '.join(strengths)}")
             st.write(f"**Growth Opportunities:** {', '.join(growth)}")
 
-            #Generate welcome message
+            # Get the user's first name
             user_name = user_data["What is your first name?"].iloc[0]
-            st.title(f"Welcome {user_name} to the Wisdom Playbook")
 
-            #Generate congrats message
+            # Format strengths and growth as comma-separated strings
+            strengths_str = ", ".join(strengths)
+            growth_str = ", ".join(growth)
+
+            # Combined welcome + congrats HTML
             message_html = f"""
-            <div class="congrats-card">
-                <h1>🎉 Congratulations, {user_name}!</h1>
-                <p>You’ve taken the first steps toward reflecting on your own wisdom.</p>
-                <p>Your <strong>strength traits</strong> are: <span class="strengths">{strengths}</span>.</p>
-                <p>This means you excel at applying these strengths in daily life.</p>
-                <p>Your <strong>growth traits</strong> are: <span class="growth">{growth}</span>.</p>
-                <p>These are the areas with the most potential for reflection and development.</p>
+            <div class="welcome-card">
+                <h2>Welcome, {user_name}, to the Wisdom Playbook 🧭</h2>
+
+                <div class="congrats-card">
+                    <h1>🎉 Congratulations, {user_name}!</h1>
+                    <p>You’ve taken the first steps toward reflecting on your own wisdom.</p>
+                    <p>Your <strong>strength traits</strong> are: <span class="strengths">{strengths_str}</span>.</p>
+                    <p>This means you excel at applying these strengths in daily life.</p>
+                    <p>Your <strong>growth traits</strong> are: <span class="growth">{growth_str}</span>.</p>
+                    <p>These are the areas with the most potential for reflection and development.</p>
+                </div>
             </div>
             """
 
@@ -163,10 +170,6 @@ else:
 
 
 
-# Generate congratulation message
-
-def congrats_message():
-    "Congratulations!\nYou've taken first steps towards reflecting on your own wisdom. Your self-assessment shows your areas of strength are:"
 
 # Generate overview graph
 
