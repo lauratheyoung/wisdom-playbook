@@ -122,11 +122,11 @@ if uuid_input:
             df_peer_traits.at[i, "Peer_Growth"] = ", ".join(g)
 
         # Merge self and peer data via FullName
-        df_traits["FullName"] = data["What is your first name?"].str.strip() + " " + data["What is your last name?"].str.strip()
-        df_peer_traits["FullName"] = peerdata["Who are you peer reviewing? (First and Last Name)"].str.strip()
+        df_traits["Full Name"] = data["What is your first name?"].str.strip() + " " + data["What is your last name?"].str.strip()
+        df_peer_traits["Full Name"] = peerdata["Who are you peer reviewing? (First and Last Name)"].str.strip()
         
+        #st.write(df_peer_traits)
 
-        st.write(df_peer_traits)
 
         # Filter to the current user's trait scores
         user_traits = df_traits[df_traits["UUID"] == uuid_input]
@@ -152,10 +152,51 @@ if uuid_input:
             #Get user's name
             user_name = user_data["What is your first name?"].iloc[0]
 
-            def display_dynamic_message(user_name, strengths, growth):
+            # Filter all peer rows for this user
+            peer_rows = df_peer_traits[df_peer_traits["Full Name"] == user_row["Full Name"]]
+
+            if not peer_rows.empty:
+                # Aggregate by mean across all peer reviews for each trait
+                peer_mean_scores = peer_rows[trait_cols].astype(float).mean()
+            else:
+                peer_mean_scores = None
+
+            #Compute consistency using mean peer scores
+            def compute_consistency(user_row, peer_mean_scores, trait_cols, tolerance=1.0):
+                consistent_traits = []
+                inconsistent_traits = []
+
+                if peer_mean_scores is None:
+                    return 0, consistent_traits, inconsistent_traits
+
+                for trait in trait_cols:
+                    self_score = float(user_row[trait])
+                    peer_score = float(peer_mean_scores[trait])
+                    if abs(self_score - peer_score) <= tolerance:
+                        consistent_traits.append(trait)
+                    else:
+                        inconsistent_traits.append(trait)
+
+                consistency_pct = round(len(consistent_traits) / len(trait_cols) * 100, 1)
+                return consistency_pct, consistent_traits, inconsistent_traits
+
+            consistency_pct, consistent_traits, inconsistent_traits = compute_consistency(user_row, peer_mean_scores, trait_cols)
+
+            # Visualize / debug
+            st.write("### Peer Consistency Debug")
+            st.write(f"Consistency %: {consistency_pct}%")
+            st.write(f"Consistent traits: {consistent_traits}")
+            st.write(f"Inconsistent traits: {inconsistent_traits}")
+
+
+
+            def display_dynamic_message(user_name, strengths, growth, peer_strengths, peer_growth):
                 # format lists
                 strengths_str = ", ".join(strengths)
                 growth_str = ", ".join(growth)
+
+                peer_strengths_str = ", ".join(peer_strengths)
+                peer_growth_str = ", ".join(peer_growth)
 
                 message_html = f"""
                 <div class="welcome-card">
@@ -169,6 +210,9 @@ if uuid_input:
                         <p>Your <strong>growth traits</strong> are: <span class="growth">{growth_str}</span>.</p>
                         <p>These are the areas with the most potential for reflection and development.</p>
                     </div>
+                    <div class="peer-card">
+                        <p>
+                    </div>
                 </div>
                 """
 
@@ -176,7 +220,7 @@ if uuid_input:
                 components.html(message_html, height=400)
 
             # Call function to display message
-            display_dynamic_message(user_name, strengths, growth)
+            display_dynamic_message(user_name, strengths, growth, s, g)
 
         else:
             st.error("No trait data found for this report code.")
