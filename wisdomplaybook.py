@@ -123,6 +123,7 @@ if uuid_input:
 
         # Merge self and peer data via FullName
         data["FullName"] = data["What is your first name?"].str.strip() + " " + data["What is your last name?"].str.strip()
+        st.write(df_traits)
         st.write(df_peer_traits)
         #df_peer_traits["FullName"] = df_peer_traits["Who are you peer reviewing? (First and Last Name)"].str.strip()
 
