@@ -183,20 +183,17 @@ if uuid_input:
             consistency_pct, consistent_traits, inconsistent_traits = compute_consistency(user_row, peer_mean_scores, trait_cols)
 
             # Visualize / debug
-            st.write("### Peer Consistency Debug")
-            st.write(f"Consistency %: {consistency_pct}%")
-            st.write(f"Consistent traits: {consistent_traits}")
-            st.write(f"Inconsistent traits: {inconsistent_traits}")
+            #st.write("### Peer Consistency Debug")
+            #st.write(f"Consistency %: {consistency_pct}%")
+            #st.write(f"Consistent traits: {consistent_traits}")
+            #st.write(f"Inconsistent traits: {inconsistent_traits}")
 
 
 
-            def display_dynamic_message(user_name, strengths, growth, peer_strengths, peer_growth):
+            def display_dynamic_message(user_name, strengths, growth, peer_strengths=None, peer_growth=None, consistency_pct=None, consistent_traits=None, inconsistent_traits=None):
                 # format lists
                 strengths_str = ", ".join(strengths)
                 growth_str = ", ".join(growth)
-
-                peer_strengths_str = ", ".join(peer_strengths)
-                peer_growth_str = ", ".join(peer_growth)
 
                 message_html = f"""
                 <div class="welcome-card">
@@ -215,6 +212,26 @@ if uuid_input:
                     </div>
                 </div>
                 """
+
+                #Add peer feedback section only if peer reviews exist
+                
+                if peer_strengths and peer_growth and consistency_pct is not None:
+                    #format peer list
+                    peer_strengths_str = ", ".join(peer_strengths)
+                    peer_growth_str = ", ".join(peer_growth)
+
+                    #format consisteny & inconsistent traits
+                    consistent_str = ", ".join(consistent_traits)
+                    inconsistent_str = ", ".join(inconsistent_traits)
+
+                    message_html += f"""
+                    <div class="peer-card">
+                        <p>There was consistency in how you assessed yourself and how your friends perceived you for <strong>{consistency_pct}%</strong> of wisdom statements ({consistent_str}).</p>
+                        <p>You may want to reflect on the inconsistencies between your own assessment and those of your friends, in particular, these wisdom statements: {inconsistent_str}.</p>
+                    </div>
+                    """
+                
+                message_html = "</div>"
 
                 #Display html remove formatting
                 components.html(message_html, height=400)
