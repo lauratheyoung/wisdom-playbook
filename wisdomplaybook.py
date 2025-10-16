@@ -13,8 +13,10 @@ client = gs.authorize(creds)
 
 
 # Open sheets
-sheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1XEIVMPSS69BHDBGPw8fKkuqze5iqXSP7JFfwdGQhSHk/edit#gid=406100282").worksheet("Individual")
-peersheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1XEIVMPSS69BHDBGPw8fKkuqze5iqXSP7JFfwdGQhSHk/edit?gid=1274798178#gid=1274798178").worksheet("Peer Review")
+spreadsheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1XEIVMPSS69BHDBGPw8fKkuqze5iqXSP7JFfwdGQhSHk/edit#gid=406100282")
+sheet = spreadsheet.worksheet("Individual")
+peersheet = spreadsheet.worksheet("Peer Review")
+
 
 #Load into dataframe
 data = pd.DataFrame(sheet.get_all_records())
