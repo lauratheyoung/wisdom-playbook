@@ -183,17 +183,20 @@ def main():
     try:
         df_traits = compute_trait_scores_from_ranges(data, TRAIT_QUESTION_RANGES)
         df_peer_traits = compute_trait_scores_from_ranges(peerdata, TRAIT_QUESTION_RANGES)
-        # Then aggregate peer means
-        peer_means_df = aggregate_peer_means(df_peer_traits, TRAITS, name_col="Who are you peer reviewing? (First and Last Name)")
     except KeyError as e:
         st.error(f"Sheet format problem: {e}")
         st.stop()
 
-    # add fullname columns for matching (strip whitespace)
+    # Add full name columns for matching (strip whitespace)
     if "What is your first name?" in data.columns and "What is your last name?" in data.columns:
-        data["Full Name"] = data["What is your first name?"].str.strip() + " " + data["What is your last name?"].str.strip()
+        df_traits["Full Name"] = data["What is your first name?"].str.strip() + " " + data["What is your last name?"].str.strip()
+
     if "Who are you peer reviewing? (First and Last Name)" in peerdata.columns:
-        peerdata["Full Name"] = peerdata["Who are you peer reviewing? (First and Last Name)"].str.strip()
+        df_peer_traits["Full Name"] = peerdata["Who are you peer reviewing? (First and Last Name)"].str.strip()
+
+    # Now aggregate peer means safely
+    peer_means_df = aggregate_peer_means(df_peer_traits, TRAITS, name_col="Full Name")
+
 
     # UI: get uuid param or input
     query_params = st.experimental_get_query_params()
