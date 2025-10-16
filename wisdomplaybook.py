@@ -1,5 +1,5 @@
 import gspread as gs
-import plotly as go
+import plotly.graph_objects as go
 from google.oauth2.service_account import Credentials
 import streamlit as st
 import pandas as pd
