@@ -68,6 +68,7 @@ def compute_trait_scores(df):
 
 # Compute aggregated scores for all users and get df_traits
 df_traits = compute_trait_scores(data)
+df_peer_traits = compute_trait_scores(peerdata)
 
 # Backend logic to determine users strength and growth traits by aggregating trait scores and comparing  --> not sure what to do if there are ties
 def determine_strength_growth(user_row, trait_cols, top_n=3):
