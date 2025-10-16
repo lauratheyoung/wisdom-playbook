@@ -129,7 +129,7 @@ if uuid_input:
             st.write("### Your Trait Scores")
             st.dataframe(user_traits[trait_cols].T.rename(columns={user_traits.index[0]: "Score"}))
 
-            st.write("###Your Strengths and Growth Areas")
+            st.write("### Your Strengths and Growth Areas")
             st.write(f"**Top Strengths:** {', '.join(strengths)}")
             st.write(f"**Growth Opportunities:** {', '.join(growth)}")
 
