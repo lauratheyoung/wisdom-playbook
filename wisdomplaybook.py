@@ -125,6 +125,10 @@ if uuid_input:
             st.write("### 🧭 Your Strengths and Growth Areas")
             st.write(f"**Top Strengths:** {', '.join(strengths)}")
             st.write(f"**Growth Opportunities:** {', '.join(growth)}")
+
+            #Generate welcome message
+            user_name = user_data["What is your first name?"].iloc[0]
+            st.title(f"Welcome {user_name} to the Wisdom Playbook")
         else:
             st.error("No trait data found for this UUID.")
     else:
@@ -135,9 +139,7 @@ else:
 
 # Link peer with individual through name match
 
-# Generate welcome
 
-welcome = st.title("Welcome"+ data["What is your first name?"]+" to the "+"Wisdom Playbook")
 
 # Generate congratulation message
 
