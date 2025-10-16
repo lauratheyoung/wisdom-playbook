@@ -4,6 +4,8 @@ from google.oauth2.service_account import Credentials
 import streamlit as st
 import pandas as pd
 from urllib.parse import urlparse, parse_qs
+import streamlit.components.v1 as components
+
 
 #Google sheet setup
 creds_info = st.secrets
@@ -155,10 +157,13 @@ if uuid_input:
                     <p>These are the areas with the most potential for reflection and development.</p>
                 </div>
             </div>
-            """
+                """
+                
+            # Use components.html to render properly
+            #components.html(message_html, height=400)
 
-                # display HTML
-                st.markdown(message_html, unsafe_allow_html=True)
+            # display HTML
+            st.markdown(message_html, unsafe_allow_html=True)
 
 
             # Call function to display message
