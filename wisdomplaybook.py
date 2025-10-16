@@ -167,8 +167,8 @@ def main():
     st.set_page_config(layout="wide")
     load_css_once("styles.css")
 
-    creds_info = st.secrets  # keep secrets use minimal
-    client = get_gspread_client(creds_info)
+    # Use the helper function to get your gspread client
+    client = get_gspread_client(st.secrets)
 
     # fetch dataframes (cached)
     try:
