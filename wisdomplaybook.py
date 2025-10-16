@@ -163,7 +163,7 @@ if uuid_input:
                 components.html(message_html, height=400)
 
                 # display HTML
-                st.markdown(message_html, unsafe_allow_html=True)
+                #st.markdown(message_html, unsafe_allow_html=True)
 
             # Call function to display message
             display_dynamic_message(user_name, strengths, growth)
