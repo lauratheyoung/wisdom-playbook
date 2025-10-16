@@ -174,8 +174,44 @@ if uuid_input:
             else:
                 peer_mean_scores = None
 
-            #Compute consistency using mean peer scores
+            # --- Compute peer strengths and growth for all peer rows ---
+            def compute_peer_strengths(df, trait_cols):
+                """
+                Compute peer strengths and growth for each peer review row.
+                Returns df with new columns 'Peer_Strengths' and 'Peer_Growth'
+                """
+                strengths_list = []
+                growth_list = []
+
+                for _, row in df.iterrows():
+                    s, g = determine_strength_growth(row, trait_cols)
+                    strengths_list.append(", ".join(s))
+                    growth_list.append(", ".join(g))
+
+                df["Peer_Strengths"] = strengths_list
+                df["Peer_Growth"] = growth_list
+                return df
+
+
+            # --- Compute aggregated peer strengths/growth for a specific user ---
+            def get_user_peer_feedback(peer_rows, trait_cols):
+                """
+                Aggregate peer rows for a single user to get average peer scores
+                and determine strengths/growth traits from the average.
+                """
+                if peer_rows.empty:
+                    return None, None, None  # no peers
+
+                peer_mean_scores = peer_rows[trait_cols].astype(float).mean()
+                strengths, growth = determine_strength_growth(peer_mean_scores, trait_cols)
+                return strengths, growth, peer_mean_scores
+
+
+            # --- Compute consistency between self and peer ---
             def compute_consistency(user_row, peer_mean_scores, trait_cols, tolerance=1.0):
+                """
+                Returns consistency percentage and lists of consistent and inconsistent traits.
+                """
                 consistent_traits = []
                 inconsistent_traits = []
 
@@ -193,12 +229,11 @@ if uuid_input:
                 consistency_pct = round(len(consistent_traits) / len(trait_cols) * 100, 1)
                 return consistency_pct, consistent_traits, inconsistent_traits
 
-            consistency_pct, consistent_traits, inconsistent_traits = compute_consistency(user_row, peer_mean_scores, TRAIT_COLS)
 
+            # --- Display message ---
             def display_dynamic_message(user_name, strengths, growth, 
-                            peer_strengths=None, peer_growth=None, 
-                            consistency_pct=None, consistent_traits=None, inconsistent_traits=None):
-                # format lists
+                                        peer_strengths=None, peer_growth=None, 
+                                        consistency_pct=None, consistent_traits=None, inconsistent_traits=None):
                 strengths_str = ", ".join(strengths)
                 growth_str = ", ".join(growth)
 
@@ -210,13 +245,10 @@ if uuid_input:
                         <h1>🎉 Congratulations, {user_name}!</h1>
                         <p>You’ve taken the first steps toward reflecting on your own wisdom.</p>
                         <p>Your <strong>strength traits</strong> are: <span class="strengths">{strengths_str}</span>.</p>
-                        <p>This means you excel at applying these strengths in daily life.</p>
                         <p>Your <strong>growth traits</strong> are: <span class="growth">{growth_str}</span>.</p>
-                        <p>These are the areas with the most potential for reflection and development.</p>
                     </div>
                 """
 
-                # Add peer feedback section only if peer reviews exist
                 if peer_strengths and peer_growth and consistency_pct is not None:
                     peer_strengths_str = ", ".join(peer_strengths)
                     peer_growth_str = ", ".join(peer_growth)
@@ -226,15 +258,13 @@ if uuid_input:
                     message_html += f"""
                     <div class="peer-card">
                         <p>There was consistency in how you assessed yourself and how your friends perceived you for <strong>{consistency_pct}%</strong> of wisdom statements ({consistent_str}).</p>
-                        <p>You may want to reflect on the inconsistencies between your own assessment and those of your friends, in particular, these wisdom statements: {inconsistent_str}.</p>
+                        <p>You may want to reflect on the inconsistencies: {inconsistent_str}.</p>
                     </div>
                     """
 
-                # Close main welcome card div
                 message_html += "</div>"
-
-                # Display HTML
                 components.html(message_html, height=500)
+
 
             # Call function to display message
             display_dynamic_message(user_name, strengths, growth, s, g, consistency_pct, consistent_traits, inconsistent_traits)
