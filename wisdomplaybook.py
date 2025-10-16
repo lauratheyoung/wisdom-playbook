@@ -19,14 +19,14 @@ TRAITS = ["Purposeful", "Playful", "Adventurous", "Adaptable",
 # Map trait -> list of question column headers (prefer explicit names)
 # Replace these keys with the exact header strings from your sheet.
 TRAIT_QUESTION_COLUMNS: Dict[str, List[str]] = {
-    "Purposeful": ["Q3", "Q4", "Q5", "Q6"],
-    "Playful": ["Q7", "Q8", "Q9", "Q10"],
-    "Adventurous": ["Q11", "Q12", "Q13", "Q14"],
-    "Adaptable": ["Q15", "Q16", "Q17", "Q18"],
-    "Curious": ["Q19", "Q20", "Q21"],
-    "Charitable": ["Q22", "Q23", "Q24", "Q25"],
-    "Engaged": ["Q26", "Q27", "Q28", "Q29"],
-    "Ethical": ["Q30", "Q31", "Q32", "Q33"],
+    "Purposeful": range(3, 7),
+    "Playful": range(7, 11),
+    "Adventurous": range(11, 15),
+    "Adaptable": range(15, 19),
+    "Curious": range(19, 22),
+    "Charitable": range(22, 26),
+    "Engaged": range(26, 30),
+    "Ethical": range(30, 34),
 }
 # If you must use index-based ranges, create the mapping once here instead.
 
