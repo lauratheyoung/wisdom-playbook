@@ -18,15 +18,15 @@ TRAITS = ["Purposeful", "Playful", "Adventurous", "Adaptable",
 
 # Map trait -> list of question column headers (prefer explicit names)
 # Replace these keys with the exact header strings from your sheet.
-TRAIT_QUESTION_RANGES: Dict[str, Tuple[int, int]] = {
-    "Purposeful": (3, 7),      # columns 3,4,5,6
-    "Playful": (7, 11),        # columns 7,8,9,10
-    "Adventurous": (11, 15),
-    "Adaptable": (15, 19),
-    "Curious": (19, 22),
-    "Charitable": (22, 26),
-    "Engaged": (26, 30),
-    "Ethical": (30, 34),
+TRAIT_QUESTION_RANGES = {
+    "Purposeful": (3, 6),     # Q3, Q4, Q5, Q6
+    "Playful": (7, 10),       # Q7, Q8, Q9, Q10
+    "Adventurous": (11, 14),  # Q11, Q12, Q13, Q14
+    "Adaptable": (15, 18),    # Q15, Q16, Q17, Q18
+    "Curious": (19, 21),      # Q19, Q20, Q21
+    "Charitable": (22, 25),   # Q22, Q23, Q24, Q25
+    "Engaged": (26, 29),      # Q26, Q27, Q28, Q29
+    "Ethical": (30, 33),      # Q30, Q31, Q32, Q33
 }
 
 # -------------------------
