@@ -4,7 +4,7 @@ from google.oauth2.service_account import Credentials
 import streamlit as st
 import pandas as pd
 from urllib.parse import urlparse, parse_qs
-import streamlit.components.v1 as components
+import textwrap
 
 
 #Google sheet setup
@@ -157,6 +157,9 @@ if uuid_input:
                     </div>
                 </div>
                 """
+
+                #Remove leading spaces for HTML render
+                message_html = textwrap.dedent(message_html)
 
                 # display HTML
                 st.markdown(message_html, unsafe_allow_html=True)
