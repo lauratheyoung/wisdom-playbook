@@ -34,9 +34,9 @@ TRAIT_QUESTION_COLUMNS: Dict[str, List[str]] = {
 # Google client & fetch (cached)
 # -------------------------
 @st.cache_resource
-def get_gspread_client(creds_info: dict):
+def get_gspread_client(_creds_info: dict):
     scopes = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
-    creds = Credentials.from_service_account_info(creds_info, scopes=scopes)
+    creds = Credentials.from_service_account_info(_creds_info, scopes=scopes)
     return gspread.authorize(creds)
 
 @st.cache_data(ttl=300)  # cache sheet content for 5min (adjust TTL as needed)
