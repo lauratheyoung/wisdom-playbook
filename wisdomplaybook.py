@@ -159,7 +159,7 @@ if uuid_input:
                 """
                 
                 #visualise message
-                st.markdown(message_html, unsafe_allow_html=True)
+                st.write(message_html, unsafe_allow_html=True)
 
             # Call function to display message
             display_dynamic_message(user_name, strengths, growth)
