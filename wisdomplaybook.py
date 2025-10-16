@@ -266,8 +266,35 @@ if uuid_input:
                 components.html(message_html, height=500)
 
 
-            # Call function to display message
-            display_dynamic_message(user_name, strengths, growth, s, g, consistency_pct, consistent_traits, inconsistent_traits)
+            # 1. Compute peer strengths/growth for all peers once
+            df_peer_traits = compute_peer_strengths(df_peer_traits, TRAIT_COLS)
+
+            # 2. Filter the current user's trait row
+            user_row = df_traits[df_traits["UUID"] == uuid_input].iloc[0]
+            user_name = user_row["What is your first name?"]
+
+            # 3. Compute user's strengths/growth
+            strengths, growth = determine_strength_growth(user_row, TRAIT_COLS)
+
+            # 4. Filter peer rows for this user and compute aggregated peer feedback
+            peer_rows = df_peer_traits[df_peer_traits["Full Name"] == user_row["Full Name"]]
+            peer_strengths, peer_growth, peer_mean_scores = get_user_peer_feedback(peer_rows, TRAIT_COLS)
+
+            # 5. Compute consistency
+            consistency_pct, consistent_traits, inconsistent_traits = compute_consistency(user_row, peer_mean_scores, TRAIT_COLS)
+
+            # 6. Display message
+            display_dynamic_message(
+                user_name,
+                strengths,
+                growth,
+                peer_strengths=peer_strengths,
+                peer_growth=peer_growth,
+                consistency_pct=consistency_pct,
+                consistent_traits=consistent_traits,
+                inconsistent_traits=inconsistent_traits
+            )
+
 
             def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
                 """
