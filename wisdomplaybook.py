@@ -280,15 +280,21 @@ if uuid_input:
                         yanchor='middle'
                     )
 
-                # Layout
                 fig.update_layout(
-                barmode='group',
-                title='Self vs Peer Trait Assessment',
-                xaxis=dict(title='Score (%)', range=[0, 100]),
-                yaxis=dict(title='Trait'),
-                height=50*len(trait_cols) + 100,
-                margin=dict(l=150, r=50, t=50, b=50)
+                    barmode='group',
+                    title='Self vs Peer Wisdom Traits Assessment',
+                    xaxis=dict(title='Score (%)', range=[0, 100]),
+                    height=50*len(trait_cols) + 100,
+                    margin=dict(l=150, r=50, t=50, b=100),  # increase bottom margin for legend
+                    legend=dict(
+                        orientation='h',
+                        y=-0.2,  # position below the x-axis
+                        x=0.5,
+                        xanchor='center',
+                        yanchor='top'
+                    )
                 )
+
 
                 return fig
 
