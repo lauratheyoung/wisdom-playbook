@@ -20,6 +20,7 @@ peersheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1XEIVMPSS
 
 #Load into dataframe
 data = pd.DataFrame(sheet.get_all_records())
+peerdata = pd.DataFrame(peersheet.get_all_records())
 
 #Streamlit UI
 st.set_page_config(layout="wide")
@@ -172,10 +173,10 @@ else:
 
 # Create full name columns
 data["FullName"] = data["What is your first name?"].str.strip() + " " + data["What is your last name?"].str.strip()
-peersheet["FullName"] = peersheet["Who are you peer reviewing? (First and Last Name)"].str.strip()
+peerdata["FullName"] = peerdata["Who are you peer reviewing? (First and Last Name)"].str.strip()
 
 # Merge individual with peer data
-merged = pd.merge(data, peersheet, on="FullName", how="left")
+merged = pd.merge(data, peerdata, on="FullName", how="left")
 
 # Now each row in 'merged' contains the individual assessment + all peer review columns
 st.dataframe(merged)
