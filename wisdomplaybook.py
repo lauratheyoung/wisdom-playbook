@@ -135,7 +135,7 @@ if uuid_input:
         #)
 
         # Filter to the current user's trait scores
-        user_traits = df_traits[df_traits["UUID_Self"] == uuid_input]
+        user_traits = df_traits[df_traits["UUID"] == uuid_input]
 
         if not user_traits.empty:
 
