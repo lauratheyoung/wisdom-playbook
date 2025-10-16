@@ -123,16 +123,7 @@ if uuid_input:
 
         # Merge self and peer data via FullName
         data["FullName"] = data["What is your first name?"].str.strip() + " " + data["What is your last name?"].str.strip()
-
-        #df_peer_traits["FullName"] = df_peer_traits["Who are you peer reviewing? (First and Last Name)"].str.strip()
-
-        #merged = pd.merge(
-            #df_traits,
-            #df_peer_traits[["FullName"] + trait_cols + ["Peer_Strengths", "Peer_Growth"]],
-            #on="FullName",
-            #how="left",
-            #suffixes=("_Self", "_Peer")
-        #)
+        st.write(df_peer_traits)
 
         # Filter to the current user's trait scores
         user_traits = df_traits[df_traits["UUID"] == uuid_input]
@@ -153,7 +144,7 @@ if uuid_input:
             strengths, growth = determine_strength_growth(user_row, trait_cols)
 
             # Display only this user’s traits & rename mean to score
-            st.dataframe(user_traits[trait_cols].T.rename(columns={user_traits.index[0]: "Score"}))
+            st.dataframe(user_traits[trait_cols].T.rename(columns={user_traits.index[0]: "Individual Score"}))
 
             #Get user's name
             user_name = user_data["What is your first name?"].iloc[0]
