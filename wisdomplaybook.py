@@ -144,15 +144,17 @@ if uuid_input:
                 growth_str = ", ".join(growth)
 
                 message_html = f"""
-            <div class="congrats-card">
-                <h1>🎉 Congratulations, {user_name}!</h1>
-                <p>You’ve taken the first steps toward reflecting on your own wisdom.</p>
-                <p>Your <strong>strength traits</strong> are:
-                <span class="strengths">{strengths_str}</span>.</p>
-                <p>This means you excel at applying these strengths in daily life.</p>
-                <p>Your <strong>growth traits</strong> are:
-                <span class="growth">{growth_str}</span>.</p>
-                <p>These are the areas with the most potential for reflection and development.</p>
+            <div class="welcome-card">
+                <h2>Welcome, {user_name}, to the Wisdom Playbook 🧭</h2>
+
+                <div class="congrats-card">
+                    <h1>🎉 Congratulations, {user_name}!</h1>
+                    <p>You’ve taken the first steps toward reflecting on your own wisdom.</p>
+                    <p>Your <strong>strength traits</strong> are: <span class="strengths">{strengths_str}</span>.</p>
+                    <p>This means you excel at applying these strengths in daily life.</p>
+                    <p>Your <strong>growth traits</strong> are: <span class="growth">{growth_str}</span>.</p>
+                    <p>These are the areas with the most potential for reflection and development.</p>
+                </div>
             </div>
             """
 
