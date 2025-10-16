@@ -112,10 +112,6 @@ if uuid_input:
     user_data = data[data["UUID"] == uuid_input]
 
     if not user_data.empty:
-        # Compute trait scores for all users
-        df_traits = compute_trait_scores(data)
-        # Compute peer trait scores
-        df_peer_traits = compute_trait_scores(peerdata)
 
         # Compute strengths/growth for peer assessments
         df_peer_traits["Peer_Strengths"] = ""
