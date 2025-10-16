@@ -160,6 +160,73 @@ def display_dynamic_message(user_name, strengths, growth,
     message_html += "</div>"
     components.html(message_html, height=500)
 
+def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
+    """
+    user_row: pandas Series with individual user's trait scores
+    peer_mean_scores: pandas Series with aggregated peer scores
+    trait_cols: list of traits in the order to plot
+
+    """
+    # Extract and normalize scores (convert 0–6 scale to %) and round to 1 decimal
+    self_scores = [round((user_row[trait] / 6) * 100, 1) for trait in trait_cols]
+    peer_scores = [round((peer_mean_scores[trait] / 6) * 100, 1) if peer_mean_scores is not None else 0 for trait in trait_cols]
+
+    # Compute delta (in %)
+    delta_scores = [round(peer - self_, 1) for self_, peer in zip(self_scores, peer_scores)]
+
+    # Build horizontal bar chart
+    fig = go.Figure()
+
+    # Individual self-assessment bars
+    fig.add_trace(go.Bar(
+        y=trait_cols,
+        x=self_scores,
+        name='Self Assessment',
+        orientation='h',
+        marker_color='steelblue',
+        text=[f"{s}%" for s in self_scores],
+        textposition='outside'
+    ))
+
+    # Peer assessment bars
+    fig.add_trace(go.Bar(
+        y=trait_cols,
+        x=peer_scores,
+        name='Peer Review',
+        orientation='h',
+        marker_color='darkorange',
+        text=[f"{p}%" for p in peer_scores],
+        textposition='outside'
+    ))
+
+    # Add delta annotation
+    for i, trait in enumerate(trait_cols):
+        fig.add_annotation(
+            x=max(self_scores[i], peer_scores[i]) + 5,  # offset a little
+            y=trait,
+            text=f"Δ {delta_scores[i]}",
+            showarrow=False,
+            font=dict(color='black', size=12),
+            xanchor='left',
+            yanchor='middle'
+        )
+
+    fig.update_layout(
+        barmode='group',
+        title='Self vs Peer Wisdom Traits Assessment',
+        xaxis=dict(title='Score (%)', range=[0, 100]),
+        height=50*len(trait_cols) + 100,
+        margin=dict(l=150, r=50, t=50, b=100),  # increase bottom margin for legend
+        legend=dict(
+            orientation='h',
+            y=-0.2,  # position below the x-axis
+            x=0.1,
+            xanchor='left',
+            yanchor='top'
+        )
+    )
+    return fig
+
 # --- Main logic ---
 if not uuid_input:
     st.info("Enter or pass your report code in the URL to view your report.")
