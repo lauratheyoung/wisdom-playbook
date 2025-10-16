@@ -190,7 +190,9 @@ if uuid_input:
 
 
 
-            def display_dynamic_message(user_name, strengths, growth, peer_strengths=None, peer_growth=None, consistency_pct=None, consistent_traits=None, inconsistent_traits=None):
+            def display_dynamic_message(user_name, strengths, growth, 
+                            peer_strengths=None, peer_growth=None, 
+                            consistency_pct=None, consistent_traits=None, inconsistent_traits=None):
                 # format lists
                 strengths_str = ", ".join(strengths)
                 growth_str = ", ".join(growth)
@@ -207,20 +209,12 @@ if uuid_input:
                         <p>Your <strong>growth traits</strong> are: <span class="growth">{growth_str}</span>.</p>
                         <p>These are the areas with the most potential for reflection and development.</p>
                     </div>
-                    <div class="peer-card">
-                        <p>
-                    </div>
-                </div>
                 """
 
-                #Add peer feedback section only if peer reviews exist
-
+                # Add peer feedback section only if peer reviews exist
                 if peer_strengths and peer_growth and consistency_pct is not None:
-                    #format peer list
                     peer_strengths_str = ", ".join(peer_strengths)
                     peer_growth_str = ", ".join(peer_growth)
-
-                    #format consisteny & inconsistent traits
                     consistent_str = ", ".join(consistent_traits)
                     inconsistent_str = ", ".join(inconsistent_traits)
 
@@ -230,11 +224,13 @@ if uuid_input:
                         <p>You may want to reflect on the inconsistencies between your own assessment and those of your friends, in particular, these wisdom statements: {inconsistent_str}.</p>
                     </div>
                     """
-                
-                message_html = "</div>"
 
-                #Display html remove formatting
-                components.html(message_html, height=400)
+                # Close main welcome card div
+                message_html += "</div>"
+
+                # Display HTML
+                components.html(message_html, height=500)
+
 
             # Call function to display message
             display_dynamic_message(user_name, strengths, growth, s, g, consistency_pct, consistent_traits, inconsistent_traits)
