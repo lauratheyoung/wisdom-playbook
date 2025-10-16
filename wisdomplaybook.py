@@ -290,7 +290,7 @@ if uuid_input:
                         orientation='h',
                         y=-0.2,  # position below the x-axis
                         x=0.5,
-                        xanchor='center',
+                        xanchor='left',
                         yanchor='top'
                     )
                 )
