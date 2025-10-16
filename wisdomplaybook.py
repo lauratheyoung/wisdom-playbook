@@ -234,9 +234,10 @@ if uuid_input:
                 trait_cols: list of traits in the order to plot
 
                 """
-                # Extract and normalize scores (convert 0–6 scale to %)
-                self_scores = [(user_row[trait] / 6) * 100 for trait in trait_cols]
-                peer_scores = [(peer_mean_scores[trait] / 6) * 100 if peer_mean_scores is not None else 0 for trait in trait_cols]
+                # Extract and normalize scores (convert 0–6 scale to %) and round to 1 decimal
+                self_scores = [round((user_row[trait] / 6) * 100, 1) for trait in trait_cols]
+                peer_scores = [round((peer_mean_scores[trait] / 6) * 100, 1) if peer_mean_scores is not None else 0 for trait in trait_cols]
+
 
                 # Compute delta (in %)
                 delta_scores = [round(peer - self_, 1) for self_, peer in zip(self_scores, peer_scores)]
