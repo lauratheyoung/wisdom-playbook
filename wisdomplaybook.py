@@ -289,7 +289,7 @@ if uuid_input:
                     legend=dict(
                         orientation='h',
                         y=-0.2,  # position below the x-axis
-                        x=0.5,
+                        x=0.1,
                         xanchor='left',
                         yanchor='top'
                     )
