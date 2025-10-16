@@ -96,6 +96,11 @@ def compute_trait_scores_from_ranges(df: pd.DataFrame,
 
     # Compute mean per trait
     for trait, cols in trait_columns_mapping.items():
+        if not cols:
+            raise ValueError(f"No columns found for trait '{trait}' using range {trait_ranges[trait]}")
+        missing = [col for col in cols if col not in df.columns]
+        if missing:
+            raise ValueError(f"Columns not found in DataFrame for trait '{trait}': {missing}")
         df[trait] = df[cols].mean(axis=1).round(1)
 
     # Pick ID columns if they exist
