@@ -1,5 +1,5 @@
 import gspread as gs
-import plotly as pl
+import plotly as go
 from google.oauth2.service_account import Credentials
 import streamlit as st
 import pandas as pd
@@ -241,10 +241,10 @@ if uuid_input:
                 delta_scores = [round(peer - self_, 1) for self_, peer in zip(self_scores, peer_scores)]
 
                 # Build horizontal bar chart
-                fig = pl.Figure()
+                fig = go.Figure()
 
                 # Individual self-assessment bars
-                fig.add_trace(pl.Bar(
+                fig.add_trace(go.Bar(
                     y=trait_cols,
                     x=self_scores,
                     name='Self Assessment',
@@ -255,7 +255,7 @@ if uuid_input:
                 ))
 
                 # Peer assessment bars
-                fig.add_trace(pl.Bar(
+                fig.add_trace(go.Bar(
                     y=trait_cols,
                     x=peer_scores,
                     name='Peer Review',
