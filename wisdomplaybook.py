@@ -143,27 +143,21 @@ if uuid_input:
                 strengths_str = ", ".join(strengths)
                 growth_str = ", ".join(growth)
 
-                # Clean HTML (no leading spaces)
                 message_html = f"""
-            <div class="welcome-card">
-                <h2>Welcome, {user_name}, to the Wisdom Playbook 🧭</h2>
-
-                <div class="congrats-card">
-                    <h1>🎉 Congratulations, {user_name}!</h1>
-                    <p>You’ve taken the first steps toward reflecting on your own wisdom.</p>
-                    <p>Your <strong>strength traits</strong> are: <span class="strengths">{strengths_str}</span>.</p>
-                    <p>This means you excel at applying these strengths in daily life.</p>
-                    <p>Your <strong>growth traits</strong> are: <span class="growth">{growth_str}</span>.</p>
-                    <p>These are the areas with the most potential for reflection and development.</p>
-                </div>
+            <div class="congrats-card">
+                <h1>🎉 Congratulations, {user_name}!</h1>
+                <p>You’ve taken the first steps toward reflecting on your own wisdom.</p>
+                <p>Your <strong>strength traits</strong> are:
+                <span class="strengths">{strengths_str}</span>.</p>
+                <p>This means you excel at applying these strengths in daily life.</p>
+                <p>Your <strong>growth traits</strong> are:
+                <span class="growth">{growth_str}</span>.</p>
+                <p>These are the areas with the most potential for reflection and development.</p>
             </div>
-                """
-                
-            # Use components.html to render properly
-            #components.html(message_html, height=400)
+            """
 
-            # display HTML
-            st.markdown(message_html, unsafe_allow_html=True)
+                # display HTML
+                st.markdown(message_html, unsafe_allow_html=True)
 
 
             # Call function to display message
