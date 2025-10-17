@@ -26,6 +26,15 @@ query_params = st.query_params
 uuid_param = query_params.get("uuid", [None])[0]
 uuid_input = st.text_input("Enter your report code:", value=uuid_param or "")
 
+#load css
+
+def load_css(file_name: str):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+# Load CSS
+load_css("styles.css")
+
 #Load in font
 st.markdown("""
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -110,9 +119,6 @@ def determine_strength_growth(user_row, trait_cols, top_n=3):
     return strengths, growth
 
 # --- Helper functions ---
-def load_css(file_name: str):
-    with open(file_name) as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 def compute_peer_strengths(df, trait_cols):
     strengths_list, growth_list = [], []
@@ -329,9 +335,6 @@ user_traits = df_traits[df_traits["UUID"] == uuid_input]
 if user_traits.empty:
     st.error("No trait data found for this report code.")
     st.stop()
-
-# Load CSS
-load_css("styles.css")
 
 # Compute user's strengths/growth
 user_row = user_traits.iloc[0]
