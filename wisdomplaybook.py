@@ -160,7 +160,7 @@ def display_dynamic_message(
             f'''
             <div class="welcome-card">
                 <h2>
-                    Welcome, <span class="user-name">{user_name}</span>, to the 
+                    Welcome <span class="user-name">{user_name}</span> to the 
                     <span class="wisdom-playbook">Wisdom Playbook</span>
                 </h2>
             </div>
