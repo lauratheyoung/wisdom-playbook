@@ -8,5 +8,5 @@ html, body, [class*="st-"], .welcome-card {
 }
 
 .welcome-card {
-    border: 2px solid red;
+    border: 5px solid red;
 }
