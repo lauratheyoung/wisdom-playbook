@@ -2,13 +2,12 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,175;1,14..32,175&display=swap');
 
-
-
-
 /* Styling the intro */
-body, .welcome-card{
+.welcome-card, .congrats-card, .peer-card, .user-name, .wisdom-playbook {
     font-family: 'Inter', sans-serif;
 }
+
+    
 
 .congrats-card{
 
