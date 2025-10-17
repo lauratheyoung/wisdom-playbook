@@ -9,6 +9,7 @@ html, body, [class*="st-"], .welcome-card {
 
 .welcome-card {
     border: 5px solid red;
+    font-size: xx-large;
 }
 
 .welcome-card * .user-name {
@@ -16,7 +17,7 @@ html, body, [class*="st-"], .welcome-card {
     background-color: #7276F5;
     color: white;
     padding: 3px 8px;
-    border-radius: 4px;
+    border-radius: 5px;
     text-align: center;
 }
 
@@ -26,6 +27,6 @@ html, body, [class*="st-"], .welcome-card {
     background-color: #070D2E;
     color: white;
     padding: 3px 8px;
-    border-radius: 4px;
+    border-radius: 5px;
     text-align: center;
 }
