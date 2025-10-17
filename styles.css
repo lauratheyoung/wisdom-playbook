@@ -17,7 +17,7 @@ html, body, [class*="st-"], .welcome-card {
     color: white;
     padding: 3px 8px;
     border-radius: 4px;
-    font-weight: bold;
+    text-align: center;
 }
 
 
