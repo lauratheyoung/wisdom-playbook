@@ -11,7 +11,7 @@ html, body, [class*="st-"], .welcome-card {
     border: 5px solid red;
 }
 
-span, .user-name{
+h2 ,span, .user-name{
     border: 5px purple;
 }
 
