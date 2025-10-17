@@ -12,8 +12,14 @@ html, body, [class*="st-"], .welcome-card {
 }
 
 .welcome-card * .user-name {
-    border: 5px solid purple;
+    display: inline-block;
+    background-color: #7276F5;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: bold;
 }
+
 
 .welcome-card * .wisdom-playbook {
     border: 5px solid greenyellow;
