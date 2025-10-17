@@ -7,11 +7,6 @@ html, body, [class*="st-"], .welcome-card {
     font-family: 'Inter', sans-serif !important;
 }
 
-.welcome-card {
-    border: 5px solid red;
-    font-size: 6vw;
-}
-
 .welcome-card * .user-name {
     display: inline-block;
     background-color: #7276F5;
@@ -29,4 +24,9 @@ html, body, [class*="st-"], .welcome-card {
     padding: 3px 8px;
     border-radius: 5px;
     text-align: center;
+}
+
+.welcome-card {
+    border: 5px solid red;
+    font-size: 6vw;
 }
