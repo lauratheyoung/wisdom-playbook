@@ -1,98 +1,147 @@
-/* ====== GENERAL LAYOUT ====== */
-body {
-    background-color: #ffffff;
-    color: black;
+/* === GLOBAL === */
+body, [data-testid="stAppViewContainer"] {
+    background-color: #0b0b0d;
+    color: #f1f1f5;
     font-family: "Inter", "Helvetica Neue", sans-serif;
-}
-
-h1, h2, h3 {
+  }
+  
+  h1, h2, h3, h4 {
     color: #ffffff;
     font-weight: 700;
-    letter-spacing: 0.3px;
-}
-
-p {
-    color: #d1d1d1;
-}
-
-/* ====== CONTAINERS ====== */
-.welcome-card {
-    background-color: #1b1b1e;
-    border-radius: 20px;
+    letter-spacing: 0.2px;
+  }
+  
+  p {
+    color: #d4d4d8;
+    line-height: 1.5;
+  }
+  
+  strong {
+    color: #ffffff;
+    font-weight: 600;
+  }
+  
+  /* === CARDS / CONTAINERS === */
+  .welcome-card {
+    background-color: #1b1b1f;
+    border-radius: 24px;
     padding: 40px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    max-width: 800px;
-    margin: 0 auto 30px;
-}
-
-.congrats-card {
+    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+    margin-bottom: 40px;
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .congrats-card {
     background-color: #222228;
-    border-radius: 16px;
-    padding: 20px;
+    border-radius: 20px;
+    padding: 25px 30px;
     margin-top: 20px;
-    border-left: 5px solid #7a68ff;
-}
-
-/* ====== TEXT STYLING ====== */
-.strengths {
+    border-left: 6px solid #7a68ff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  }
+  
+  .peer-card {
+    background-color: #1c1c21;
+    border-radius: 20px;
+    padding: 25px 30px;
+    margin-top: 25px;
+    border-left: 5px solid #8888ff;
+  }
+  
+  /* === TEXT HIGHLIGHTS === */
+  .strengths {
     color: #7a68ff;
     font-weight: 600;
-}
-
-.growth {
-    color: #ff92b9;
+  }
+  
+  .growth {
+    color: #ff8fb8;
     font-weight: 600;
-}
-
-/* ====== PEER SECTION ====== */
-.peer-card {
-    background-color: #19191d;
-    border-radius: 16px;
-    padding: 20px;
-    margin-top: 25px;
-    border-left: 4px solid #8888ff;
-}
-
-/* ====== SECTION TITLES ====== */
-.section-title {
+  }
+  
+  /* === HEADERS AND LABELS === */
+  .section-header {
     font-size: 1.3rem;
     color: #7a68ff;
-    margin-top: 30px;
+    margin-top: 40px;
     margin-bottom: 10px;
-}
-
-/* ====== CHART AREA ====== */
-.chart-container {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  /* === CHART STYLING === */
+  .stPlotlyChart {
+    background-color: #1b1b1f !important;
+    border-radius: 16px;
+    padding: 10px 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  }
+  
+  .chart-container {
     background-color: #1b1b1f;
-    border-radius: 16px;
-    padding: 30px;
+    border-radius: 20px;
+    padding: 25px;
+    margin-top: 30px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
-
-/* ====== PROGRESS LABELS ====== */
-.trait-label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 8px 0;
-    font-size: 1rem;
-}
-
-.trait-label span {
-    color: #ccc;
-}
-
-/* ====== STREAMLIT TWEAKS ====== */
-[data-testid="stAppViewContainer"] {
-    background-color: #0b0b0d;
-}
-
-[data-testid="stMarkdownContainer"] {
+  }
+  
+  /* === STREAMLIT TWEAKS === */
+  [data-testid="stMarkdownContainer"] {
     color: #f4f4f4;
-}
-
-.stPlotlyChart {
-    background-color: #1b1b1e !important;
-    border-radius: 16px;
-    padding: 10px;
-}
+  }
+  
+  [data-testid="stSidebar"] {
+    background-color: #121214;
+  }
+  
+  [data-testid="stHeader"] {
+    background: none;
+  }
+  
+  [data-testid="stTextInputRootElement"] input {
+    background-color: #18181b;
+    color: #e4e4e7;
+    border-radius: 10px;
+    border: 1px solid #3f3f46;
+  }
+  
+  /* === BUTTONS (if you add any later) === */
+  button, .stButton>button {
+    background-color: #7a68ff;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 8px 18px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  
+  button:hover, .stButton>button:hover {
+    background-color: #9a85ff;
+  }
+  
+  /* === LAYOUT AND SPACING === */
+  div.block-container {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  
+  hr {
+    border: none;
+    height: 1px;
+    background-color: #2f2f35;
+    margin: 20px 0;
+  }
+  
+  /* === ANIMATIONS === */
+  @keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  
+  .welcome-card, .congrats-card, .peer-card {
+    animation: fadeInUp 0.6s ease-out;
+  }
+  
