@@ -148,11 +148,11 @@ def display_dynamic_message(
     <div class="welcome-card">
         <h2>
             Welcome, <span class="user-name">{user_name}</span>, to the 
-            <span class="wisdom-playbook">Wisdom Playbook 🧭</span>
+            <span class="wisdom-playbook">Wisdom Playbook</span>
         </h2>
 
         <div class="congrats-card">
-            <h1>🎉 Congratulations, {user_name}!</h1>
+            <h1>Congratulations, {user_name}!</h1>
             <p>Your <strong>strength traits</strong> are: 
                 <span class="strengths">{strengths_str}</span>.
             </p>
