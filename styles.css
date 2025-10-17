@@ -12,8 +12,8 @@ html, body, [class*="st-"], .welcome-card {
     font-size: 4vw;  /* forces all nested elements to scale */
 }
 
-.welcome-card h1{
-    font-size: 6vw;
+.welcome-card h2{
+    font-size: 3vw;
 }
 
 .welcome-card * .user-name {
