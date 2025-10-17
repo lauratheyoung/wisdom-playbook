@@ -22,5 +22,10 @@ html, body, [class*="st-"], .welcome-card {
 
 
 .welcome-card * .wisdom-playbook {
-    border: 5px solid greenyellow;
+    display: inline-block;
+    background-color: #070D2E;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-align: center;
 }
