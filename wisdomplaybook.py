@@ -154,40 +154,47 @@ def display_dynamic_message(
     peer_strengths=None, peer_growth=None, 
     consistency_pct=None, consistent_traits=None, inconsistent_traits=None
 ):
-    strengths_str = ", ".join(strengths)
-    growth_str = ", ".join(growth)
+    # Main container
+    with st.container():
+        st.markdown(
+            f'''
+            <div class="welcome-card">
+                <h2>
+                    Welcome, <span class="user-name">{user_name}</span>, to the 
+                    <span class="wisdom-playbook">Wisdom Playbook</span>
+                </h2>
+            </div>
+            ''',
+            unsafe_allow_html=True
+        )
 
-    message_html = f"""
-    <div class="welcome-card">
-        <h2>
-            Welcome, <span class="user-name">{user_name}</span>, to the 
-            <span class="wisdom-playbook">Wisdom Playbook</span>
-        </h2>
+        # Congrats card
+        st.markdown(
+            f'''
+            <div class="congrats-card">
+                <h1>Congratulations, {user_name}!</h1>
+                <p>Your <strong>strength traits</strong> are: 
+                    <span class="strengths">{', '.join(strengths)}</span>.
+                </p>
+                <p>Your <strong>growth traits</strong> are: 
+                    <span class="growth">{', '.join(growth)}</span>.
+                </p>
+            </div>
+            ''',
+            unsafe_allow_html=True
+        )
 
-        <div class="congrats-card">
-            <h1>Congratulations, {user_name}!</h1>
-            <p>Your <strong>strength traits</strong> are: 
-                <span class="strengths">{strengths_str}</span>.
-            </p>
-            <p>Your <strong>growth traits</strong> are: 
-                <span class="growth">{growth_str}</span>.
-            </p>
-        </div>
-    """
-
-    if peer_strengths and peer_growth and consistency_pct is not None:
-        message_html += f"""
-        <div class="peer-card">
-            <p>Consistency with peers: 
-                <strong>{consistency_pct}%</strong> ({', '.join(consistent_traits)})
-            </p>
-            <p>Inconsistencies: {', '.join(inconsistent_traits)}</p>
-        </div>
-        """
-
-    message_html += "</div>"
-
-    components.html(message_html, height=500)
+        # Peer card (optional)
+        if peer_strengths and peer_growth and consistency_pct is not None:
+            st.markdown(
+                f'''
+                <div class="peer-card">
+                    <p>Consistency with peers: <strong>{consistency_pct}%</strong> ({', '.join(consistent_traits)})</p>
+                    <p>Inconsistencies: {', '.join(inconsistent_traits)}</p>
+                </div>
+                ''',
+                unsafe_allow_html=True
+            )
 
 
 def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
