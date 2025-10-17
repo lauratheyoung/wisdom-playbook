@@ -11,10 +11,10 @@ html, body, [class*="st-"], .welcome-card {
     border: 5px solid red;
 }
 
-.welcome-card * .user-name{
-    border: 5px purple;
+.welcome-card * .user-name {
+    border: 5px solid purple;
 }
 
-.welcome-card * .wisdom-playbook{
-    border: 5px greenyellow;
+.welcome-card * .wisdom-playbook {
+    border: 5px solid greenyellow;
 }
