@@ -12,6 +12,10 @@ html, body, [class*="st-"], .welcome-card {
     font-size: 4vw;  /* forces all nested elements to scale */
 }
 
+.welcome-card * h1{
+    font-size: 3vw;
+}
+
 .welcome-card * .user-name {
     display: inline-block;
     background-color: #7276F5;
