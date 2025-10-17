@@ -44,7 +44,6 @@ TRAIT_RANGES = {
     "Ethical": range(31, 35),
 }
 
-
 # Backend logic to determine user trait scores (1 trait = 4 Questions) order of traits: Purposeful, playful, adventurous, adaptable, curious, charitable, engaged, ethical
 
 def compute_trait_scores(df):
@@ -137,29 +136,46 @@ def compute_consistency(user_row, peer_mean_scores, trait_cols, tolerance=1.0):
     pct = round(len(consistent) / len(trait_cols) * 100, 1)
     return pct, consistent, inconsistent
 
-def display_dynamic_message(user_name, strengths, growth, 
-                            peer_strengths=None, peer_growth=None, 
-                            consistency_pct=None, consistent_traits=None, inconsistent_traits=None):
+def display_dynamic_message(
+    user_name, strengths, growth, 
+    peer_strengths=None, peer_growth=None, 
+    consistency_pct=None, consistent_traits=None, inconsistent_traits=None
+):
     strengths_str = ", ".join(strengths)
     growth_str = ", ".join(growth)
+
     message_html = f"""
     <div class="welcome-card">
-        <h2>Welcome, {user_name}, to the Wisdom Playbook 🧭</h2>
+        <h2>
+            Welcome, <span class="user-name">{user_name}</span>, to the 
+            <span class="wisdom-playbook">Wisdom Playbook 🧭</span>
+        </h2>
+
         <div class="congrats-card">
             <h1>🎉 Congratulations, {user_name}!</h1>
-            <p>Your <strong>strength traits</strong> are: <span class="strengths">{strengths_str}</span>.</p>
-            <p>Your <strong>growth traits</strong> are: <span class="growth">{growth_str}</span>.</p>
+            <p>Your <strong>strength traits</strong> are: 
+                <span class="strengths">{strengths_str}</span>.
+            </p>
+            <p>Your <strong>growth traits</strong> are: 
+                <span class="growth">{growth_str}</span>.
+            </p>
         </div>
     """
+
     if peer_strengths and peer_growth and consistency_pct is not None:
         message_html += f"""
         <div class="peer-card">
-            <p>Consistency with peers: <strong>{consistency_pct}%</strong> ({', '.join(consistent_traits)})</p>
+            <p>Consistency with peers: 
+                <strong>{consistency_pct}%</strong> ({', '.join(consistent_traits)})
+            </p>
             <p>Inconsistencies: {', '.join(inconsistent_traits)}</p>
         </div>
         """
+
     message_html += "</div>"
+
     components.html(message_html, height=500)
+
 
 def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     """
@@ -287,14 +303,6 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
             title=f"{trait} - Overall Score"
         )
         st.plotly_chart(pie_fig, use_container_width=True)
-
-
-
-
-
-
-
-     
 
 
 # --- Main logic ---
