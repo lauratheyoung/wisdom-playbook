@@ -173,10 +173,10 @@ def display_dynamic_message(
             f'''
             <div class="congrats-card">
                 <h1>Congratulations, {user_name}!</h1>
-                <p>Your <strong>strength traits</strong> are: 
+                <p>Your strength traits are: 
                     <span class="strengths">{', '.join(strengths)}</span>.
                 </p>
-                <p>Your <strong>growth traits</strong> are: 
+                <p>Your growth traits are: 
                     <span class="growth">{', '.join(growth)}</span>.
                 </p>
             </div>
@@ -189,7 +189,7 @@ def display_dynamic_message(
             st.markdown(
                 f'''
                 <div class="peer-card">
-                    <p>Consistency with peers: <strong>{consistency_pct}%</strong> ({', '.join(consistent_traits)})</p>
+                    <p>Consistency with peers: {consistency_pct}% ({', '.join(consistent_traits)})</p>
                     <p>Inconsistencies: {', '.join(inconsistent_traits)}</p>
                 </div>
                 ''',
