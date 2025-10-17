@@ -9,7 +9,7 @@ html, body, [class*="st-"], .welcome-card {
 
 .welcome-card, 
 .welcome-card * {
-    font-size: 12vw;  /* forces all nested elements to scale */
+    font-size: 4vw;  /* forces all nested elements to scale */
 }
 
 .welcome-card * .user-name {
