@@ -13,7 +13,7 @@ html, body, [class*="st-"], .welcome-card {
 }
 
 .welcome-card h1{
-    font-size: 3vw;
+    font-size: 6vw;
 }
 
 .welcome-card * .user-name {
