@@ -7,26 +7,25 @@ html, body, [class*="st-"], .welcome-card {
     font-family: 'Inter', sans-serif !important;
 }
 
+.welcome-card {
+    border: 5px solid red;
+    font-size: 6vw;      /* scales all text inside */
+}
+
 .welcome-card * .user-name {
     display: inline-block;
     background-color: #7276F5;
     color: white;
-    padding: 3px 8px;
-    border-radius: 5px;
+    padding: 0.2em 0.4em;   /* use em so it scales with font-size */
+    border-radius: 0.3em;
     text-align: center;
 }
-
 
 .welcome-card * .wisdom-playbook {
     display: inline-block;
     background-color: #070D2E;
     color: white;
-    padding: 3px 8px;
-    border-radius: 5px;
+    padding: 0.2em 0.4em;   /* em-based padding scales with font */
+    border-radius: 0.3em;
     text-align: center;
-}
-
-.welcome-card {
-    border: 5px solid red;
-    font-size: 6vw;
 }
