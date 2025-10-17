@@ -26,6 +26,13 @@ query_params = st.query_params
 uuid_param = query_params.get("uuid", [None])[0]
 uuid_input = st.text_input("Enter your report code:", value=uuid_param or "")
 
+#Load in font
+st.markdown("""
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+""", unsafe_allow_html=True)
+
+
+
 #Initialising constant variables
 
 # List of traits in order
