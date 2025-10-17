@@ -10,3 +10,11 @@ html, body, [class*="st-"], .welcome-card {
 .welcome-card {
     border: 5px solid red;
 }
+
+.user-name{
+    border: 5px purple;
+}
+
+.wisdom-playbook{
+    border: 5px greenyellow;
+}
