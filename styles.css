@@ -9,7 +9,7 @@ html, body, [class*="st-"], .welcome-card {
 
 .welcome-card {
     border: 5px solid red;
-    font-size: xx-large;
+    font-size: 6vw;
 }
 
 .welcome-card * .user-name {
