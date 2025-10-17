@@ -6,3 +6,7 @@
 html, body, [class*="st-"], .welcome-card {
     font-family: 'Inter', sans-serif !important;
 }
+
+.welcome-card {
+    border: 2px solid red;
+}
