@@ -336,7 +336,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
         ))
         pie_fig.update_layout(
             title=f"{trait}",
-            font=dict(family='Inter, sans-serif', size=16, color='black'),
+            font=dict(family='Inter, sans-serif', size=12, color='black'),
             legend=dict(
                 orientation='h',      # horizontal legend
                 y=-0.2,               # position below the chart
