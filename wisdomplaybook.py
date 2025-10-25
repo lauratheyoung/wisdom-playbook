@@ -313,8 +313,8 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
         
         # --- Bar chart for individual questions ---
         bar_fig = go.Figure(go.Bar(
-            x=question_cols,
-            y=question_scores,
+            x=question_scores,
+            y=question_cols,
             marker_color='#898DF7',
             text=[str(round(s, 1)) for s in question_scores],  # show values on bars
             textposition='outside',
