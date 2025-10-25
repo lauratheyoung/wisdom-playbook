@@ -348,7 +348,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
         pie_fig.update_layout(
             title=dict(
                 text=f"{trait}",
-                font=dict(family='Inter, sans-serif', size=20, color='black')
+                font=dict(family='Inter, sans-serif', size=25, color='black')
             ),
             legend=dict(
                 orientation='h',
@@ -359,29 +359,6 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
                 font=dict(family='Inter, sans-serif', size=12, color='black')
             )
         )
-
-        # overall_score = sum(question_scores) / len(question_scores) if len(question_scores) > 0 else 0
-        # pie_fig = go.Figure(go.Pie(
-        #     labels=[f"{trait} Score", "Remaining"],
-        #     values=[overall_score, 6 - overall_score],
-        #     hole=0.4,
-        #     marker_colors=['#549D8A', '#D9D9D9'],
-        #     textinfo='label+percent'
-        # ))
-        # pie_fig.update_layout(
-        #     title=dict(
-        #         text=f"{trait}",
-        #         font=dict(family='Inter, sans-serif', size=20, color='black')
-        #     ),
-        #     legend=dict(
-        #         orientation='h',      # horizontal legend
-        #         y=-0.2,               # position below the chart
-        #         x=0.5,                # center horizontally
-        #         xanchor='center',
-        #         yanchor='top',
-        #         font=dict(family='Inter, sans-serif', size=12, color='black')
-        #     )
-        # )
 
         # --- Place charts side by side ---
         col1, col2 = st.columns([1, 2])  # ratio of widths: pie smaller, bar bigger
