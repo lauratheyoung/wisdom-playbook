@@ -369,6 +369,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
         st.write(peer_data)
         st.write("USER")
         st.write(user_row)
+        st.write(user_row['What is your first name?'])
         st.write(user_formatted_name)
         st.write(raw_range)
         st.write('show')
