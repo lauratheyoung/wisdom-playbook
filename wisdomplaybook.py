@@ -363,6 +363,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
 
         # --- Get peer scores if provided ---
 
+        st.write(uuid)
         st.write("PEER")
         st.write(peer_data)
         st.write("USER")
