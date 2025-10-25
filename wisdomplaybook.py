@@ -316,9 +316,9 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
             x=question_cols,
             y=question_scores,
             marker_color='#898DF7',
-            text=[str(round(s,1)) for s in question_scores],
+            title_text=[str(round(s,1)) for s in question_scores],
             textposition='outside',
-            font=dict(family='Inter, sans-serif',size=20,color='black')
+            title_font=dict(family='Inter, sans-serif',size=20,color='black')
         ))
         bar_fig.update_layout(
             title=dict(
