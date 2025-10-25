@@ -348,6 +348,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
             continue
         
         if all(isinstance(i, int) for i in raw_range):
+            st.write(i)
             question_cols = [data.columns[i] for i in raw_range]
         else:
             question_cols = list(raw_range)
@@ -487,4 +488,4 @@ display_dynamic_message(
 fig = plot_trait_comparison(user_row, peer_mean_scores, TRAIT_COLS)
 st.plotly_chart(fig, use_container_width=True)
 
-trait_plots(uuid_input, data, TRAIT_COLS, TRAIT_RANGES,peer_question_scores)
+trait_plots(uuid_input, data, TRAIT_COLS, TRAIT_RANGES)
