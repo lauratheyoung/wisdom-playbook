@@ -321,10 +321,16 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
             font=dict(family='Inter, sans-serif',size=20,color='black')
         ))
         bar_fig.update_layout(
-            title=dict(text=f"{trait} - Individual Question Scores",
-                       font=dict(family='Inter, sans-serif',size=20,color='black'))
-            yaxis=dict(title="Score (0-6)", range=[0, 6])
+            title=dict(
+                text=f"{trait} - Individual Question Scores",
+                font=dict(family='Inter, sans-serif', size=20, color='black')
+            ),
+            yaxis=dict(
+                title="Score (0-6)",
+                range=[0, 6]
+            )
         )
+
         st.plotly_chart(bar_fig, use_container_width=True)
         
         # --- Pie chart for overall trait score ---
