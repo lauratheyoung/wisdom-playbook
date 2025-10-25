@@ -331,6 +331,9 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
     for each trait, comparing individual vs peer scores.
     peer_data: pandas DataFrame with same columns as `data` containing peer averages
     """
+    st.write(TRAIT_COLS)
+    st.write(TRAIT_RANGES)
+    st.write('BLE')
     user_row = data[data["UUID"] == uuid]
     
     if user_row.empty:
