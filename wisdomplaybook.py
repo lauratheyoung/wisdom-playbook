@@ -50,14 +50,14 @@ TRAIT_COLS = ["Purposeful", "Playful", "Adventurous", "Adaptable",
 
 # Column ranges for each trait (0-indexed for pandas)
 TRAIT_RANGES = {
-    "Purposeful": range(2, 7),       # Q3-Q6
+    "Purposeful": range(2, 6),       # Q3-Q6
     "Playful": range(7, 11),         # Q7-Q10
-    "Adventurous": range(11, 16),    # Q11-Q14
-    "Adaptable": range(16, 21),
-    "Curious": range(21, 26),
-    "Charitable": range(26, 30),
-    "Engaged": range(30, 34),
-    "Ethical": range(34,38),
+    "Adventurous": range(11, 15),    # Q11-Q14
+    "Adaptable": range(15, 19),
+    "Curious": range(19, 23),
+    "Charitable": range(23, 27),
+    "Engaged": range(27, 31),
+    "Ethical": range(31, 35),
 }
 
 # Backend logic to determine user trait scores (1 trait = 4 Questions) order of traits: Purposeful, playful, adventurous, adaptable, curious, charitable, engaged, ethical
