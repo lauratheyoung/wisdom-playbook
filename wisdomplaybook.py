@@ -270,21 +270,6 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         ),
     )
 
-    # Hide default y-axis labels
-    fig.update_yaxes(showticklabels=False, automargin=True)
-
-    # Add left-aligned trait labels
-    for i, trait in enumerate(trait_cols):
-        fig.add_annotation(
-            x=-5,  # slightly to the left of the x=0 line
-            y=trait,
-            text=trait,
-            showarrow=False,
-            xanchor='right',  # right edge of text aligns with x=-5
-            yanchor='middle',
-            font=dict(size=16, color='black')
-        )
-        
     return fig
 
 def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
