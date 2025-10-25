@@ -459,6 +459,8 @@ st.dataframe(user_traits[TRAIT_COLS].T.rename(columns={user_traits.index[0]: "In
 
 st.write(user_row)
 
+st.write(user_traits)
+
 # User's name
 user_name = user_data["What is your first name?"].iloc[0]
 
