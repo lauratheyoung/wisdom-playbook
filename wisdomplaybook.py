@@ -348,7 +348,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
             continue
         
         if all(isinstance(i, int) for i in raw_range):
-            st.write(i)
+            
             question_cols = [data.columns[i] for i in raw_range]
         else:
             question_cols = list(raw_range)
