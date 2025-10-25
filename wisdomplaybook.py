@@ -283,9 +283,95 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
 
     return fig
 
-def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
+# def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
+#     """
+#     Generate pie chart for overall trait score and bar chart per question for each trait for a specific user.
+#     """
+#     user_row = data[data["UUID"] == uuid]
+    
+#     if user_row.empty:
+#         st.error("No data found for this UUID.")
+#         return
+    
+#     user_row = user_row.iloc[0]  # convert to Series
+    
+#     for trait in TRAIT_COLS:
+#         raw_range = TRAIT_RANGES.get(trait)
+#         if not raw_range:
+#             continue
+        
+#         if all(isinstance(i, int) for i in raw_range):
+#             question_cols = [data.columns[i] for i in raw_range]
+#         else:
+#             question_cols = list(raw_range)
+        
+#         question_scores = pd.to_numeric(user_row[question_cols], errors='coerce').fillna(0).tolist()
+        
+#         # --- Create bar chart ---
+#         bar_fig = go.Figure(go.Bar(
+#             x=question_scores,
+#             y=question_cols,
+#             marker_color='#898DF7',
+#             text=[str(round(s, 1)) for s in question_scores],
+#             textposition='outside',
+#             orientation='h',
+#         ))
+
+#         bar_fig.update_layout(
+#             title_text=f"Questions",
+#             title_font=dict(family='Inter, sans-serif', size=16, color='black'),
+#             xaxis=dict(title="Score %", range=[0, 7]),
+#             yaxis=dict(title="", tickfont=dict(family='Inter, sans-serif', size=10, color='black'), automargin=True),
+#             font=dict(family='Inter, sans-serif')
+#         )
+        
+#         # --- Create pie chart ---
+#         overall_score = sum(question_scores) / len(question_scores) if len(question_scores) > 0 else 0
+
+#         pie_fig = go.Figure(go.Pie(
+#             labels=[f"{trait} Score", "Remaining"],
+#             values=[overall_score, 6 - overall_score],
+#             hole=0.4,
+#             marker_colors=['#549D8A', '#D9D9D9'],
+#             textinfo='none'  # hide default labels inside slices
+#         ))
+
+#         # Add the score as a centered annotation
+#         pie_fig.add_annotation(
+#             x=0.5,
+#             y=0.5,
+#             text=f"{round((overall_score/6)*100, 1)}%",  # convert to % if needed
+#             showarrow=False,
+#             font=dict(family='Inter, sans-serif', size=24, color='black')
+#         )
+
+#         pie_fig.update_layout(
+#             title=dict(
+#                 text=f"{trait}",
+#                 font=dict(family='Inter, sans-serif', size=25, color='black')
+#             ),
+#             legend=dict(
+#                 orientation='h',
+#                 y=-0.2,
+#                 x=0.5,
+#                 xanchor='center',
+#                 yanchor='top',
+#                 font=dict(family='Inter, sans-serif', size=12, color='black')
+#             )
+#         )
+
+#         # --- Place charts side by side ---
+#         col1, col2 = st.columns([1, 2])  # ratio of widths: pie smaller, bar bigger
+#         with col1:
+#             st.plotly_chart(pie_fig, use_container_width=True, config={'displayModeBar':False})
+#         with col2:
+#             st.plotly_chart(bar_fig, use_container_width=True, config={'displayModeBar':False})
+
+def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
     """
-    Generate pie chart for overall trait score and bar chart per question for each trait for a specific user.
+    Generate pie chart for overall trait score and horizontal bar chart per question
+    for each trait, comparing individual vs peer scores.
+    peer_data: pandas DataFrame with same columns as `data` containing peer averages
     """
     user_row = data[data["UUID"] == uuid]
     
@@ -306,45 +392,63 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
             question_cols = list(raw_range)
         
         question_scores = pd.to_numeric(user_row[question_cols], errors='coerce').fillna(0).tolist()
+
+        # --- Get peer scores if provided ---
+        if peer_data is not None:
+            peer_scores = pd.to_numeric(peer_data[question_cols].mean(), errors='coerce').fillna(0).tolist()
+        else:
+            peer_scores = [0] * len(question_cols)
         
-        # --- Create bar chart ---
-        bar_fig = go.Figure(go.Bar(
+        # --- Create grouped horizontal bar chart ---
+        bar_fig = go.Figure()
+        
+        # Individual scores
+        bar_fig.add_trace(go.Bar(
             x=question_scores,
             y=question_cols,
-            marker_color='#898DF7',
-            text=[str(round(s, 1)) for s in question_scores],
-            textposition='outside',
             orientation='h',
+            name='Self',
+            marker_color='#898DF7',
+            text=[str(round(s,1)) for s in question_scores],
+            textposition='outside'
         ))
-
+        
+        # Peer scores
+        bar_fig.add_trace(go.Bar(
+            x=peer_scores,
+            y=question_cols,
+            orientation='h',
+            name='Peer Avg',
+            marker_color='#FFA500',
+            text=[str(round(s,1)) for s in peer_scores],
+            textposition='outside'
+        ))
+        
         bar_fig.update_layout(
-            title_text=f"Questions",
+            title_text=f"{trait} - Question Scores",
             title_font=dict(family='Inter, sans-serif', size=16, color='black'),
-            xaxis=dict(title="Score %", range=[0, 7]),
+            xaxis=dict(title="Score", range=[0, 7]),
             yaxis=dict(title="", tickfont=dict(family='Inter, sans-serif', size=10, color='black'), automargin=True),
+            barmode='group',  # group bars side by side
             font=dict(family='Inter, sans-serif')
         )
         
-        # --- Create pie chart ---
+        # --- Create pie chart for self score ---
         overall_score = sum(question_scores) / len(question_scores) if len(question_scores) > 0 else 0
-
         pie_fig = go.Figure(go.Pie(
             labels=[f"{trait} Score", "Remaining"],
             values=[overall_score, 6 - overall_score],
             hole=0.4,
             marker_colors=['#549D8A', '#D9D9D9'],
-            textinfo='none'  # hide default labels inside slices
+            textinfo='none'
         ))
-
-        # Add the score as a centered annotation
         pie_fig.add_annotation(
             x=0.5,
             y=0.5,
-            text=f"{round((overall_score/6)*100, 1)}%",  # convert to % if needed
+            text=f"{round((overall_score/6)*100,1)}%",
             showarrow=False,
             font=dict(family='Inter, sans-serif', size=24, color='black')
         )
-
         pie_fig.update_layout(
             title=dict(
                 text=f"{trait}",
@@ -359,13 +463,14 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
                 font=dict(family='Inter, sans-serif', size=12, color='black')
             )
         )
-
-        # --- Place charts side by side ---
-        col1, col2 = st.columns([1, 2])  # ratio of widths: pie smaller, bar bigger
+        
+        # --- Display charts side by side ---
+        col1, col2 = st.columns([1, 2])
         with col1:
             st.plotly_chart(pie_fig, use_container_width=True, config={'displayModeBar':False})
         with col2:
             st.plotly_chart(bar_fig, use_container_width=True, config={'displayModeBar':False})
+
 
 
 # --- Main logic ---
