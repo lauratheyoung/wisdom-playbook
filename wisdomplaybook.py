@@ -329,6 +329,10 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
 
     return fig
 
+def subset_peers_by_username(row, name):
+    #if row.iloc[:, 1]:
+    return None
+
 def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
     """
     Generate pie chart for overall trait score and horizontal bar chart per question
@@ -338,8 +342,8 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
     st.write(TRAIT_COLS)
     st.write(TRAIT_RANGES)
     st.write('BLE')
+    st.write(peer_data.iloc[1])
     user_row = data[data["UUID"] == uuid].iloc[0]
-    st.write(user_row['What is your first name?'].split(' ')[0].lower())
     user_formatted_name = str(user_row['What is your first name?'].split(' ')[0].lower())
     
     if user_row.empty:
@@ -368,7 +372,6 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
         st.write(peer_data)
         st.write("USER")
         st.write(user_row)
-        st.write(user_row['What is your first name?'].split(' ')[0].lower())
         st.write(user_formatted_name)
         st.write(raw_range)
         st.write('show')
