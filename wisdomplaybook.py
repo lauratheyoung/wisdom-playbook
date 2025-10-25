@@ -352,6 +352,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
         question_scores = pd.to_numeric(user_row[question_cols], errors='coerce').fillna(0).tolist()
 
         # --- Get peer scores if provided ---
+        st.write('show')
         st.write(peer_data[question_cols].mean())
         if peer_data is not None:
             peer_scores = pd.to_numeric(peer_data[question_cols].mean(), errors='coerce').fillna(0).tolist()
