@@ -117,7 +117,8 @@ def compute_peer_question_scores_for_user(individual_df: pd.DataFrame,
     # pick question columns safely (slice by column positions but guard bounds)
     col_start = max(0, question_col_start)
     col_end = min(len(peer.columns), question_col_end)
-    question_cols = list(peer.columns[col_start:col_end])
+    question_cols = individual_df.columns[col_start:col_end]
+
 
     # strip whitespace from question column names (important)
     question_cols = [c.strip() for c in question_cols]
@@ -557,10 +558,6 @@ display_dynamic_message(
 # Load the overview chart
 fig = plot_trait_comparison(user_row, peer_mean_scores, TRAIT_COLS)
 st.plotly_chart(fig, use_container_width=True)
-
-peer_question_scores = compute_peer_question_scores_for_user(data, peerdata, uuid_input)
-st.write("peer_question_scores (after compute):")
-st.dataframe(peer_question_scores)
 
 # Then call plotting
 trait_plots(uuid_input, data, TRAIT_COLS, TRAIT_RANGES, peer_data=peer_question_scores)
