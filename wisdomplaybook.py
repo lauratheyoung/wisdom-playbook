@@ -339,7 +339,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
     st.write(TRAIT_RANGES)
     st.write('BLE')
     user_row = data[data["UUID"] == uuid]
-    user_formatted_name = user_row['What is your first name?'].split(' ')[0].lower()
+    user_formatted_name = str(user_row['What is your first name?'].split(' ')[0].lower())
     
     if user_row.empty:
         st.error("No data found for this UUID.")
