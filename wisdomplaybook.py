@@ -259,7 +259,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         legend=dict(
             orientation='h',
             y=-0.2,  # position below the x-axis
-            x=0.1,
+            x=0,
             xanchor='left',
             yanchor='top'
         ),
