@@ -315,7 +315,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
         bar_fig = go.Figure(go.Bar(
             x=question_cols,
             y=question_scores,
-            marker_color='steelblue',
+            marker_color='#898DF7',
             text=[str(round(s,1)) for s in question_scores],
             textposition='outside'
         ))
