@@ -268,6 +268,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         side='left',                   # keep on left side
         ticklabelposition='outside left'
         ),
+        font=dict(family='Inter, sans-serif')
     )
 
     return fig
