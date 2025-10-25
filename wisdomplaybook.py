@@ -50,7 +50,7 @@ TRAIT_COLS = ["Purposeful", "Playful", "Adventurous", "Adaptable",
 
 # Column ranges for each trait (0-indexed for pandas)
 TRAIT_RANGES = {
-    "Purposeful": range(3, 7),       # Q3-Q6
+    "Purposeful": range(2, 6),       # Q3-Q6
     "Playful": range(7, 11),         # Q7-Q10
     "Adventurous": range(11, 15),    # Q11-Q14
     "Adaptable": range(15, 19),
@@ -342,80 +342,6 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
             st.plotly_chart(pie_fig, use_container_width=True)
         with col2:
             st.plotly_chart(bar_fig, use_container_width=True)
-
-
-# def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
-#     """
-#     Generate pie chart for overall trait score and bar chart per question for each trait for a specific user.
-#     """
-#     # Filter the user row from raw data
-#     user_row = data[data["UUID"] == uuid]
-    
-#     if user_row.empty:
-#         st.error("No data found for this UUID.")
-#         return
-    
-#     user_row = user_row.iloc[0]  # convert to Series
-    
-#     for trait in TRAIT_COLS:
-#         # Get the original question columns for this trait
-#         raw_range = TRAIT_RANGES.get(trait)
-#         if not raw_range:  # skip if empty or invalid
-#             continue
-        
-#         # Convert to column names if indices are provided
-#         if all(isinstance(i, int) for i in raw_range):
-#             question_cols = [data.columns[i] for i in raw_range]
-#         else:
-#             question_cols = list(raw_range)
-        
-#         # Extract question scores safely
-#         question_scores = pd.to_numeric(user_row[question_cols], errors='coerce').fillna(0).tolist()
-        
-#         # --- Bar chart for individual questions ---
-#         bar_fig = go.Figure(go.Bar(
-#             x=question_scores,
-#             y=question_cols,
-#             marker_color='#898DF7',
-#             text=[str(round(s, 1)) for s in question_scores],  # show values on bars
-#             textposition='outside',
-#             orientation='h'
-#         ))
-
-#         bar_fig.update_layout(
-#             title_text=f"{trait} - Individual Question Scores",
-#             title_font=dict(family='Inter, sans-serif', size=20, color='black'),
-#             xaxis=dict(
-#                 title="Score %",
-#                 range=[0, 7]
-#             ),
-#             yaxis=dict(
-#                 title="",
-#                 tickfont=dict(family='Inter, sans-serif', size=10, color='black'),
-#                 automargin=True
-#             ),
-#             font=dict(family='Inter, sans-serif')
-#         )
-
-#         st.plotly_chart(bar_fig, use_container_width=True)
-        
-#         # --- Pie chart for overall trait score ---
-#         if len(question_scores) > 0:
-#             overall_score = sum(question_scores) / len(question_scores)
-#         else:
-#             overall_score = 0
-        
-#         pie_fig = go.Figure(go.Pie(
-#             labels=[f"{trait} Score", "Remaining"],
-#             values=[overall_score, 6 - overall_score],
-#             hole=0.4,
-#             marker_colors=['#549D8A', '#D9D9D9'],
-#             textinfo='label+percent'
-#         ))
-#         pie_fig.update_layout(
-#             title=f"{trait} - Overall Score"
-#         )
-#         st.plotly_chart(pie_fig, use_container_width=True)
 
 
 # --- Main logic ---
