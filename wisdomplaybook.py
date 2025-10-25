@@ -82,9 +82,15 @@ def compute_trait_scores(df):
 
 # Compute aggregated scores for all users and get df_traits
 df_traits = compute_trait_scores(data)
+
+st.write('raw data')
+st.write(data)
+st.write('bucket data')
+st.write(df_traits)
 # Compute for peer data
 df_peer_traits = compute_trait_scores(peerdata)
-
+st.write('peer data')
+st.write(peerdata)
 
 def compute_peer_question_scores(individual_df: pd.DataFrame,
                                  peer_df: pd.DataFrame,
