@@ -86,14 +86,8 @@ df_traits = compute_trait_scores(data)
 df_peer_traits = compute_trait_scores(peerdata)
 
 
-print("INDIVIDUAL DF COLUMNS:")
-print(data.columns.tolist())
-
-print("\nPEER DF COLUMNS:")
-print(peerdata.columns.tolist())
-
 def compute_peer_question_scores_for_user(
-    individual_df: pd.DataFrame,
+    individual_df: p.DataFrame,
     peer_df: pd.DataFrame,
     first_name: str,
     last_name: str,
@@ -141,18 +135,16 @@ def compute_peer_question_scores_for_user(
 
 user_row = data[data["UUID"] == uuid_input]
 
-if user_row.empty:
-    st.error(f"No user found with UUID {uuid_input}")
-else:
-    first_name = user_row["What is your first name?"].iloc[0]
-    last_name = user_row["What is your last name?"].iloc[0]
+
+first_name = user_row["What is your first name?"].iloc[0]
+last_name = user_row["What is your last name?"].iloc[0]
    
-    peer_question_scores = compute_peer_question_scores_for_user(
-        individual_df=data,
-        peer_df=peerdata,
-        first_name=first_name,
-        last_name=last_name
-    )
+peer_question_scores = compute_peer_question_scores_for_user(
+    data,
+    peerdata,
+    first_name,
+    last_name
+)
 
 
 # Backend logic to determine users strength and growth traits by aggregating trait scores and comparing  --> not sure what to do if there are ties
@@ -570,6 +562,6 @@ fig = plot_trait_comparison(user_row, peer_mean_scores, TRAIT_COLS)
 st.plotly_chart(fig, use_container_width=True)
 
 # Then call plotting
-trait_plots(uuid_input, data, TRAIT_COLS, TRAIT_RANGES, peer_data=peer_question_scores)
+trait_plots(uuid_input, data, TRAIT_COLS, TRAIT_RANGES, peer_question_scores)
 
 
