@@ -86,47 +86,62 @@ df_traits = compute_trait_scores(data)
 df_peer_traits = compute_trait_scores(peerdata)
 
 
-def compute_peer_question_scores(individual_df: pd.DataFrame,
-                                 peer_df: pd.DataFrame,
-                                 question_col_start: int = 2,
-                                 question_col_end: int = 34,
-                                 first_name_col: str = "What is your first name?",
-                                 last_name_col: str = "What is your last name?",
-                                 peer_name_col: str = "Who are you peer reviewing? (First and Last Name)") -> pd.DataFrame:
+def compute_peer_question_scores_for_user(individual_df: pd.DataFrame,
+                                          peer_df: pd.DataFrame,
+                                          uuid: str,
+                                          question_col_start: int = 2,
+                                          question_col_end: int = 34,
+                                          first_name_col: str = "What is your first name?",
+                                          last_name_col: str = "What is your last name?",
+                                          peer_name_col: str = "Who are you peer reviewing? (First and Last Name)") -> pd.DataFrame:
     """
-    Compute average scores per question for peers, matched by full name.
+    Compute average scores per question for peers, matched by full name,
+    filtered to only include the individual corresponding to the given UUID.
 
     Parameters:
         individual_df: DataFrame with individual responses (first + last name split)
         peer_df: DataFrame with peer responses (full name in one column)
+        uuid: UUID of the current individual report
         question_col_start, question_col_end: numeric question column slice (0-indexed)
         first_name_col, last_name_col: columns in individual_df
         peer_name_col: column in peer_df containing full name
 
     Returns:
-        DataFrame: index = Full Name, columns = numeric question columns, values = average scores
+        DataFrame: index = Full Name of the individual, columns = numeric question columns, values = average scores
     """
     ind_df = individual_df.copy()
     peer_df = peer_df.copy()
-    
-    # Normalize individual full name
-    ind_df["Full Name"] = (ind_df[first_name_col].str.strip() + " " + ind_df[last_name_col].str.strip()).str.upper()
-    
-    # Normalize peer full name
-    peer_df["Full Name"] = peer_df[peer_name_col].str.strip().str.upper()
-    
-    # Select question columns
-    question_cols = peer_df.columns[question_col_start:question_col_end]
-    
-    # Convert to numeric
-    peer_df[question_cols] = peer_df[question_cols].apply(pd.to_numeric, errors='coerce')
-    
-    # Group by full name to compute average per question
-    peer_question_scores = peer_df.groupby("Full Name")[question_cols].mean().round(1)
-    
-    return peer_question_scores
 
-peer_question_scores=compute_peer_question_scores(data, peerdata)
+    # Find the individual row for this UUID
+    user_row = ind_df[ind_df["UUID"] == uuid]
+    if user_row.empty:
+        raise ValueError(f"No individual found with UUID '{uuid}'")
+
+    # Normalize individual's full name
+    user_full_name = (user_row[first_name_col].iloc[0].strip() + " " +
+                      user_row[last_name_col].iloc[0].strip()).upper()
+
+    # Normalize peer full names
+    peer_df["Full Name"] = peer_df[peer_name_col].str.strip().str.upper()
+
+    # Select numeric question columns
+    question_cols = peer_df.columns[question_col_start:question_col_end]
+
+    # Convert to numeric (ignore non-numeric answers)
+    peer_df[question_cols] = peer_df[question_cols].apply(pd.to_numeric, errors='coerce')
+
+    # Group by full name and compute mean per question
+    peer_question_scores = peer_df.groupby("Full Name")[question_cols].mean().round(1)
+
+    # Filter to only the current user
+    if user_full_name not in peer_question_scores.index:
+        # Return empty DataFrame with correct columns if no peer data exists
+        return pd.DataFrame(columns=question_cols, index=[user_full_name])
+
+    return peer_question_scores.loc[[user_full_name]]
+
+
+peer_question_scores=compute_peer_question_scores_for_user(data, peerdata,uuid_input)
 
 st.write(peer_question_scores.head())
 
