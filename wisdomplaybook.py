@@ -316,15 +316,13 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
             x=question_cols,
             y=question_scores,
             marker_color='#898DF7',
-            title_text=[str(round(s,1)) for s in question_scores],
-            textposition='outside',
-            title_font=dict(family='Inter, sans-serif',size=20,color='black')
+            text=[str(round(s, 1)) for s in question_scores],  # show values on bars
+            textposition='outside'
         ))
+
         bar_fig.update_layout(
-            title=dict(
-                title_text=f"{trait} - Individual Question Scores",
-                title_font=dict(family='Inter, sans-serif', size=20, color='black')
-            ),
+            title_text=f"{trait} - Individual Question Scores",
+            title_font=dict(family='Inter, sans-serif', size=20, color='black'),
             yaxis=dict(
                 title="Score (0-6)",
                 range=[0, 6]
