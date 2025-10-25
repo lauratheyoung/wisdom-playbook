@@ -247,6 +247,15 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
             xanchor='right',
             yanchor='middle'
         )
+    fig.add_annotation(
+    x=100,  # align with the delta scores column
+    y=len(trait_cols),  # just above the top-most bar
+    text="Score Differences",
+    showarrow=False,
+    font=dict(color='black', size=16, family='Inter, sans-serif'),
+    xanchor='right',
+    yanchor='bottom'
+)
 
     fig.update_layout(
         barmode='group',
