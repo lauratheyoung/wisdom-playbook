@@ -244,7 +244,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
             text=f"Δ {delta_scores[i]}%",
             showarrow=False,
             font=dict(color='black', size=15),
-            xanchor='right',
+            xanchor='left',
             yanchor='middle'
         )
 
