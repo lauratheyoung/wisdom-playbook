@@ -111,9 +111,13 @@ def compute_peer_question_scores_for_user(
     individual_question_cols = list(ind_df.columns[question_col_start:question_col_end])
     peer_question_cols = list(peer_df.columns[question_col_start:question_col_end])
 
-    # ---- Align peer columns with individual's questions ----
-    rename_map = dict(zip(peer_question_cols, individual_question_cols))
+    # Map peer columns to individual columns
+    peer_cols = list(peer_df.columns[2:34])
+    indiv_cols = list(individual_df.columns[2:34])
+
+    rename_map = dict(zip(peer_cols, indiv_cols))
     peer_df = peer_df.rename(columns=rename_map)
+
 
     # ---- Convert question columns to numeric ----
     for col in individual_question_cols:
@@ -146,6 +150,7 @@ peer_question_scores = compute_peer_question_scores_for_user(
     last_name
 )
 
+st.write(peer_question_scores)
 
 # Backend logic to determine users strength and growth traits by aggregating trait scores and comparing  --> not sure what to do if there are ties
 def determine_strength_growth(user_row, trait_cols, top_n=3):
