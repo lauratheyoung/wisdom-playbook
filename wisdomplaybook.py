@@ -126,6 +126,8 @@ def compute_peer_question_scores(individual_df: pd.DataFrame,
     
     return peer_question_scores
 
+compute_peer_question_scores(data, peerdata)
+
 # Backend logic to determine users strength and growth traits by aggregating trait scores and comparing  --> not sure what to do if there are ties
 def determine_strength_growth(user_row, trait_cols, top_n=3):
     """
@@ -470,5 +472,5 @@ display_dynamic_message(
 fig = plot_trait_comparison(user_row, peer_mean_scores, TRAIT_COLS)
 st.plotly_chart(fig, use_container_width=True)
 
-trait_plots(uuid_input, data, TRAIT_COLS, TRAIT_RANGES, compute_peer_question_scores(data, peerdata))
+trait_plots(uuid_input, data, TRAIT_COLS, TRAIT_RANGES)
 
