@@ -314,7 +314,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
             marker_color='#898DF7',
             text=[str(round(s, 1)) for s in question_scores],
             textposition='outside',
-            orientation='h'
+            orientation='h',
         ))
 
         bar_fig.update_layout(
@@ -363,9 +363,9 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
         # --- Place charts side by side ---
         col1, col2 = st.columns([1, 2])  # ratio of widths: pie smaller, bar bigger
         with col1:
-            st.plotly_chart(pie_fig, use_container_width=True)
+            st.plotly_chart(pie_fig, use_container_width=True, config={'displayModeBar':False})
         with col2:
-            st.plotly_chart(bar_fig, use_container_width=True)
+            st.plotly_chart(bar_fig, use_container_width=True, config={'displayModeBar':False})
 
 
 # --- Main logic ---
