@@ -139,8 +139,20 @@ def compute_peer_question_scores_for_user(
     return peer_scores.loc[[user_full_name]]
 
 
-peer_question_scores = compute_peer_question_scores_for_user(data, peerdata, uuid_input, data["What is your first name?"], data["What is your last name?"])
-st.dataframe(peer_question_scores.head())
+user_row = data[data["UUID"] == uuid_input]
+
+if user_row.empty:
+    st.error(f"No user found with UUID {uuid_input}")
+else:
+    first_name = user_row["What is your first name?"].iloc[0]
+    last_name = user_row["What is your last name?"].iloc[0]
+   
+    peer_question_scores = compute_peer_question_scores_for_user(
+        individual_df=data,
+        peer_df=peerdata,
+        first_name=first_name,
+        last_name=last_name
+    )
 
 
 # Backend logic to determine users strength and growth traits by aggregating trait scores and comparing  --> not sure what to do if there are ties
