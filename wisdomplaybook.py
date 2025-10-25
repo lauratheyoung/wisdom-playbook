@@ -239,7 +239,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     # Add delta annotation
     for i, trait in enumerate(trait_cols):
         fig.add_annotation(
-            x=max(self_scores[i], peer_scores[i]) + 5,  # offset a little
+            x=100,
             y=trait,
             text=f"Δ {delta_scores[i]}%",
             showarrow=False,
