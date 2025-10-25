@@ -126,7 +126,9 @@ def compute_peer_question_scores(individual_df: pd.DataFrame,
     
     return peer_question_scores
 
-compute_peer_question_scores(data, peerdata)
+peer_question_scores=compute_peer_question_scores(data, peerdata)
+
+st.write(peer_question_scores.head())
 
 # Backend logic to determine users strength and growth traits by aggregating trait scores and comparing  --> not sure what to do if there are ties
 def determine_strength_growth(user_row, trait_cols, top_n=3):
