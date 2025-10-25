@@ -323,7 +323,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
         bar_fig.update_layout(
             title=dict(
                 text=f"{trait} - Individual Question Scores",
-                font=dict(family='Inter, sans-serif', size=20, color='black')
+                title_font=dict(family='Inter, sans-serif', size=20, color='black')
             ),
             yaxis=dict(
                 title="Score (0-6)",
