@@ -367,7 +367,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
         st.write(peer_data)
         st.write(question_cols)
         st.write(len([i for i in raw_range]))
-        st.write(peer_data.iloc[:, counter:len([i for i in raw_range])])
+        st.write(peer_data.iloc[:, counter:len([i for i in raw_range]) + 1])
         #question_cols = data.iloc[:, counter:len([i for i in raw_range])]
         if peer_data is not None:
             #peer_scores = pd.to_numeric(peer_data[question_cols].mean(), errors='coerce').fillna(0).tolist()
