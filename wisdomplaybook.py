@@ -326,7 +326,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
             title_font=dict(family='Inter, sans-serif', size=20, color='black'),
             xaxis=dict(
                 title="Score %",
-                range=[0, 100]
+                range=[0, 6]
             ),
             yaxis=dict(
                 title="",
