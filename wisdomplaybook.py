@@ -250,9 +250,9 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     fig.add_annotation(
     x=100,  # align with the delta scores column
     y=len(trait_cols),  # just above the top-most bar
-    text="Score Differences",
+    text="Score\nDifferences",
     showarrow=False,
-    font=dict(color='black', size=12, family='Inter, sans-serif'),
+    font=dict(color='black', size=15, family='Inter, sans-serif'),
     xanchor='right',
     yanchor='bottom'
 )
