@@ -317,10 +317,12 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
             y=question_scores,
             marker_color='#898DF7',
             text=[str(round(s,1)) for s in question_scores],
-            textposition='outside'
+            textposition='outside',
+            font=dict(family='Inter, sans-serif',size=20,color='black')
         ))
         bar_fig.update_layout(
-            title=f"{trait} - Individual Question Scores",
+            title=dict(text=f"{trait} - Individual Question Scores",
+                       font=dict(family='Inter, sans-serif',size=20,color='black'))
             yaxis=dict(title="Score (0-6)", range=[0, 6])
         )
         st.plotly_chart(bar_fig, use_container_width=True)
