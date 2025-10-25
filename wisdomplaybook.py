@@ -242,7 +242,6 @@ def display_dynamic_message(
                 unsafe_allow_html=True
             )
 
-
 def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     """
     user_row: pandas Series with individual user's trait scores
@@ -329,11 +328,6 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
 
     return fig
 
-def subset_peers_by_username(row, **kwargs):
-    name = kwargs[name]
-    if row.iloc[1].lower() == name:
-        return row
-
 def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
     """
     Generate pie chart for overall trait score and horizontal bar chart per question
@@ -346,9 +340,8 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
     st.write(peer_data.iloc[1].iloc[1])
     user_row = data[data["UUID"] == uuid].iloc[0]
     user_formatted_name = str(user_row['What is your first name?'].split(' ')[0].lower())
-    
-    matching_peers = peer_data.apply(subset_peers_by_username, axis=1, name=user_formatted_name)
-    st.write(matching_peers)
+    df_peer_matching = peer_data[peer_data.iloc[1].split(' ')[0].lower() == user_formatted_name]
+    st.write(df_peer_matching)
 
     if user_row.empty:
         st.error("No data found for this UUID.")
