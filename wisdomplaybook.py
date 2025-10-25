@@ -318,7 +318,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
         ))
 
         bar_fig.update_layout(
-            title_text=f"{trait} - Individual Question Scores",
+            title_text=f"Questions",
             title_font=dict(family='Inter, sans-serif', size=20, color='black'),
             xaxis=dict(title="Score %", range=[0, 7]),
             yaxis=dict(title="", tickfont=dict(family='Inter, sans-serif', size=10, color='black'), automargin=True),
@@ -335,8 +335,8 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
             textinfo='label+percent'
         ))
         pie_fig.update_layout(
-            title=f"{trait} - Overall Score",
-            font=dict(family='Inter, sans-serif', size=12, color='black'),
+            title=f"{trait}",
+            font=dict(family='Inter, sans-serif', size=16, color='black'),
             legend=dict(
                 orientation='h',      # horizontal legend
                 y=-0.2,               # position below the chart
