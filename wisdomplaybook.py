@@ -480,10 +480,18 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None,
         question_scores = pd.to_numeric(user_row[question_cols], errors='coerce').fillna(0).tolist()
 
         # Peer scores
-        if peer_data is not None and user_full_name in peer_data.index:
-            peer_scores = pd.to_numeric(peer_data.loc[user_full_name, question_cols], errors='coerce').fillna(0).tolist()
+        if peer_data is not None:
+            # Normalize full name to match index
+            full_name = (user_row["What is your first name?"].strip() + " " + 
+                        user_row["What is your last name?"].strip()).upper()
+            
+            if full_name in peer_data.index:
+                peer_scores = peer_data.loc[full_name, question_cols].tolist()
+            else:
+                peer_scores = [0] * len(question_cols)
         else:
             peer_scores = [0] * len(question_cols)
+
         
         # --- Create grouped horizontal bar chart ---
         bar_fig = go.Figure()
