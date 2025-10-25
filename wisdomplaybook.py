@@ -367,7 +367,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
         st.write("PEER")
         st.write(peer_data)
         st.write("USER")
-        st.write(data)
+        st.write(user_row)
         st.write(raw_range)
         st.write('show')
         st.write(question_cols)
