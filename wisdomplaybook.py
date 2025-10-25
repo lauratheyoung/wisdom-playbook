@@ -250,6 +250,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
 
     fig.update_layout(
         barmode='group',
+        font=dict(family='Inter, sans-serif'),
         title='Self vs Peer Wisdom Traits Assessment',
         xaxis=dict(title='Score (%)', range=[0, 100]),
         height=50*len(trait_cols) + 100,
@@ -268,7 +269,6 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         side='left',                   # keep on left side
         ticklabelposition='outside left'
         ),
-        font=dict(family='Inter, sans-serif')
     )
 
     return fig
