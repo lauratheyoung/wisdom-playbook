@@ -57,7 +57,7 @@ TRAIT_RANGES = {
     "Curious": range(22, 26),
     "Charitable": range(27, 30),
     "Engaged": range(31, 34),
-    "Ethical": range(35, 37),
+    #"Ethical": range(, 34),
 }
 
 # Backend logic to determine user trait scores (1 trait = 4 Questions) order of traits: Purposeful, playful, adventurous, adaptable, curious, charitable, engaged, ethical
