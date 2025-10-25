@@ -220,7 +220,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         x=self_scores,
         name='Self Assessment',
         orientation='h',
-        marker_color='steelblue',
+        marker_color= '#898DF7',
         text=[f"{s}%" for s in self_scores],
         textposition='outside'
     ))
@@ -231,7 +231,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         x=peer_scores,
         name='Peer Review',
         orientation='h',
-        marker_color='darkorange',
+        marker_color='#070D2E',
         text=[f"{p}%" for p in peer_scores],
         textposition='outside'
     ))
@@ -243,7 +243,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
             y=trait,
             text=f"Δ {delta_scores[i]}",
             showarrow=False,
-            font=dict(color='black', size=12),
+            font=dict(color='black', size=15),
             xanchor='left',
             yanchor='middle'
         )
