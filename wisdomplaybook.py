@@ -253,22 +253,25 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         title='Self vs Peer Wisdom Traits Assessment',
         xaxis=dict(title='Score (%)', range=[0, 100]),
         height=50*len(trait_cols) + 100,
-        margin=dict(l=150, r=50, t=50, b=100),  # increase bottom margin for legend
+        margin=dict(l=250, r=50, t=50, b=100),  # increase left margin for label space
         legend=dict(
             orientation='h',
-            y=-0.2,  # position below the x-axis
+            y=-0.2,
             x=0.1,
             xanchor='left',
             yanchor='top'
         ),
         yaxis=dict(
-        title='',                    
-        tickfont=dict(color='black', size=16),  
-        automargin=True,
-        side='left',                   # keep on left side
-        ticklabelposition='outside left'
-        ),
+            title='',
+            tickfont=dict(color='black', size=16),
+            automargin=True,
+            tickangle=0,
+            tickmode='array',
+            tickvals=list(range(len(trait_cols))),
+            ticktext=trait_cols,  # labels
+        )
     )
+
     return fig
 
 def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
