@@ -498,9 +498,17 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None,
             valid_cols = [c for c in question_cols if c in peer_data.columns]
             # If some question_cols are missing in peer_data, fill with zeros for consistency
             peer_row = peer_data.loc[user_full_name]
-            peer_vals = [float(peer_row[c]) if c in valid_cols and pd.notna(peer_row[c]) else 0.0 for c in question_cols]
-        else:
-            peer_vals = [0.0] * len(question_cols)
+            peer_vals = [float(peer_row[c]) if pd.notna(peer_row[c]) else 0.0 for c in valid_cols]
+
+            # If you need peer_vals to be the same length as question_cols, fill missing columns with 0
+            peer_vals_full = []
+            for c in question_cols:
+                if c in peer_row.index:
+                    peer_vals_full.append(float(peer_row[c]) if pd.notna(peer_row[c]) else 0.0)
+                else:
+                    peer_vals_full.append(0.0)
+            peer_vals = peer_vals_full
+
 
         # plotting code (unchanged, but uses indiv_vals and peer_vals)
         bar_fig = go.Figure()
