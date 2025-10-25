@@ -139,9 +139,7 @@ def compute_peer_question_scores_for_user(
     return peer_scores.loc[[user_full_name]]
 
 
-
-
-peer_question_scores = compute_peer_question_scores_for_user(data, peerdata, uuid_input)
+peer_question_scores = compute_peer_question_scores_for_user(data, peerdata, uuid_input,first_name=data["What is your first name?"], last_name=data["What is your last name?"])
 st.dataframe(peer_question_scores.head())
 
 
