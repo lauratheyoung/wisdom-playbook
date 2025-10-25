@@ -338,7 +338,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
     st.write(TRAIT_COLS)
     st.write(TRAIT_RANGES)
     st.write('BLE')
-    user_row = data[data["UUID"] == uuid]
+    user_row = data[data["UUID"] == uuid].iloc[0]
     st.write(user_row['What is your first name?'].split(' ')[0].lower())
     user_formatted_name = str(user_row['What is your first name?'].split(' ')[0].lower())
     
