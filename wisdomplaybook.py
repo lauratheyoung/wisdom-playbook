@@ -352,6 +352,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
         question_scores = pd.to_numeric(user_row[question_cols], errors='coerce').fillna(0).tolist()
 
         # --- Get peer scores if provided ---
+        st.write(peer_data[question_cols].mean())
         if peer_data is not None:
             peer_scores = pd.to_numeric(peer_data[question_cols].mean(), errors='coerce').fillna(0).tolist()
         else:
@@ -445,7 +446,6 @@ if user_data.empty:
 df_traits["Full Name"] = data["What is your first name?"].str.strip() + " " + data["What is your last name?"].str.strip()
 df_peer_traits["Full Name"] = peerdata["Who are you peer reviewing? (First and Last Name)"].str.strip()
 
-st.write(df_peer_traits)
 
 user_traits = df_traits[df_traits["UUID"] == uuid_input]
 if user_traits.empty:
@@ -454,16 +454,11 @@ if user_traits.empty:
 
 # Compute user's strengths/growth
 user_row = user_traits.iloc[0]
-st.write('1')
-st.write(user_row)
+
 
 strengths, growth = determine_strength_growth(user_row, TRAIT_COLS)
 st.dataframe(user_traits[TRAIT_COLS].T.rename(columns={user_traits.index[0]: "Individual Score"}))
 
-st.write('2')
-st.write(user_row)
-
-st.write(user_traits)
 
 # User's name
 user_name = user_data["What is your first name?"].iloc[0]
