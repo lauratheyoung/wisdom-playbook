@@ -50,9 +50,9 @@ TRAIT_COLS = ["Purposeful", "Playful", "Adventurous", "Adaptable",
 
 # Column ranges for each trait (0-indexed for pandas)
 TRAIT_RANGES = {
-    "Purposeful": range(2, 6),       # Q3-Q6
-    "Playful": range(6, 10),         # Q7-Q10
-    "Adventurous": range(10, 14),    # Q11-Q14
+    "Purposeful": range(2, 6),
+    "Playful": range(6, 10),
+    "Adventurous": range(10, 14),
     "Adaptable": range(14, 18),
     "Curious": range(18, 22),
     "Charitable": range(22, 26),
@@ -334,7 +334,18 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
             marker_colors=['#549D8A', '#D9D9D9'],
             textinfo='label+percent'
         ))
-        pie_fig.update_layout(title=f"{trait} - Overall Score")
+        pie_fig.update_layout(
+            title=f"{trait} - Overall Score",
+            legend=dict(
+                orientation='h',      # horizontal legend
+                y=-0.2,               # position below the chart
+                x=0.5,                # center horizontally
+                xanchor='center',
+                yanchor='top',
+                font=dict(family='Inter, sans-serif', size=12, color='black')
+            )
+        )
+
         
         # --- Place charts side by side ---
         col1, col2 = st.columns([1, 2])  # ratio of widths: pie smaller, bar bigger
