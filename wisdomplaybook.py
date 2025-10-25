@@ -325,12 +325,12 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
             title_text=f"{trait} - Individual Question Scores",
             title_font=dict(family='Inter, sans-serif', size=20, color='black'),
             xaxis=dict(
-                title="Score (0-6)",
-                range=[0, 6]
+                title="Score %",
+                range=[0, 100]
             ),
             yaxis=dict(
                 title="",
-                tickfont=dict(family='Inter, sans-serif', size=14, color='black'),
+                tickfont=dict(family='Inter, sans-serif', size=10, color='black'),
                 automargin=True
             ),
             font=dict(family='Inter, sans-serif')
