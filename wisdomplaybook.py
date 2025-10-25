@@ -253,8 +253,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         font=dict(family='Inter, sans-serif'),
         title=dict(text='Self vs Peer Wisdom Traits Assessment',
                    font=dict(family='Inter, sans-serif',size=20,color='black')),
-        xaxis=dict(title='Score (%)', range=[0, 100],
-                   font=dict(family='Inter, sans-serif',size=15,color='black')),
+        xaxis=dict(title='Score (%)', range=[0, 100]),
         height=50*len(trait_cols) + 100,
         margin=dict(l=100, r=50, t=50, b=100),  # increase bottom margin for legend
         legend=dict(
