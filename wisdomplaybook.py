@@ -336,6 +336,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
         ))
         pie_fig.update_layout(
             title=f"{trait} - Overall Score",
+            font=dict(family='Inter, sans-serif', size=12, color='black'),
             legend=dict(
                 orientation='h',      # horizontal legend
                 y=-0.2,               # position below the chart
@@ -346,7 +347,6 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
             )
         )
 
-        
         # --- Place charts side by side ---
         col1, col2 = st.columns([1, 2])  # ratio of widths: pie smaller, bar bigger
         with col1:
