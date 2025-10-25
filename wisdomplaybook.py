@@ -432,6 +432,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
 
 
 # --- Main logic ---
+
 if not uuid_input:
     st.info("Enter or pass your report code in the URL to view your report.")
     st.stop()
@@ -444,6 +445,8 @@ if user_data.empty:
 df_traits["Full Name"] = data["What is your first name?"].str.strip() + " " + data["What is your last name?"].str.strip()
 df_peer_traits["Full Name"] = peerdata["Who are you peer reviewing? (First and Last Name)"].str.strip()
 
+st.write(df_peer_traits)
+
 user_traits = df_traits[df_traits["UUID"] == uuid_input]
 if user_traits.empty:
     st.error("No trait data found for this report code.")
@@ -453,6 +456,8 @@ if user_traits.empty:
 user_row = user_traits.iloc[0]
 strengths, growth = determine_strength_growth(user_row, TRAIT_COLS)
 st.dataframe(user_traits[TRAIT_COLS].T.rename(columns={user_traits.index[0]: "Individual Score"}))
+
+st.write(user_row)
 
 # User's name
 user_name = user_data["What is your first name?"].iloc[0]
