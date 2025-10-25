@@ -261,6 +261,12 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
             xanchor='left',
             yanchor='top'
         )
+        yaxis=dict(
+        title='',                    
+        tickfont=dict(color='black', size=16),  
+        automargin=True,
+        side='left'                   # keep on left side
+        ),
     )
     return fig
 
