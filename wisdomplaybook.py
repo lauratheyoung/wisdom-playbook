@@ -260,7 +260,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
             x=0.1,
             xanchor='left',
             yanchor='top'
-        )
+        ),
         yaxis=dict(
         title='',                    
         tickfont=dict(color='black', size=16),  
