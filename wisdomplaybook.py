@@ -329,7 +329,8 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
 
     return fig
 
-def subset_peers_by_username(row, name):
+def subset_peers_by_username(row, **kwargs):
+    name = kwargs[name]
     if row.iloc[1].lower() == name:
         return row
 
@@ -346,7 +347,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
     user_row = data[data["UUID"] == uuid].iloc[0]
     user_formatted_name = str(user_row['What is your first name?'].split(' ')[0].lower())
     
-    matching_peers = peer_data.apply(user_formatted_name, axis=1)
+    matching_peers = peer_data.apply(subset_peers_by_username, axis=1, name=user_formatted_name)
     st.write(matching_peers)
 
     if user_row.empty:
