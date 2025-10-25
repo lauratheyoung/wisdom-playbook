@@ -346,7 +346,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
     
     user_row = user_row.iloc[0]  # convert to Series
     
-    counter = 2
+    counter = 0
 
     for trait in TRAIT_COLS:
         raw_range = TRAIT_RANGES.get(trait)
