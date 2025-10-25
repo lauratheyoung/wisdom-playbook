@@ -86,6 +86,13 @@ df_traits = compute_trait_scores(data)
 df_peer_traits = compute_trait_scores(peerdata)
 
 
+print("INDIVIDUAL DF COLUMNS:")
+print(data.columns.tolist())
+
+print("\nPEER DF COLUMNS:")
+print(peerdata.columns.tolist())
+
+
 def compute_peer_question_scores_for_user(
     individual_df: pd.DataFrame,
     peer_df: pd.DataFrame,
