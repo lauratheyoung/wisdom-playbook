@@ -335,7 +335,7 @@ def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
             labels=[f"{trait} Score", "Remaining"],
             values=[overall_score, 6 - overall_score],
             hole=0.4,
-            marker_colors=['steelblue', 'lightgray'],
+            marker_colors=['#549D8A', '#D9D9D9'],
             textinfo='label+percent'
         ))
         pie_fig.update_layout(
