@@ -50,7 +50,7 @@ TRAIT_COLS = ["Purposeful", "Playful", "Adventurous", "Adaptable",
 
 # Column ranges for each trait (0-indexed for pandas)
 TRAIT_RANGES = {
-    "Purposeful": range(2, 6),       # Q3-Q6
+    "Purposeful": range(2, 7),       # Q3-Q6
     "Playful": range(7, 11),         # Q7-Q10
     "Adventurous": range(11, 15),    # Q11-Q14
     "Adaptable": range(15, 19),
