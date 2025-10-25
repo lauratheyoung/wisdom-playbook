@@ -92,58 +92,52 @@ print(data.columns.tolist())
 print("\nPEER DF COLUMNS:")
 print(peerdata.columns.tolist())
 
-
 def compute_peer_question_scores_for_user(
     individual_df: pd.DataFrame,
     peer_df: pd.DataFrame,
-    uuid: str,
+    first_name: str,
+    last_name: str,
     question_col_start: int = 2,
     question_col_end: int = 34,
     first_name_col: str = "What is your first name?",
     last_name_col: str = "What is your last name?",
     peer_name_col: str = "Who are you peer reviewing? (First and Last Name)"
 ) -> pd.DataFrame:
-    """
-    Compute average scores per question for peers, matched by full name,
-    filtered to only include the individual corresponding to the given UUID.
-    """
-
-    # Copy inputs
+    
     ind_df = individual_df.copy()
     peer_df = peer_df.copy()
 
-    # ---- Find the individual ----
-    user_row = ind_df[ind_df["UUID"] == uuid]
-    if user_row.empty:
-        raise ValueError(f"No individual found with UUID '{uuid}'")
+    # ---- Find the user's full name ----
+    user_full_name = f"{first_name.strip()} {last_name.strip()}".upper()
 
-    # ---- Normalize names ----
-    user_full_name = (
-        user_row[first_name_col].iloc[0].strip() + " " +
-        user_row[last_name_col].iloc[0].strip()
-    ).upper()
+    # ---- Normalize peer reviewer names ----
     peer_df["Full Name"] = peer_df[peer_name_col].str.strip().str.upper()
 
-    # ---- Select columns by *position* ----
-    individual_question_cols = ind_df.columns[question_col_start:question_col_end].tolist()
-    peer_question_cols = peer_df.columns[question_col_start:question_col_end].tolist()
+    # ---- Select question columns by position ----
+    individual_question_cols = list(ind_df.columns[question_col_start:question_col_end])
+    peer_question_cols = list(peer_df.columns[question_col_start:question_col_end])
 
-    # ---- Rename peer columns to match the individual form labels ----
-    rename_map = {peer_col: ind_col for peer_col, ind_col in zip(peer_question_cols, individual_question_cols)}
+    # ---- Align peer columns with individual's questions ----
+    rename_map = dict(zip(peer_question_cols, individual_question_cols))
     peer_df = peer_df.rename(columns=rename_map)
 
-    # ---- Convert to numeric and compute averages ----
+    # ---- Convert question columns to numeric ----
     for col in individual_question_cols:
         peer_df[col] = pd.to_numeric(peer_df[col], errors='coerce')
 
-    # ---- Compute mean by full name ----
-    peer_scores = peer_df.groupby("Full Name")[individual_question_cols].mean().round(1)
+    # ---- Compute average peer scores for each individual ----
+    peer_scores = (
+        peer_df.groupby("Full Name")[individual_question_cols]
+        .mean()
+        .round(1)
+    )
 
-    # ---- Return only the current user's scores ----
+    # ---- Return this user's peer scores ----
     if user_full_name not in peer_scores.index:
         return pd.DataFrame(columns=individual_question_cols, index=[user_full_name])
 
     return peer_scores.loc[[user_full_name]]
+
 
 
 
