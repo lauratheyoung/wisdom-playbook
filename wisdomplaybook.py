@@ -241,10 +241,10 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         fig.add_annotation(
             x=max(self_scores[i], peer_scores[i]) + 5,  # offset a little
             y=trait,
-            text=f"Δ {delta_scores[i]}",
+            text=f"Δ {delta_scores[i]}%",
             showarrow=False,
             font=dict(color='black', size=15),
-            xanchor='left',
+            xanchor='right',
             yanchor='middle'
         )
 
