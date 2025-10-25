@@ -40,8 +40,6 @@ st.markdown("""
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 """, unsafe_allow_html=True)
 
-
-
 #Initialising constant variables
 
 # List of traits in order
@@ -87,6 +85,46 @@ df_traits = compute_trait_scores(data)
 # Compute for peer data
 df_peer_traits = compute_trait_scores(peerdata)
 
+
+def compute_peer_question_scores(individual_df: pd.DataFrame,
+                                 peer_df: pd.DataFrame,
+                                 question_col_start: int = 2,
+                                 question_col_end: int = 34,
+                                 first_name_col: str = "What is your first name?",
+                                 last_name_col: str = "What is your last name?",
+                                 peer_name_col: str = "Who are you peer reviewing? (First and Last Name)") -> pd.DataFrame:
+    """
+    Compute average scores per question for peers, matched by full name.
+
+    Parameters:
+        individual_df: DataFrame with individual responses (first + last name split)
+        peer_df: DataFrame with peer responses (full name in one column)
+        question_col_start, question_col_end: numeric question column slice (0-indexed)
+        first_name_col, last_name_col: columns in individual_df
+        peer_name_col: column in peer_df containing full name
+
+    Returns:
+        DataFrame: index = Full Name, columns = numeric question columns, values = average scores
+    """
+    ind_df = individual_df.copy()
+    peer_df = peer_df.copy()
+    
+    # Normalize individual full name
+    ind_df["Full Name"] = (ind_df[first_name_col].str.strip() + " " + ind_df[last_name_col].str.strip()).str.upper()
+    
+    # Normalize peer full name
+    peer_df["Full Name"] = peer_df[peer_name_col].str.strip().str.upper()
+    
+    # Select question columns
+    question_cols = peer_df.columns[question_col_start:question_col_end]
+    
+    # Convert to numeric
+    peer_df[question_cols] = peer_df[question_cols].apply(pd.to_numeric, errors='coerce')
+    
+    # Group by full name to compute average per question
+    peer_question_scores = peer_df.groupby("Full Name")[question_cols].mean().round(1)
+    
+    return peer_question_scores
 
 # Backend logic to determine users strength and growth traits by aggregating trait scores and comparing  --> not sure what to do if there are ties
 def determine_strength_growth(user_row, trait_cols, top_n=3):
@@ -283,90 +321,6 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
 
     return fig
 
-# def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES):
-#     """
-#     Generate pie chart for overall trait score and bar chart per question for each trait for a specific user.
-#     """
-#     user_row = data[data["UUID"] == uuid]
-    
-#     if user_row.empty:
-#         st.error("No data found for this UUID.")
-#         return
-    
-#     user_row = user_row.iloc[0]  # convert to Series
-    
-#     for trait in TRAIT_COLS:
-#         raw_range = TRAIT_RANGES.get(trait)
-#         if not raw_range:
-#             continue
-        
-#         if all(isinstance(i, int) for i in raw_range):
-#             question_cols = [data.columns[i] for i in raw_range]
-#         else:
-#             question_cols = list(raw_range)
-        
-#         question_scores = pd.to_numeric(user_row[question_cols], errors='coerce').fillna(0).tolist()
-        
-#         # --- Create bar chart ---
-#         bar_fig = go.Figure(go.Bar(
-#             x=question_scores,
-#             y=question_cols,
-#             marker_color='#898DF7',
-#             text=[str(round(s, 1)) for s in question_scores],
-#             textposition='outside',
-#             orientation='h',
-#         ))
-
-#         bar_fig.update_layout(
-#             title_text=f"Questions",
-#             title_font=dict(family='Inter, sans-serif', size=16, color='black'),
-#             xaxis=dict(title="Score %", range=[0, 7]),
-#             yaxis=dict(title="", tickfont=dict(family='Inter, sans-serif', size=10, color='black'), automargin=True),
-#             font=dict(family='Inter, sans-serif')
-#         )
-        
-#         # --- Create pie chart ---
-#         overall_score = sum(question_scores) / len(question_scores) if len(question_scores) > 0 else 0
-
-#         pie_fig = go.Figure(go.Pie(
-#             labels=[f"{trait} Score", "Remaining"],
-#             values=[overall_score, 6 - overall_score],
-#             hole=0.4,
-#             marker_colors=['#549D8A', '#D9D9D9'],
-#             textinfo='none'  # hide default labels inside slices
-#         ))
-
-#         # Add the score as a centered annotation
-#         pie_fig.add_annotation(
-#             x=0.5,
-#             y=0.5,
-#             text=f"{round((overall_score/6)*100, 1)}%",  # convert to % if needed
-#             showarrow=False,
-#             font=dict(family='Inter, sans-serif', size=24, color='black')
-#         )
-
-#         pie_fig.update_layout(
-#             title=dict(
-#                 text=f"{trait}",
-#                 font=dict(family='Inter, sans-serif', size=25, color='black')
-#             ),
-#             legend=dict(
-#                 orientation='h',
-#                 y=-0.2,
-#                 x=0.5,
-#                 xanchor='center',
-#                 yanchor='top',
-#                 font=dict(family='Inter, sans-serif', size=12, color='black')
-#             )
-#         )
-
-#         # --- Place charts side by side ---
-#         col1, col2 = st.columns([1, 2])  # ratio of widths: pie smaller, bar bigger
-#         with col1:
-#             st.plotly_chart(pie_fig, use_container_width=True, config={'displayModeBar':False})
-#         with col2:
-#             st.plotly_chart(bar_fig, use_container_width=True, config={'displayModeBar':False})
-
 def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
     """
     Generate pie chart for overall trait score and horizontal bar chart per question
@@ -516,5 +470,5 @@ display_dynamic_message(
 fig = plot_trait_comparison(user_row, peer_mean_scores, TRAIT_COLS)
 st.plotly_chart(fig, use_container_width=True)
 
-trait_plots(uuid_input, data, TRAIT_COLS, TRAIT_RANGES)
+trait_plots(uuid_input, data, TRAIT_COLS, TRAIT_RANGES, compute_peer_question_scores(data, peerdata))
 
