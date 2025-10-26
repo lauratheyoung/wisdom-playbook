@@ -97,6 +97,8 @@ def get_user_scores_from_row(user_row):
 
 #Initialising constant variables
 
+st.write("checking where table is generated")
+
 # List of traits in order
 TRAIT_COLS = ["Purposeful", "Playful", "Adventurous", "Adaptable",
               "Curious", "Charitable", "Engaged", "Ethical"]
