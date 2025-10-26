@@ -498,7 +498,7 @@ peer_rows = df_peer_traits[df_peer_traits["Full Name"] == user_row["Full Name"]]
 peer_strengths, peer_growth, peer_mean_scores = get_user_peer_feedback(peer_rows, TRAIT_COLS)
 consistency_pct, consistent_traits, inconsistent_traits = compute_consistency(user_row, peer_mean_scores, TRAIT_COLS)
 
-st.write(consistency_pct)
+st.write(peer_mean_scores)
 
 # Display message
 display_dynamic_message(
