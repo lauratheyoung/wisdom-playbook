@@ -337,7 +337,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         ),
     )
 
-    return st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+    return fig #st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
 
