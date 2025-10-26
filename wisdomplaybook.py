@@ -406,8 +406,9 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
                 x=1
             ),
             margin=dict(b=80, t=50),  # small, flexible top/bottom margins
-            hoverinfo='skip'
         )
+
+        bar_fig.update_traces(hoverinfo='skip')
 
 
         # --- Create pie chart for self score ---
