@@ -390,9 +390,21 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             title_text=f"{trait} - Question Scores",
             title_font=dict(family='Inter, sans-serif', size=16, color='black'),
             xaxis=dict(title="Score", range=[0, 7]),
-            yaxis=dict(title="", tickfont=dict(family='Inter, sans-serif', size=10, color='black'), automargin=True),
-            barmode='group',  # group bars side by side
-            font=dict(family='Inter, sans-serif')
+            yaxis=dict(
+                title="",
+                tickfont=dict(family='Inter, sans-serif', size=10, color='black'),
+                automargin=True
+            ),
+            barmode='group',
+            font=dict(family='Inter, sans-serif'),
+            legend=dict(
+                orientation='h',        # horizontal legend
+                yanchor='top',          # anchor the top of the legend
+                y=-0.2,                 # position below the chart (adjust spacing as needed)
+                xanchor='right',        # anchor the legend box to the right
+                x=1                     # align to right edge
+            ),
+            margin=dict(b=80)           # add space at bottom for legend
         )
 
         # --- Create pie chart for self score ---
@@ -456,10 +468,7 @@ if user_traits.empty:
 
 # Compute user's strengths/growth
 user_row = user_traits.iloc[0]
-
-
 strengths, growth = determine_strength_growth(user_row, TRAIT_COLS)
-#st.dataframe(user_traits[TRAIT_COLS].T.rename(columns={user_traits.index[0]: "Individual Score"}))
 
 
 # User's name
