@@ -458,6 +458,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             st.plotly_chart(pie_fig, use_container_width=True, config={'displayModeBar':False})
         with col2:
             st.plotly_chart(bar_fig, use_container_width=True, config={'displayModeBar':False})
+        st.markdown("</div>", unsafe_allow_html=True)
 
 
 # --- Main logic ---
