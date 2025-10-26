@@ -367,7 +367,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             orientation='h',
             name='Self Assessment',
             marker_color='#898DF7',
-            text=[str(round(s,1)) for s in question_scores],
+            text=[str(round(s)) for s in question_scores],
             textposition='outside'
         ))
         
@@ -378,7 +378,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             orientation='h',
             name='Peer Average',
             marker_color='#070D2E',
-            text=[str(round(s,1)) for s in peer_scores],
+            text=[str(round(s)) for s in peer_scores],
             textposition='outside'
         ))
         
