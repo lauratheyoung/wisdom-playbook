@@ -40,60 +40,6 @@ st.markdown("""
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 """, unsafe_allow_html=True)
 
-#PD Data Processing Functions
-def split_user_data(df_user_data):
-    i_cols = [col for col in df_user_data.columns if col.startswith("I ")]
-    df_user_qs = df_user_data[i_cols]               # subset with "I " columns
-    df_user_meta = df_user_data.drop(columns=i_cols)  # subset with all other columns
-    return df_user_meta, df_user_qs
-
-def split_peer_data(df_peer_data):
-    they_cols = [col for col in df_peer_data.columns if col.startswith("They ")]
-    df_peer_qs = df_peer_data[they_cols]               # subset with "I " columns
-    df_peer_meta = df_peer_data.drop(columns=they_cols)  # subset with all other columns
-    return df_peer_meta, df_peer_qs
-
-def prepare_user_data(user_data_source):
-    #Replace empty strings with NaNs
-    df_user_data = user_data_source.replace(r'^\s*$', np.nan, regex=True).dropna(how='all')
-
-    #Split dfs into Questions and Metadata subsets
-    df_user_meta, df_user_qs = split_user_data(df_user_data)
-
-    #Add formatted full name col
-    full_name_format_user = lambda row: str(row.iloc[1] + " " + row.iloc[6]).lower()
-    df_user_meta['formatted_fullname'] =  df_user_meta.apply(full_name_format_user, axis=1)
-
-    return pd.concat([df_user_meta, df_user_qs], axis=1)
-
-def prepare_peer_data(peer_data_source):
-    #Replace empty strings with NaNs
-    df_peer_data = peer_data_source.replace(r'^\s*$', np.nan, regex=True).dropna(how='all')
-
-    #Split dfs into Questions and Metadata subsets
-    df_peer_meta, df_peer_qs = split_peer_data(df_peer_data)
-
-    #Add formatted full name col
-    full_name_format_peer = lambda row: row.iloc[1].lower()
-    df_peer_meta['formatted_fullname'] =  df_peer_meta.apply(full_name_format_peer, axis=1)
-
-    return pd.concat([df_peer_meta, df_peer_qs], axis=1)
-
-def get_user_row_by_uuid(user_data, uuid):
-    return user_data[user_data['UUID'] == uuid].iloc[0]
-
-def get_peer_data_from_user_row(peer_data, user_row):
-    user_formatted_name = str(user_row['formatted_fullname'])
-    return peer_data[peer_data['formatted_fullname'] == user_formatted_name]
-
-def avg_peer_scores(peer_data):
-    df_peer_qs = split_peer_data(peer_data)[1]
-    return list(df_peer_qs.mean())
-
-def get_user_scores_from_row(user_row):
-    df_user_row = split_user_data(pd.DataFrame(user_row).T)[1]
-    return list(df_user_row.iloc[0].astype(float))
-
 #Initialising constant variables
 
 # List of traits in order
@@ -146,47 +92,47 @@ df_peer_traits = compute_trait_scores(peerdata)
 st.write('peer data')
 st.write(peerdata)
 
-# def compute_peer_question_scores(individual_df: pd.DataFrame,
-#                                  peer_df: pd.DataFrame,
-#                                  question_col_start: int = 2,
-#                                  question_col_end: int = 34,
-#                                  first_name_col: str = "What is your first name?",
-#                                  last_name_col: str = "What is your last name?",
-#                                  peer_name_col: str = "Who are you peer reviewing? (First and Last Name)") -> pd.DataFrame:
-#     """
-#     Compute average scores per question for peers, matched by full name.
+def compute_peer_question_scores(individual_df: pd.DataFrame,
+                                 peer_df: pd.DataFrame,
+                                 question_col_start: int = 2,
+                                 question_col_end: int = 34,
+                                 first_name_col: str = "What is your first name?",
+                                 last_name_col: str = "What is your last name?",
+                                 peer_name_col: str = "Who are you peer reviewing? (First and Last Name)") -> pd.DataFrame:
+    """
+    Compute average scores per question for peers, matched by full name.
 
-#     Parameters:
-#         individual_df: DataFrame with individual responses (first + last name split)
-#         peer_df: DataFrame with peer responses (full name in one column)
-#         question_col_start, question_col_end: numeric question column slice (0-indexed)
-#         first_name_col, last_name_col: columns in individual_df
-#         peer_name_col: column in peer_df containing full name
+    Parameters:
+        individual_df: DataFrame with individual responses (first + last name split)
+        peer_df: DataFrame with peer responses (full name in one column)
+        question_col_start, question_col_end: numeric question column slice (0-indexed)
+        first_name_col, last_name_col: columns in individual_df
+        peer_name_col: column in peer_df containing full name
 
-#     Returns:
-#         DataFrame: index = Full Name, columns = numeric question columns, values = average scores
-#     """
-#     ind_df = individual_df.copy()
-#     peer_df = peer_df.copy()
+    Returns:
+        DataFrame: index = Full Name, columns = numeric question columns, values = average scores
+    """
+    ind_df = individual_df.copy()
+    peer_df = peer_df.copy()
     
-#     # Normalize individual full name
-#     ind_df["Full Name"] = (ind_df[first_name_col].str.strip() + " " + ind_df[last_name_col].str.strip()).str.upper()
+    # Normalize individual full name
+    ind_df["Full Name"] = (ind_df[first_name_col].str.strip() + " " + ind_df[last_name_col].str.strip()).str.upper()
     
-#     # Normalize peer full name
-#     peer_df["Full Name"] = peer_df[peer_name_col].str.strip().str.upper()
+    # Normalize peer full name
+    peer_df["Full Name"] = peer_df[peer_name_col].str.strip().str.upper()
     
-#     # Select question columns
-#     question_cols = peer_df.columns[question_col_start:question_col_end]
+    # Select question columns
+    question_cols = peer_df.columns[question_col_start:question_col_end]
     
-#     # Convert to numeric
-#     peer_df[question_cols] = peer_df[question_cols].apply(pd.to_numeric, errors='coerce')
+    # Convert to numeric
+    peer_df[question_cols] = peer_df[question_cols].apply(pd.to_numeric, errors='coerce')
     
-#     # Group by full name to compute average per question
-#     peer_question_scores = peer_df.groupby("Full Name")[question_cols].mean().round(1)
+    # Group by full name to compute average per question
+    peer_question_scores = peer_df.groupby("Full Name")[question_cols].mean().round(1)
     
-#     return peer_question_scores
+    return peer_question_scores
 
-# peer_question_scores=compute_peer_question_scores(data, peerdata)
+peer_question_scores=compute_peer_question_scores(data, peerdata)
 
 # Backend logic to determine users strength and growth traits by aggregating trait scores and comparing  --> not sure what to do if there are ties
 def determine_strength_growth(user_row, trait_cols, top_n=3):
@@ -382,7 +328,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
 
     return fig
 
-def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
+def trait_plots(uuid, data, TRAIT_COLS, TRAIT_RANGES, peer_data=None):
     """
     Generate pie chart for overall trait score and horizontal bar chart per question
     for each trait, comparing individual vs peer scores.
@@ -391,27 +337,50 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
     st.write(TRAIT_COLS)
     st.write(TRAIT_RANGES)
     st.write('BLE')
+    st.write(peer_data.iloc[1].iloc[1])
+    user_row = data[data["UUID"] == uuid].iloc[0]
+    user_formatted_name = str(user_row['What is your first name?'].split(' ')[0].lower())
+    df_peer_matching = peer_data[peer_data.iloc[1].split(' ')[0].lower() == user_formatted_name]
+    st.write(df_peer_matching)
 
-    all_question_cols = split_user_data(pd.DataFrame(user_row).T)[1].columns
-    all_question_scores = get_user_scores_from_row(user_row)
-    all_peer_scores = avg_peer_scores(user_peer_data)
+    if user_row.empty:
+        st.error("No data found for this UUID.")
+        return
+        
+    counter = 2
 
-    st.write(all_question_cols)
-    st.write(all_question_scores)
-    st.write(all_peer_scores)
-
-
-    col_ind_lower = 0
     for trait in TRAIT_COLS:
-        col_ind_upper = col_ind_lower + 4
+        raw_range = TRAIT_RANGES.get(trait)
+        if not raw_range:
+            continue
+        
+        if all(isinstance(i, int) for i in raw_range):
+            
+            question_cols = [data.columns[i] for i in raw_range]
+        else:
+            question_cols = list(raw_range)
+        
+        question_scores = pd.to_numeric(user_row[question_cols], errors='coerce').fillna(0).tolist()
 
-        question_cols = all_question_cols[col_ind_lower:col_ind_upper]
-        question_scores = all_question_scores[col_ind_lower:col_ind_upper]
-        peer_scores = all_peer_scores[col_ind_lower:col_ind_upper]
+        # --- Get peer scores if provided ---
 
-        col_ind_lower += 4
-
-
+        st.write(uuid)
+        st.write("PEER")
+        st.write(peer_data)
+        st.write("USER")
+        st.write(user_row)
+        st.write(user_formatted_name)
+        st.write(raw_range)
+        st.write('show')
+        st.write(question_cols)
+        st.write(len([i for i in raw_range]))
+        st.write(peer_data.iloc[:, counter : counter + len([i for i in raw_range])])
+        # if peer_data is not None:
+        #     #peer_scores = pd.to_numeric(peer_data[question_cols].mean(), errors='coerce').fillna(0).tolist()
+        #     peer_scores = pd.to_numeric(peer_data.iloc[:, counter:len([i for i in raw_range])].mean(), errors='coerce')#.fillna(0).tolist()
+        # else:
+        #     peer_scores = [0] * len(question_cols)
+        
         # --- Create grouped horizontal bar chart ---
         bar_fig = go.Figure()
         
@@ -532,12 +501,5 @@ display_dynamic_message(
 # Load the overview chart
 fig = plot_trait_comparison(user_row, peer_mean_scores, TRAIT_COLS)
 st.plotly_chart(fig, use_container_width=True)
-
-df_user_data = prepare_peer_data(data)
-df_peer_data = prepare_peer_data(peerdata)
-
-user_row = get_user_row_by_uuid(df_user_data, uuid_input)
-user_peer_data = get_peer_data_from_user_row(df_peer_data, user_row)
-
 
 trait_plots(uuid_input, data, TRAIT_COLS, TRAIT_RANGES,peerdata)
