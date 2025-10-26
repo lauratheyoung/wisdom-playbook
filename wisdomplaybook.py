@@ -185,7 +185,7 @@ def compute_peer_strengths(df, trait_cols):
     df["Peer_Strengths"] = strengths_list
     df["Peer_Growth"] = growth_list
     return df
-st.write("checking where table is generated")
+
 def get_user_peer_feedback(peer_rows, trait_cols):
     if peer_rows.empty:
         return None, None, None
@@ -337,7 +337,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     )
 
     return fig
-
+st.write("checking where table is generated")
 def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
     """
     Generate pie chart for overall trait score and horizontal bar chart per question
