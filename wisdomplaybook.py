@@ -172,7 +172,7 @@ def determine_strength_growth(user_row, trait_cols, top_n=3):
 
     return strengths, growth
 
-st.write("checking where table is generated")
+
 
 # --- Helper functions ---
 
@@ -185,7 +185,7 @@ def compute_peer_strengths(df, trait_cols):
     df["Peer_Strengths"] = strengths_list
     df["Peer_Growth"] = growth_list
     return df
-
+st.write("checking where table is generated")
 def get_user_peer_feedback(peer_rows, trait_cols):
     if peer_rows.empty:
         return None, None, None
