@@ -393,7 +393,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             yaxis=dict(
                 title="",
                 tickfont=dict(family='Inter, sans-serif', size=10, color='black'),
-                automargin=True
+                automargin=False
             ),
             barmode='group',
             font=dict(family='Inter, sans-serif'),
