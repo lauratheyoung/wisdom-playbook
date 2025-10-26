@@ -137,8 +137,6 @@ def compute_trait_scores(df):
 # Compute aggregated scores for all users and get df_traits
 df_traits = compute_trait_scores(data)
 
-st.write("checking where table is generated")
-
 
 # Compute for peer data
 df_peer_traits = compute_trait_scores(peerdata)
@@ -173,6 +171,8 @@ def determine_strength_growth(user_row, trait_cols, top_n=3):
     growth = sorted_traits[sorted_traits <= growth_cutoff].index.tolist()
 
     return strengths, growth
+
+st.write("checking where table is generated")
 
 # --- Helper functions ---
 
