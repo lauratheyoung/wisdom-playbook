@@ -443,7 +443,10 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
                 font=dict(family='Inter, sans-serif', size=12, color='black')
             )
         )
-        
+
+        st.markdown("""
+            <div class="graph2-card"></div>
+                    """, unsafe_allow_html=True)   
         # --- Display charts side by side ---
         col1, col2 = st.columns([1, 2])
         with col1:
