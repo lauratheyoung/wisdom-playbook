@@ -474,8 +474,9 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         # --- Create combined figure ---
         combined_fig = make_subplots(
             rows=1, cols=2,
-            column_widths=[0.4, 0.6],
-            specs=[[{'type':'domain'}, {'type':'xy'}]]
+            column_widths=[0.35, 0.65],   # adjust widths: pie smaller, bar larger
+            specs=[[{'type':'domain'}, {'type':'xy'}]],
+            horizontal_spacing=0.08        # small space between the two charts
         )
 
         # --- Add pie chart ---
@@ -488,9 +489,11 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             name=f"{trait} Pie"
         ), row=1, col=1)
 
+        # Annotation for pie chart percentage
         combined_fig.add_annotation(
-            x=0.2,  # x position in paper coordinates (adjust for column width)
+            x=0.175,  # place inside the pie chart column
             y=0.5,
+            xref="paper", yref="paper",
             text=f"{round(overall_score,1)}%",
             showarrow=False,
             font=dict(family='Inter, sans-serif', size=24, color='black')
