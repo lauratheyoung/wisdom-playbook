@@ -337,7 +337,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     )
 
     return fig
-st.write("checking where table is generated")
+
 def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
     """
     Generate pie chart for overall trait score and horizontal bar chart per question
@@ -459,7 +459,7 @@ user_row = user_traits.iloc[0]
 
 
 strengths, growth = determine_strength_growth(user_row, TRAIT_COLS)
-st.dataframe(user_traits[TRAIT_COLS].T.rename(columns={user_traits.index[0]: "Individual Score"}))
+#st.dataframe(user_traits[TRAIT_COLS].T.rename(columns={user_traits.index[0]: "Individual Score"}))
 
 
 # User's name
