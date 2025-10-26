@@ -540,6 +540,11 @@ df_peer_data = prepare_peer_data(peerdata)
 user_row = get_user_row_by_uuid(df_user_data, uuid_input)
 user_peer_data = get_peer_data_from_user_row(df_peer_data, user_row)
 
+st.write("UNFORMAT PEER")
+st.write(peerdata)
+st.write("UNFORMAT USER")
+st.write(data)
+
 st.write("FORMAT PEER")
 st.write(df_peer_data)
 st.write("FORMAT USER")
