@@ -534,7 +534,7 @@ display_dynamic_message(
 fig = plot_trait_comparison(user_row, peer_mean_scores, TRAIT_COLS)
 st.plotly_chart(fig, use_container_width=True)
 
-df_user_data = prepare_peer_data(data)
+df_user_data = prepare_user_data(data)
 df_peer_data = prepare_peer_data(peerdata)
 
 user_row = get_user_row_by_uuid(df_user_data, uuid_input)
