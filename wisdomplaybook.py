@@ -446,6 +446,8 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             barmode='group',  # group bars side by side
             font=dict(family='Inter, sans-serif')
         )
+        st.write(sum(question_scores) + sum(peer_scores) / 2)
+        st.write((sum(question_scores) + sum(peer_scores) / 2) - 8 / 16)
         st.write(((sum(question_scores) + sum(peer_scores) / 2) - 8 / 16) * 100)
         # --- Create pie chart for self score ---
         overall_score = ((sum(question_scores) + sum(peer_scores) / 2) - 8 / 16) * 100
