@@ -453,14 +453,18 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
 
 def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
     """
-    Generate pie chart for overall trait score and horizontal bar chart per question
-    for each trait, comparing individual vs peer scores.
+    Generate a combined figure per trait with:
+    - Pie chart for overall trait score
+    - Horizontal bar chart for question scores (self vs peer)
+    - Rounded rectangle background behind both charts
     """
+    # Extract user and peer data
     all_question_cols = split_user_data(pd.DataFrame(user_row).T)[1].columns
     all_question_scores = get_user_scores_from_row(user_row)
     all_peer_scores = avg_peer_scores(user_peer_data)
 
     col_ind_lower = 0
+
     for trait in TRAIT_COLS:
         col_ind_upper = col_ind_lower + 4
         question_cols = all_question_cols[col_ind_lower:col_ind_upper]
@@ -468,15 +472,15 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         peer_scores = all_peer_scores[col_ind_lower:col_ind_upper]
         col_ind_lower += 4
 
-        # --- Calculate overall score for pie chart ---
+        # Calculate overall score for pie chart
         overall_score = ((((sum(question_scores) + sum(peer_scores)) / 2) - 4) / 20) * 100
 
         # --- Create combined figure ---
         combined_fig = make_subplots(
             rows=1, cols=2,
-            column_widths=[0.35, 0.65],   # adjust widths: pie smaller, bar larger
+            column_widths=[0.35, 0.65],  # pie chart smaller, bar chart wider
             specs=[[{'type':'domain'}, {'type':'xy'}]],
-            horizontal_spacing=0.08        # small space between the two charts
+            horizontal_spacing=0.08
         )
 
         # --- Add pie chart ---
@@ -489,11 +493,12 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             name=f"{trait} Pie"
         ), row=1, col=1)
 
-        # Annotation for pie chart percentage
+        # Pie chart percentage annotation
         combined_fig.add_annotation(
-            x=0.175,  # place inside the pie chart column
+            x=0.17,  # x coordinate in paper reference
             y=0.5,
-            xref="paper", yref="paper",
+            xref="paper",
+            yref="paper",
             text=f"{round(overall_score,1)}%",
             showarrow=False,
             font=dict(family='Inter, sans-serif', size=24, color='black')
@@ -520,7 +525,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             textposition='outside'
         ), row=1, col=2)
 
-        # --- Add rounded rectangle background behind both charts ---
+        # --- Add rounded rectangle background ---
         combined_fig.add_shape(
             type="path",
             path=(
@@ -543,7 +548,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         combined_fig.update_layout(
             title_text=f"{trait} - Question Scores",
             title_font=dict(family='Inter, sans-serif', size=16, color='black'),
-            xaxis=dict(title="Score", range=[0,7], domain=[0.0,1.0]),
+            xaxis=dict(title="Score", range=[0,7], domain=[0.0,1.0], automargin=True),
             yaxis=dict(
                 title="",
                 tickfont=dict(family='Inter, sans-serif', size=12, color='black'),
@@ -564,8 +569,8 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             margin=dict(l=40, r=40, t=60, b=60)
         )
 
-        # --- Display the combined chart ---
-        st.plotly_chart(combined_fig, use_container_width=True, config={'displayModeBar': False})     
+        # --- Display combined figure ---
+        st.plotly_chart(combined_fig, use_container_width=True, config={'displayModeBar': False})   
 
 
 # --- Main logic ---
