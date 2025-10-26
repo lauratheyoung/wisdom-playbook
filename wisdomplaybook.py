@@ -389,23 +389,29 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         bar_fig.update_layout(
             title_text=f"{trait} - Question Scores",
             title_font=dict(family='Inter, sans-serif', size=16, color='black'),
-            xaxis=dict(title="Score", range=[0, 7]),
+            xaxis=dict(
+                title="Score",
+                range=[0, 7],
+                domain=[0.0, 1.0]  # ensures all figures share the same axis domain
+            ),
             yaxis=dict(
                 title="",
                 tickfont=dict(family='Inter, sans-serif', size=10, color='black'),
-                automargin=False
+                automargin=True,     # dynamically adjusts to label length
+                anchor="x",          # tie y-axis to the same x-axis position
             ),
             barmode='group',
             font=dict(family='Inter, sans-serif'),
             legend=dict(
-                orientation='h',        # horizontal legend
-                yanchor='top',          # anchor the top of the legend
-                y=-0.2,                 # position below the chart (adjust spacing as needed)
-                xanchor='right',        # anchor the legend box to the right
-                x=1                     # align to right edge
+                orientation='h',
+                yanchor='top',
+                y=-0.2,
+                xanchor='right',
+                x=1
             ),
-            margin=dict(l=150,b=80)           # fixed margin points
+            margin=dict(b=80, t=50),  # small, flexible top/bottom margins
         )
+
 
         # --- Create pie chart for self score ---
         overall_score = ((((sum(question_scores) + sum(peer_scores)) / 2) - 4) / 20) * 100
