@@ -389,17 +389,17 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
     for each trait, comparing individual vs peer scores.
     peer_data: pandas DataFrame with same columns as `data` containing peer averages
     """
-    st.write(TRAIT_COLS)
-    st.write(TRAIT_RANGES)
-    st.write('BLE')
+    # st.write(TRAIT_COLS)
+    # st.write(TRAIT_RANGES)
+    # st.write('BLE')
 
     all_question_cols = split_user_data(pd.DataFrame(user_row).T)[1].columns
     all_question_scores = get_user_scores_from_row(user_row)
     all_peer_scores = avg_peer_scores(user_peer_data)
 
-    st.write(all_question_cols)
-    st.write(all_question_scores)
-    st.write(all_peer_scores)
+    # st.write(all_question_cols)
+    # st.write(all_question_scores)
+    # st.write(all_peer_scores)
 
 
     col_ind_lower = 0
@@ -448,7 +448,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         )
         
         # --- Create pie chart for self score ---
-        overall_score = sum(question_scores) / len(question_scores) if len(question_scores) > 0 else 0
+        overall_score = [sum(question_scores), sum(peer_scores)].mean() / 24 * 100
         pie_fig = go.Figure(go.Pie(
             labels=[f"{trait} Score", "Remaining"],
             values=[overall_score, 6 - overall_score],
@@ -540,19 +540,19 @@ df_peer_data = prepare_peer_data(peerdata)
 user_row = get_user_row_by_uuid(df_user_data, uuid_input)
 user_peer_data = get_peer_data_from_user_row(df_peer_data, user_row)
 
-st.write("UNFORMAT PEER")
-st.write(peerdata)
-st.write("UNFORMAT USER")
-st.write(data)
+# st.write("UNFORMAT PEER")
+# st.write(peerdata)
+# st.write("UNFORMAT USER")
+# st.write(data)
 
-st.write("FORMAT PEER")
-st.write(df_peer_data)
-st.write("FORMAT USER")
-st.write(df_user_data)
-st.write("USER ROW")
-st.write(user_row)
-st.write("USER PEER")
-st.write(user_peer_data)
+# st.write("FORMAT PEER")
+# st.write(df_peer_data)
+# st.write("FORMAT USER")
+# st.write(df_user_data)
+# st.write("USER ROW")
+# st.write(user_row)
+# st.write("USER PEER")
+# st.write(user_peer_data)
 
 
 trait_plots(uuid_input, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data)
