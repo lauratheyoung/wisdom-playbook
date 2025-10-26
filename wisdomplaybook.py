@@ -97,8 +97,6 @@ def get_user_scores_from_row(user_row):
 
 #Initialising constant variables
 
-st.write("checking where table is generated")
-
 # List of traits in order
 TRAIT_COLS = ["Purposeful", "Playful", "Adventurous", "Adaptable",
               "Curious", "Charitable", "Engaged", "Ethical"]
@@ -138,6 +136,8 @@ def compute_trait_scores(df):
 
 # Compute aggregated scores for all users and get df_traits
 df_traits = compute_trait_scores(data)
+
+st.write("checking where table is generated")
 
 
 # Compute for peer data
