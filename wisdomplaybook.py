@@ -284,7 +284,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     fig.add_trace(go.Bar(
         y=trait_cols,
         x=peer_scores,
-        name='Peer Review',
+        name='Peer Average',
         orientation='h',
         marker_color='#070D2E',
         text=[f"{p}%" for p in peer_scores],
