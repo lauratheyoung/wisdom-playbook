@@ -447,10 +447,9 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             font=dict(family='Inter, sans-serif')
         )
         st.write(sum(question_scores) + sum(peer_scores) / 2)
-        st.write(((sum(question_scores) + sum(peer_scores) / 2) - 8) / 16)
-        st.write(((sum(question_scores) + sum(peer_scores) / 2) - 8 / 16) * 100)
+        st.write(((sum(question_scores) + sum(peer_scores) / 2) - 4) / 20)
         # --- Create pie chart for self score ---
-        overall_score = (((sum(question_scores) + sum(peer_scores) / 2) - 8) / 16) * 100
+        overall_score = (((sum(question_scores) + sum(peer_scores) / 2) - 4) / 20) * 100
         pie_fig = go.Figure(go.Pie(
             labels=[f"{trait} Score", "Remaining"],
             values=[overall_score, 100 - overall_score],
