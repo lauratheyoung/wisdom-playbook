@@ -502,11 +502,11 @@ user_name = user_data["What is your first name?"].iloc[0]
 # consistency_pct, consistent_traits, inconsistent_traits = compute_consistency(user_row, peer_mean_scores, TRAIT_COLS)
 
 # Display message
-display_dynamic_message(
-    user_name, strengths, growth, 
-    peer_strengths, peer_growth, 
-    consistency_pct, consistent_traits, inconsistent_traits
-)
+# display_dynamic_message(
+#     user_name, strengths, growth, 
+#     peer_strengths, peer_growth, 
+#     consistency_pct, consistent_traits, inconsistent_traits
+# )
 
 
 
@@ -521,6 +521,14 @@ df_peer_traits = compute_peer_strengths(df_peer_traits, TRAIT_COLS)
 peer_rows = df_peer_traits[df_peer_traits["Full Name"] == user_row["Full Name"]]
 peer_strengths, peer_growth, peer_mean_scores = get_user_peer_feedback(peer_rows, TRAIT_COLS)
 consistency_pct, consistent_traits, inconsistent_traits = compute_consistency(user_row, peer_mean_scores, TRAIT_COLS)
+
+# Display message
+display_dynamic_message(
+    user_name, strengths, growth, 
+    peer_strengths, peer_growth, 
+    consistency_pct, consistent_traits, inconsistent_traits
+)
+
 
 # Load the overview chart
 fig = plot_trait_comparison(user_row, peer_mean_scores, TRAIT_COLS)
