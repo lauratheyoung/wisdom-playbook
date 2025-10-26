@@ -404,7 +404,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
                 xanchor='right',        # anchor the legend box to the right
                 x=1                     # align to right edge
             ),
-            margin=dict(b=80)           # add space at bottom for legend
+            margin=dict(l=150,b=80)           # fixed margin points
         )
 
         # --- Create pie chart for self score ---
