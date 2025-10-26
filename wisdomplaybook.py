@@ -368,8 +368,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             name='Self Assessment',
             marker_color='#898DF7',
             text=[str(round(s,1)) for s in question_scores],
-            textposition='outside',
-            hovertemplate='' 
+            textposition='outside'
         ))
         
         # Peer scores
@@ -380,8 +379,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             name='Peer Average',
             marker_color='#070D2E',
             text=[str(round(s,1)) for s in peer_scores],
-            textposition='outside',
-            hovertemplate=''
+            textposition='outside'
         ))
         
         bar_fig.update_layout(
@@ -408,6 +406,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
                 x=1
             ),
             margin=dict(b=80, t=50),  # small, flexible top/bottom margins
+            hoverinfo='skip'
         )
 
 
