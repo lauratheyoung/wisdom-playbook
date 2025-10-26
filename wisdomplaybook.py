@@ -446,12 +446,12 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             barmode='group',  # group bars side by side
             font=dict(family='Inter, sans-serif')
         )
-        st.write(sum(question_scores) + sum(peer_scores) / 2)
+        st.write(((sum(question_scores) + sum(peer_scores) / 2) - 8 / 16) * 100)
         # --- Create pie chart for self score ---
-        overall_score = (sum(question_scores) + sum(peer_scores) / 2) / 24 * 100
+        overall_score = ((sum(question_scores) + sum(peer_scores) / 2) - 8 / 16) * 100
         pie_fig = go.Figure(go.Pie(
             labels=[f"{trait} Score", "Remaining"],
-            values=[overall_score, 6 - overall_score],
+            values=[overall_score, 100 - overall_score],
             hole=0.4,
             marker_colors=['#549D8A', '#D9D9D9'],
             textinfo='none'
@@ -459,7 +459,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         pie_fig.add_annotation(
             x=0.5,
             y=0.5,
-            text=f"{round((overall_score/6)*100,1)}%",
+            text=f"{round(overall_score,1)}%",
             showarrow=False,
             font=dict(family='Inter, sans-serif', size=24, color='black')
         )
