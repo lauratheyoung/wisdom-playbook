@@ -134,7 +134,6 @@ def compute_trait_scores(df):
     id_cols = [col for col in id_cols if col in df_traits.columns]
     return df_traits[id_cols + TRAIT_COLS]
 
-
 # Compute aggregated scores for all users and get df_traits
 df_traits = compute_trait_scores(data)
 
@@ -147,47 +146,6 @@ df_peer_traits = compute_trait_scores(peerdata)
 st.write('peer data')
 st.write(peerdata)
 
-# def compute_peer_question_scores(individual_df: pd.DataFrame,
-#                                  peer_df: pd.DataFrame,
-#                                  question_col_start: int = 2,
-#                                  question_col_end: int = 34,
-#                                  first_name_col: str = "What is your first name?",
-#                                  last_name_col: str = "What is your last name?",
-#                                  peer_name_col: str = "Who are you peer reviewing? (First and Last Name)") -> pd.DataFrame:
-#     """
-#     Compute average scores per question for peers, matched by full name.
-
-#     Parameters:
-#         individual_df: DataFrame with individual responses (first + last name split)
-#         peer_df: DataFrame with peer responses (full name in one column)
-#         question_col_start, question_col_end: numeric question column slice (0-indexed)
-#         first_name_col, last_name_col: columns in individual_df
-#         peer_name_col: column in peer_df containing full name
-
-#     Returns:
-#         DataFrame: index = Full Name, columns = numeric question columns, values = average scores
-#     """
-#     ind_df = individual_df.copy()
-#     peer_df = peer_df.copy()
-    
-#     # Normalize individual full name
-#     ind_df["Full Name"] = (ind_df[first_name_col].str.strip() + " " + ind_df[last_name_col].str.strip()).str.upper()
-    
-#     # Normalize peer full name
-#     peer_df["Full Name"] = peer_df[peer_name_col].str.strip().str.upper()
-    
-#     # Select question columns
-#     question_cols = peer_df.columns[question_col_start:question_col_end]
-    
-#     # Convert to numeric
-#     peer_df[question_cols] = peer_df[question_cols].apply(pd.to_numeric, errors='coerce')
-    
-#     # Group by full name to compute average per question
-#     peer_question_scores = peer_df.groupby("Full Name")[question_cols].mean().round(1)
-    
-#     return peer_question_scores
-
-# peer_question_scores=compute_peer_question_scores(data, peerdata)
 
 # Backend logic to determine users strength and growth traits by aggregating trait scores and comparing  --> not sure what to do if there are ties
 def determine_strength_growth(user_row, trait_cols, top_n=3):
@@ -389,17 +347,10 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
     for each trait, comparing individual vs peer scores.
     peer_data: pandas DataFrame with same columns as `data` containing peer averages
     """
-    # st.write(TRAIT_COLS)
-    # st.write(TRAIT_RANGES)
-    # st.write('BLE')
 
     all_question_cols = split_user_data(pd.DataFrame(user_row).T)[1].columns
     all_question_scores = get_user_scores_from_row(user_row)
     all_peer_scores = avg_peer_scores(user_peer_data)
-
-    # st.write(all_question_cols)
-    # st.write(all_question_scores)
-    # st.write(all_peer_scores)
 
 
     col_ind_lower = 0
@@ -539,20 +490,5 @@ df_peer_data = prepare_peer_data(peerdata)
 
 user_row = get_user_row_by_uuid(df_user_data, uuid_input)
 user_peer_data = get_peer_data_from_user_row(df_peer_data, user_row)
-
-# st.write("UNFORMAT PEER")
-# st.write(peerdata)
-# st.write("UNFORMAT USER")
-# st.write(data)
-
-# st.write("FORMAT PEER")
-# st.write(df_peer_data)
-# st.write("FORMAT USER")
-# st.write(df_user_data)
-# st.write("USER ROW")
-# st.write(user_row)
-# st.write("USER PEER")
-# st.write(user_peer_data)
-
 
 trait_plots(uuid_input, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data)
