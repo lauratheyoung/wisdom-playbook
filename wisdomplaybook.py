@@ -441,13 +441,12 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         bar_fig.update_layout(
             title_text=f"{trait} - Question Scores",
             title_font=dict(family='Inter, sans-serif', size=16, color='black'),
-            xaxis=dict(title="Score", range=[0, 7]),
+            xaxis=dict(title="Score", range=[1, 7]),
             yaxis=dict(title="", tickfont=dict(family='Inter, sans-serif', size=10, color='black'), automargin=True),
             barmode='group',  # group bars side by side
             font=dict(family='Inter, sans-serif')
         )
-        st.write((sum(question_scores) + sum(peer_scores)) / 2)
-        st.write(((sum(question_scores) + sum(peer_scores) / 2) - 4) / 20)
+
         # --- Create pie chart for self score ---
         overall_score = ((((sum(question_scores) + sum(peer_scores)) / 2) - 4) / 20) * 100
         pie_fig = go.Figure(go.Pie(
