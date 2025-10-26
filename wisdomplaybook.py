@@ -393,6 +393,8 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
     st.write(TRAIT_RANGES)
     st.write('BLE')
 
+    st.write(user_row)
+    st.write(user_peer_data)
     all_question_cols = split_user_data(pd.DataFrame(user_row).T)[1].columns
     all_question_scores = get_user_scores_from_row(user_row)
     all_peer_scores = avg_peer_scores(user_peer_data)
