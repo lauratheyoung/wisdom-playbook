@@ -368,7 +368,8 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             name='Self Assessment',
             marker_color='#898DF7',
             text=[str(round(s,1)) for s in question_scores],
-            textposition='outside'
+            textposition='outside',
+            hovertemplate='' 
         ))
         
         # Peer scores
@@ -379,7 +380,8 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             name='Peer Average',
             marker_color='#070D2E',
             text=[str(round(s,1)) for s in peer_scores],
-            textposition='outside'
+            textposition='outside',
+            hovertemplate=''
         ))
         
         bar_fig.update_layout(
@@ -458,6 +460,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             st.plotly_chart(pie_fig, use_container_width=True, config={'displayModeBar':False})
         with col2:
             st.plotly_chart(bar_fig, use_container_width=True, config={'displayModeBar':False})
+
         st.markdown("</div>", unsafe_allow_html=True)
 
 
