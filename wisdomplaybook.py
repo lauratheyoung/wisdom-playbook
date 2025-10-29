@@ -333,23 +333,6 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         ),
     )
 
-    fig.add_shape(
-        type="rect",
-        x0=-0.02, y0=-0.02,
-        x1=1.02, y1=1.02,
-        xref="paper",
-        yref="paper",
-        line=dict(color="#D3D3D3", width=3),
-        fillcolor="#F9F9F9",
-        layer="below",
-        # rounded corners
-        xanchor="left",
-        yanchor="bottosm",
-        rx=15,  # horizontal radius
-        ry=15   # vertical radiu
-    )
-
-
     return fig
 
 def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
