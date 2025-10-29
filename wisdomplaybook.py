@@ -380,7 +380,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         ))
         
         bar_fig.update_layout(
-            title_text=f"{trait} - Question Scores",
+            title_text=f"{trait} Questions",
             title_font=dict(family='Inter, sans-serif', size=16, color='black'),
             xaxis=dict(
                 title="Score",
