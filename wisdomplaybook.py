@@ -460,6 +460,17 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         st.markdown("</div>", unsafe_allow_html=True)
 
 
+def dynamic_closing():
+    f'''
+    <div class="conclusion-card">
+        <p>Your job now is to:</p>
+        <p>1. Use your strong traits in how you show up; continue to share your strengths with the world</p>
+        <p>2. Explore ways of improving the scores on the traits and statements you scored lowest. The Wisdom Playbook offers you ways to do just that, working at your own pace</p>
+        <p>3. Reflect on the wisdom traits and statements where there was inconsistency between your own assessment and that of others</p>
+    </div>
+
+    '''
+
 # --- Main logic ---
 
 if not uuid_input:
@@ -513,3 +524,5 @@ user_row = get_user_row_by_uuid(df_user_data, uuid_input)
 user_peer_data = get_peer_data_from_user_row(df_peer_data, user_row)
 
 trait_plots(uuid_input, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data)
+
+dynamic_closing()
