@@ -173,8 +173,6 @@ def determine_strength_growth(user_row, trait_cols, top_n=3):
 
     return strengths, growth
 
-
-
 # --- Helper functions ---
 
 def compute_peer_strengths(df, trait_cols):
@@ -196,8 +194,6 @@ def get_user_peer_feedback(peer_rows, trait_cols):
 
 def compute_consistency(user_row, peer_mean_scores, trait_cols, tolerance=0.5):
     consistent, inconsistent = [], []
-    st.write(user_row)
-    st.write(peer_mean_scores)
     if peer_mean_scores is None:
         return 0, consistent, inconsistent
     for trait in trait_cols:
