@@ -223,30 +223,58 @@ def display_dynamic_message(
             unsafe_allow_html=True
         )
 
-        # Congrats card
+        # Build the main text
+        peer_text = ""
+        if peer_strengths and peer_growth and consistency_pct is not None:
+            peer_text = (
+                f'<p>Consistency with peer assessment: {consistency_pct}% '
+                f'({", ".join(consistent_traits)}). '
+                f'Inconsistencies: {", ".join(inconsistent_traits)}</p>'
+            )
+
+        # Render a single card with both main and conditional text
         st.markdown(
             f'''
             <div class="congrats-card">
                 <h1>Congratulations, {user_name}!</h1>
-                <p>You've taken the first steps towards reflecting on your own wisdom. Your self-assessment shows your areas of strength are: 
-                    <span class="strengths">{', '.join(strengths)}</span> traits. The areas for you to work on are: 
+                <p>
+                    You've taken the first steps towards reflecting on your own wisdom. 
+                    Your self-assessment shows your areas of strength are: 
+                    <span class="strengths">{', '.join(strengths)}</span> traits. 
+                    The areas for you to work on are: 
                     <span class="growth">{', '.join(growth)}</span> traits.
                 </p>
+                {peer_text}
             </div>
             ''',
             unsafe_allow_html=True
         )
 
-        # Peer card (optional)
-        if peer_strengths and peer_growth and consistency_pct is not None:
-            st.markdown(
-                f'''
-                <div class="congrats-card">
-                    <p>Consistency with peer assessment: {consistency_pct}% ({', '.join(consistent_traits)}). Inconsistencies: {', '.join(inconsistent_traits)}</p>
-                </div>
-                ''',
-                unsafe_allow_html=True
-            )
+
+        # Congrats card
+        # st.markdown(
+        #     f'''
+        #     <div class="congrats-card">
+        #         <h1>Congratulations, {user_name}!</h1>
+        #         <p>You've taken the first steps towards reflecting on your own wisdom. Your self-assessment shows your areas of strength are: 
+        #             <span class="strengths">{', '.join(strengths)}</span> traits. The areas for you to work on are: 
+        #             <span class="growth">{', '.join(growth)}</span> traits.
+        #         </p>
+        #     </div>
+        #     ''',
+        #     unsafe_allow_html=True
+        # )
+
+        # # Peer card (optional)
+        # if peer_strengths and peer_growth and consistency_pct is not None:
+        #     st.markdown(
+        #         f'''
+        #         <div class="congrats-card">
+        #             <p>Consistency with peer assessment: {consistency_pct}% ({', '.join(consistent_traits)}). Inconsistencies: {', '.join(inconsistent_traits)}</p>
+        #         </div>
+        #         ''',
+        #         unsafe_allow_html=True
+        #     )
 
 def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     """
