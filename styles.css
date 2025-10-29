@@ -34,7 +34,7 @@ html, body, [class*="st-"], .welcome-card {
     text-align: center;
 }
 
-.congrats-card * .wisdom-playbook {
+.congrats-card {
     display: flex;                  /* enable flex layout */
     flex-wrap: wrap;                /* wrap content on small screens */
     background-color: #D9D9D9;     /* subtle card background */
