@@ -50,10 +50,6 @@ html, body, [class*="st-"], .welcome-card {
     box-sizing: border-box;
 }
 
-.peer-card{
-    margin-bottom: 5%;
-}
-
 .conclusion-card {
     display: flex;
     flex-direction: column;

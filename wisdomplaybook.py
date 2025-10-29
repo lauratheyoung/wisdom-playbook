@@ -241,7 +241,7 @@ def display_dynamic_message(
         if peer_strengths and peer_growth and consistency_pct is not None:
             st.markdown(
                 f'''
-                <div class="peer-card">
+                <div class="congrats-card">
                     <p>Consistency with peer assessment: {consistency_pct}% ({', '.join(consistent_traits)})</p>
                     <p>Inconsistencies: {', '.join(inconsistent_traits)}</p>
                 </div>
