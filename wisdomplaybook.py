@@ -196,6 +196,8 @@ def get_user_peer_feedback(peer_rows, trait_cols):
 
 def compute_consistency(user_row, peer_mean_scores, trait_cols, tolerance=1.0):
     consistent, inconsistent = [], []
+    st.write(user_row)
+    st.write(peer_mean_scores)
     if peer_mean_scores is None:
         return 0, consistent, inconsistent
     for trait in trait_cols:
@@ -498,7 +500,6 @@ peer_rows = df_peer_traits[df_peer_traits["Full Name"] == user_row["Full Name"]]
 peer_strengths, peer_growth, peer_mean_scores = get_user_peer_feedback(peer_rows, TRAIT_COLS)
 consistency_pct, consistent_traits, inconsistent_traits = compute_consistency(user_row, peer_mean_scores, TRAIT_COLS)
 
-st.write(peer_mean_scores)
 
 # Display message
 display_dynamic_message(
