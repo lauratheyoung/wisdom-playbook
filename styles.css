@@ -47,9 +47,11 @@ html, body, [class*="st-"], .welcome-card {
     max-width: 95%;
     margin-top: 5%;
     margin-bottom: 5%;
-    /* margin-left: auto;
-    margin-right: auto; */
     box-sizing: border-box;
+}
+
+.peer-card{
+    margin-bottom: 5%;
 }
 
 .conclusion-card {
@@ -65,7 +67,5 @@ html, body, [class*="st-"], .welcome-card {
     max-width: 95%;
     margin-top: 5%;
     margin-bottom: 5%;
-    /* margin-left: auto;
-    margin-right: auto; */
     box-sizing: border-box;
 }
