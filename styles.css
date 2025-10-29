@@ -48,3 +48,13 @@ html, body, [class*="st-"], .welcome-card {
     margin-right: auto;             /* center horizontally */
     box-sizing: border-box;         /* include padding and border in width */
 }
+
+.congrats-card .strengths,
+.congrats-card .growth {
+    display: inline-block;
+    background-color: #070D2E;
+    color: white;
+    padding: 0.2em 0.4em;
+    border-radius: 0.3em;
+    text-align: center;
+}
