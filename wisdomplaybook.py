@@ -473,6 +473,10 @@ def dynamic_closing():
         unsafe_allow_html=True
     )
 
+# def pace_animation():
+#     st.empty()
+
+
 # --- Main logic ---
 
 if not uuid_input:
@@ -517,7 +521,27 @@ display_dynamic_message(
 
 # Load the overview chart
 fig = plot_trait_comparison(user_row, peer_mean_scores, TRAIT_COLS)
-st.plotly_chart(fig, use_container_width=True)
+# st.plotly_chart(fig, use_container_width=True)
+st.markdown(
+    """
+    <div style="
+        border: 0.15rem solid #D3D3D3;          /* light grey border */
+        border-radius: 1rem;                    /* rounded corners */
+        padding: 2vw 2vh;                       /* responsive padding based on screen */
+        background-color: #F9F9F9;              /* subtle background */
+        box-shadow: 0 0.3rem 1rem rgba(0,0,0,0.05); /* soft shadow */
+        max-width: 95%;                         /* keeps within container */
+        margin: auto;                           /* center horizontally */
+    ">
+    """,
+    unsafe_allow_html=True
+)
+
+st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+
+# Close the container
+st.markdown("</div>", unsafe_allow_html=True)
+
 
 df_user_data = prepare_user_data(data)
 df_peer_data = prepare_peer_data(peerdata)
