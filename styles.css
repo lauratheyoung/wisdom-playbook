@@ -45,7 +45,7 @@ html, body, [class*="st-"], .welcome-card {
     margin-bottom: 2%;
     box-shadow: 0 0.4rem 0.8rem rgba(0,0,0,0.1);
     max-width: 95%;
-    margin-left: auto;
-    margin-right: auto;
+    /* margin-left: auto;
+    margin-right: auto; */
     box-sizing: border-box;
 }
