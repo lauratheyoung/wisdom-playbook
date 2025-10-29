@@ -228,11 +228,11 @@ def display_dynamic_message(
             f'''
             <div class="congrats-card">
                 <h1>Congratulations, {user_name}!</h1>
-                <p>Your strength traits are: 
-                    <span class="strengths">{', '.join(strengths)}</span>.
+                <p>/You've taken the first steps towards reflecting on your own wisdom. Your self-assessment shows your areas of strength are: 
+                    <span class="strengths">{', '.join(strengths)}</span> traits.
                 </p>
-                <p>Your growth traits are: 
-                    <span class="growth">{', '.join(growth)}</span>.
+                <p>The areas for you to work on are: 
+                    <span class="growth">{', '.join(growth)}</span> traits.
                 </p>
             </div>
             ''',
