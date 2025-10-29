@@ -405,7 +405,12 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             margin=dict(b=80, t=50),  # small, flexible top/bottom margins
         )
 
-        bar_fig.update_traces(hoverinfo='skip')
+        #bar_fig.update_traces(hoverinfo='skip')
+        def wrap_labels(labels, width=40):
+            return [('<br>'.join([label[i:i+width] for i in range(0, len(label), width)])) for label in labels]
+
+        bar_fig.update_traces(y=wrap_labels(question_cols, width=40),hoverinfo='skip')
+
 
 
         # --- Create pie chart for self score ---
