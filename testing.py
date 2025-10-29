@@ -62,28 +62,36 @@
 #     df[cols] = df[cols].apply(pd.to_numeric, errors="coerce")
 #     return df
 
-# def compute_trait_scores_from_ranges(df: pd.DataFrame,
-#                                      trait_ranges: Dict[str, Tuple[int,int]]) -> pd.DataFrame:
+# def compute_trait_scores(df: pd.DataFrame, trait_cols: List[str]) -> pd.DataFrame:
 #     df = df.copy()
-#     trait_columns_mapping = {}
+#     # ensure numeric
+#     df[trait_cols] = df[trait_cols].apply(pd.to_numeric, errors="coerce")
+#     # pick ID columns if they exist
+#     id_cols = [c for c in ["Timestamp", "UUID", "What is your first name?", "What is your last name?"] if c in df.columns]
+#     return df[id_cols + trait_cols].copy()
 
-#     for trait, (start, end) in trait_ranges.items():
-#         start_idx = max(0, start-1)
-#         end_idx = min(len(df.columns), end)  # end exclusive
-#         trait_columns_mapping[trait] = list(df.columns[start_idx:end_idx])
-#         if len(trait_columns_mapping[trait]) == 0:
-#             raise ValueError(f"No columns found for trait {trait} with range {start}-{end}")
 
-#     all_q_cols = [col for cols in trait_columns_mapping.values() for col in cols]
-#     df = ensure_numeric(df, all_q_cols)
+# # def compute_trait_scores_from_ranges(df: pd.DataFrame,
+# #                                      trait_ranges: Dict[str, Tuple[int,int]]) -> pd.DataFrame:
+# #     df = df.copy()
+# #     trait_columns_mapping = {}
 
-#     for trait, cols in trait_columns_mapping.items():
-#         df[trait] = df[cols].mean(axis=1).round(1)
+# #     for trait, (start, end) in trait_ranges.items():
+# #         start_idx = max(0, start-1)
+# #         end_idx = min(len(df.columns), end)  # end exclusive
+# #         trait_columns_mapping[trait] = list(df.columns[start_idx:end_idx])
+# #         if len(trait_columns_mapping[trait]) == 0:
+# #             raise ValueError(f"No columns found for trait {trait} with range {start}-{end}")
 
-#     id_cols = [c for c in ["Timestamp", "What is your first name?", "What is your last name?", "UUID"] if c in df.columns]
+# #     all_q_cols = [col for cols in trait_columns_mapping.values() for col in cols]
+# #     df = ensure_numeric(df, all_q_cols)
 
-#     return df[id_cols + list(trait_columns_mapping.keys())].copy()
+# #     for trait, cols in trait_columns_mapping.items():
+# #         df[trait] = df[cols].mean(axis=1).round(1)
 
+# #     id_cols = [c for c in ["Timestamp", "What is your first name?", "What is your last name?", "UUID"] if c in df.columns]
+
+# #     return df[id_cols + list(trait_columns_mapping.keys())].copy()
 
 
 # def determine_strength_growth(user_row: pd.Series, trait_cols: List[str], top_n: int = 3
@@ -181,8 +189,10 @@
 
 #     # Compute trait score frames
 #     try:
-#         df_traits = compute_trait_scores_from_ranges(data, TRAIT_QUESTION_RANGES)
-#         df_peer_traits = compute_trait_scores_from_ranges(peerdata, TRAIT_QUESTION_RANGES)
+#         df_traits = compute_trait_scores(data, TRAITS)
+#         df_peer_traits = compute_trait_scores(peerdata, TRAITS)
+#         st.write("Columns in df_peer_traits:", df_peer_traits.columns.tolist())
+
 #     except KeyError as e:
 #         st.error(f"Sheet format problem: {e}")
 #         st.stop()
