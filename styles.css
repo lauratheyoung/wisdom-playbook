@@ -34,12 +34,17 @@ html, body, [class*="st-"], .welcome-card {
     text-align: center;
 }
 
-.graph2-card {
-    display: flex;
-    flex-wrap: wrap;
-    background-color:#D9D9D9;
-    border-radius: 2rem;
-    padding: 2% 3%;
-    margin-bottom: 2%;
-    box-shadow: 0 0.4rem 0.8rem rgba(0,0,0,0.1); 
+.congrats-card .wisdom-playbook {
+    display: flex;                  /* enable flex layout */
+    flex-wrap: wrap;                /* wrap content on small screens */
+    background-color: #D9D9D9;     /* subtle card background */
+    border: 0.2rem solid #070D2E;  /* responsive border in your color */
+    border-radius: 2rem;            /* rounded corners */
+    padding: 2% 3%;                 /* responsive padding */
+    margin-bottom: 2%;              /* spacing below the card */
+    box-shadow: 0 0.4rem 0.8rem rgba(0,0,0,0.1); /* soft shadow */
+    max-width: 95%;                 /* prevent overflow on smaller screens */
+    margin-left: auto;              /* center horizontally */
+    margin-right: auto;             /* center horizontally */
+    box-sizing: border-box;         /* include padding and border in width */
 }
