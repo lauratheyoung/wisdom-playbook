@@ -242,8 +242,7 @@ def display_dynamic_message(
             st.markdown(
                 f'''
                 <div class="congrats-card">
-                    <p>Consistency with peer assessment: {consistency_pct}% ({', '.join(consistent_traits)})</p>
-                    <p>Inconsistencies: {', '.join(inconsistent_traits)}</p>
+                    <p>Consistency with peer assessment: {consistency_pct}% ({', '.join(consistent_traits)}). Inconsistencies: {', '.join(inconsistent_traits)}</p>
                 </div>
                 ''',
                 unsafe_allow_html=True
