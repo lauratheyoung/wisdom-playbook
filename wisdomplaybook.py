@@ -6,6 +6,7 @@ import streamlit as st
 import pandas as pd
 import streamlit.components.v1 as components
 import numpy as np
+import textwrap
 
 # Set-up
 creds_info = st.secrets
@@ -406,11 +407,20 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         )
 
         #bar_fig.update_traces(hoverinfo='skip')
+
         def wrap_labels(labels, width=40):
-            return [('<br>'.join([label[i:i+width] for i in range(0, len(label), width)])) for label in labels]
+            wrapped = []
+            for label in labels:
+                # wrap at word boundaries
+                wrapped_label = "<br>".join(textwrap.wrap(label, width=width))
+                wrapped.append(wrapped_label)
+            return wrapped
 
-        bar_fig.update_traces(y=wrap_labels(question_cols, width=40),hoverinfo='skip')
-
+        # Apply to y-axis
+        bar_fig.update_traces(
+            y=wrap_labels(question_cols, width=40),
+            hoverinfo='skip'  # removes hover labels
+        )
 
 
         # --- Create pie chart for self score ---
