@@ -521,23 +521,30 @@ display_dynamic_message(
 
 # Load the overview chart
 fig = plot_trait_comparison(user_row, peer_mean_scores, TRAIT_COLS)
-# st.plotly_chart(fig, use_container_width=True)
-st.markdown(
-    """
-    <div style="
-        border: 0.15rem solid #D3D3D3;          /* light grey border */
-        border-radius: 1rem;                    /* rounded corners */
-        padding: 2vw 2vh;                       /* responsive padding based on screen */
-        background-color: #F9F9F9;              /* subtle background */
-        box-shadow: 0 0.3rem 1rem rgba(0,0,0,0.05); /* soft shadow */
-        max-width: 95%;                         /* keeps within container */
-        margin: auto;                           /* center horizontally */
-    ">
-    """,
-    unsafe_allow_html=True
-)
+# Create a bordered container for the chart
+with st.container():
+    st.markdown(
+        """
+        <style>
+        .bordered-box {
+            border: 0.15rem solid #D3D3D3;        /* light grey border */
+            border-radius: 1rem;                  /* rounded corners */
+            padding: 2vw 2vh;                     /* responsive padding */
+            background-color: #F9F9F9;            /* subtle background */
+            box-shadow: 0 0.3rem 1rem rgba(0,0,0,0.05); /* soft shadow */
+            max-width: 95%;
+            margin: auto;
+        }
+        </style>
+        <div class="bordered-box">
+        """,
+        unsafe_allow_html=True
+    )
 
-st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+    st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
 
 # Close the container
 st.markdown("</div>", unsafe_allow_html=True)
