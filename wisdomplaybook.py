@@ -461,15 +461,17 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
 
 
 def dynamic_closing():
-    f'''
-    <div class="conclusion-card">
-        <p>Your job now is to:</p>
-        <p>1. Use your strong traits in how you show up; continue to share your strengths with the world</p>
-        <p>2. Explore ways of improving the scores on the traits and statements you scored lowest. The Wisdom Playbook offers you ways to do just that, working at your own pace</p>
-        <p>3. Reflect on the wisdom traits and statements where there was inconsistency between your own assessment and that of others</p>
-    </div>
+    st.markdown(f'''
+        <div class="conclusion-card">
+            <p>Your job now is to:</p>
+            <p>1. Use your strong traits in how you show up; continue to share your strengths with the world</p>
+            <p>2. Explore ways of improving the scores on the traits and statements you scored lowest. The Wisdom Playbook offers you ways to do just that, working at your own pace</p>
+            <p>3. Reflect on the wisdom traits and statements where there was inconsistency between your own assessment and that of others</p>
+        </div>
 
-    '''
+        ''',
+        unsafe_allow_html=True
+    )
 
 # --- Main logic ---
 
