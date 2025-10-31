@@ -52,7 +52,7 @@ html, body, [class*="st-"], .welcome-card {
 }
 
 .welcome-card .logo {
-    height: 1.2em;               /* scales with h2 font */
+    height: clamp(1.8rem, 2.5vw + 1rem, 5rem);
     display: inline-block;
     vertical-align: middle;
     object-fit: contain;
