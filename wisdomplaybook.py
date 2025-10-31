@@ -239,16 +239,6 @@ def display_dynamic_message(
 
         if peer_strengths and peer_growth and consistency_pct is not None:
 
-            # def format_trait_list(traits):
-            #     if not traits:
-            #         return ""
-            #     elif len(traits) == 1:
-            #         return traits[0]
-            #     elif len(traits) == 2:
-            #         return f"{traits[0]} and {traits[1]}"
-            #     else:
-            #         return f"{', '.join(traits[:-1])}, and {traits[-1]}"
-
             # Format trait lists properly
             formatted_consistent_traits = format_trait_list(consistent_traits)
             formatted_inconsistent_traits = format_trait_list(inconsistent_traits)
@@ -521,7 +511,8 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
                 xanchor='center',
                 yanchor='top',
                 font=dict(family='Inter, sans-serif', size=12, color='black')
-            )
+            ),
+            hoverinfo='skip'
         )
 
         st.markdown("""
