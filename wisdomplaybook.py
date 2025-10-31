@@ -491,7 +491,8 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             hole=0.4,
             marker_colors=['#549D8A', '#D9D9D9'],
             textinfo='none',
-            hoverinfo='skip'
+            hoverinfo='skip',
+            sort = False
         ))
         pie_fig.add_annotation(
             x=0.5,
