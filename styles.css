@@ -10,7 +10,7 @@ html, body, [class*="st-"], .welcome-card {
 .welcome-card {
     display: flex;
     align-items: center;     /* vertically center text and image */
-    flex-wrap: wrap;         /* allow wrapping on smaller screens */
+    flex-wrap: nowrap;         /* allow wrapping on smaller screens */
     gap: 0.5em;              /* space between text and logo */
 }
 
