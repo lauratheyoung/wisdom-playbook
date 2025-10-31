@@ -382,6 +382,15 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
     all_question_scores = get_user_scores_from_row(user_row)
     all_peer_scores = avg_peer_scores(user_peer_data)
 
+    if user_peer_data is not None and not user_peer_data.empty:
+        all_peer_scores = avg_peer_scores(user_peer_data)
+        has_peer = True
+    else:
+        # Fallback: use zeros
+        all_peer_scores = [0] * len(all_question_cols)
+        has_peer = False
+
+
 
     col_ind_lower = 0
     for trait in TRAIT_COLS:
@@ -408,16 +417,17 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             textposition='outside'
         ))
         
-        # Peer scores
-        bar_fig.add_trace(go.Bar(
-            x=peer_scores,
-            y=question_cols,
-            orientation='h',
-            name='Peer Average',
-            marker_color='#070D2E',
-            text=[str(round(s)) for s in peer_scores],
-            textposition='outside'
-        ))
+        # If peer scores are available
+        if has_peer:
+            bar_fig.add_trace(go.Bar(
+                x=peer_scores,
+                y=question_cols,
+                orientation='h',
+                name='Peer Average',
+                marker_color='#070D2E',
+                text=[str(round(s)) for s in peer_scores],
+                textposition='outside'
+            ))
         
         bar_fig.update_layout(
             title_text=f"{trait} Questions",
@@ -463,7 +473,14 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
 
 
         # --- Create pie chart for self score ---
-        overall_score = ((((sum(question_scores) + sum(peer_scores)) / 2) - 4) / 20) * 100
+
+        # Make conditional overall_score
+        if has_peer:
+            overall_score = ((((sum(question_scores) + sum(peer_scores)) / 2) - 4) / 20) * 100
+        else:
+            overall_score = (((sum(question_scores)) - 4) / 20) * 100
+
+        #overall_score = ((((sum(question_scores) + sum(peer_scores)) / 2) - 4) / 20) * 100
         pie_fig = go.Figure(go.Pie(
             labels=[f"{trait} Score", "Remaining"],
             values=[overall_score, 100 - overall_score],
