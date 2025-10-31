@@ -322,7 +322,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         marker_color= '#898DF7',
         text=[f"{s}%" for s in self_scores],
         textposition='outside',
-        hoverinfo=False
+        hoverinfo='skip'
     ))
 
     # Peer assessment bars
