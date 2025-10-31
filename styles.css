@@ -16,15 +16,20 @@ html, body, [class*="st-"], .welcome-card {
 }
 
 .welcome-card h2 {
-    font-size: clamp(1.8rem, 2.5vw + 1rem, 5rem);  /* responsive font size */
-    margin: 0;
+    font-size: clamp(1.8rem, 2.5vw + 1rem, 5rem);
     display: flex;
-    flex-wrap: nowrap;           /* prevent wrapping of inline elements */
-    align-items: center;
+    align-items: center;      /* vertically center text and logo */
     gap: 0.4em;
-    line-height: 1.2;
-    white-space: nowrap;         /* prevent mid-word breaks */
+    white-space: nowrap;      /* keep all on same line */
+    margin: 0;
 }
+
+
+.welcome-card .user-name,
+.welcome-card .wisdom-playbook {
+    flex-shrink: 0;
+}
+
 
 .welcome-card .user-name {
     background-color: #7276F5;   /* purple */
