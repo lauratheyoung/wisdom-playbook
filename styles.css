@@ -10,7 +10,6 @@ html, body, [class*="st-"], .welcome-card {
 .welcome-card {
     display: flex;
     align-items: center;     /* vertically center text and image */
-    flex-wrap: nowrap;         /* allow wrapping on smaller screens */
     gap: 0.5em;              /* space between text and logo */
 }
 
@@ -19,7 +18,7 @@ html, body, [class*="st-"], .welcome-card {
     margin: 0;               /* remove default spacing */
     display: flex;
     align-items: center;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 0.4em;
 }
 
@@ -38,7 +37,7 @@ html, body, [class*="st-"], .welcome-card {
 }
 
 .welcome-card .logo {
-    height: 7vw;
+    height: 5em;
     /* border-radius: 0.3em; */
     object-fit: contain;
     vertical-align: middle;
