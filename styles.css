@@ -10,7 +10,7 @@ html, body, [class*="st-"], .welcome-card {
 .welcome-card {
     display: flex;
     align-items: center;     /* vertically center text and image */
-    flex-wrap: nowrap;         /* allow wrapping on smaller screens */
+    flex-wrap: wrap;         /* allow wrapping on smaller screens */
     gap: 0.5em;              /* space between text and logo */
 }
 
@@ -44,71 +44,6 @@ html, body, [class*="st-"], .welcome-card {
     vertical-align: middle;
     display: inline-block;
 }
-
-
-
-/* .welcome-card, 
-.welcome-card * {
-    font-size: 4vw; 
-}
-
-.welcome-card h2{
-    font-size: 3vw;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5em;
-}
-
-.welcome-card .user-name {
-    background-color: #7276F5;
-    color: white;
-    padding: 0.2em 0.4em;
-    border-radius: 0.3em;
-    text-align: center;
-}
-
-.welcome-card .wisdom-playbook {
-    background-color: #070D2E;
-    color: white;
-    padding: 0.2em 0.4em;
-    border-radius: 0.3em;
-    text-align: center;
-}
-
-.welcome-card .logo {
-    height: 2em;
-    border-radius: 0.3em;
-    object-fit: contain;
-} */
-
-/* .welcome-card * .user-name {
-    display: inline-block;
-    background-color: #7276F5;
-    color: white;
-    padding: 0.2em 0.4em; 
-    border-radius: 0.3em;
-    text-align: center;
-}
-
-.welcome-card * .wisdom-playbook {
-    display: inline-block;
-    background-color: #070D2E;
-    color: white;
-    padding: 0.2em 0.4em;
-    border-radius: 0.3em;
-    text-align: center;
-}
-
-.welcome-card .logo {
-    display: inline-block;
-    vertical-align: middle;
-    height: 2em;              
-    margin-left: 0.4em;
-    border-radius: 0.3em;
-    object-fit: contain;
-} */
-
 
 .congrats-card {
     display: flex;
