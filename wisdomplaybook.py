@@ -226,30 +226,51 @@ def display_dynamic_message(
 
         # peer text conditional
         peer_text = ""
-        
+
         if peer_strengths and peer_growth and consistency_pct is not None:
 
-            inconsistent_text = f'<p>There was a low consistency in how you assessed yourself and how your friends perceived you for {consistency_pct}% of wisdom statements (for {consistent_traits}). You may want to reflect on the inconsistencies between your own assessment and those of your friends, in particular, these {inconsistent_traits} wisdom statements.</p>'
-            consistent_text = f'<p>There was consistency in how you assessed yourself and how your friends perceived you for {consistency_pct}% of wisdom statements (for {consistent_traits}). You may want to reflect on the inconsistencies between your own assessment and those of your friends, in particular, these {inconsistent_traits} wisdom statements.</p>'
-            no_consistent_text = f'<p>There was no consistency in how you assessed yourself and how your friends perceived you for {consistency_pct}% of wisdom statements. You may want to reflect on the inconsistencies between your own assessment and those of your friends.</p>'
+            def format_trait_list(traits):
+                if not traits:
+                    return ""
+                elif len(traits) == 1:
+                    return traits[0]
+                elif len(traits) == 2:
+                    return f"{traits[0]} and {traits[1]}"
+                else:
+                    return f"{', '.join(traits[:-1])}, and {traits[-1]}"
 
-            if 0 < consistency_pct > 25:
+            # Format trait lists properly
+            formatted_consistent_traits = format_trait_list(consistent_traits)
+            formatted_inconsistent_traits = format_trait_list(inconsistent_traits)
+
+            inconsistent_text = (
+                f"<p>There was a low consistency in how you assessed yourself and how your friends perceived you "
+                f"for {consistency_pct}% of wisdom statements (for {formatted_consistent_traits}). "
+                f"You may want to reflect on the inconsistencies between your own assessment and those of your friends, "
+                f"in particular, these {formatted_inconsistent_traits} wisdom statements.</p>"
+            )
+
+            consistent_text = (
+                f"<p>There was consistency in how you assessed yourself and how your friends perceived you "
+                f"for {consistency_pct}% of wisdom statements (for {formatted_consistent_traits}). "
+                f"You may want to reflect on the inconsistencies between your own assessment and those of your friends, "
+                f"in particular, these {formatted_inconsistent_traits} wisdom statements.</p>"
+            )
+
+            no_consistent_text = (
+                f"<p>There was no consistency in how you assessed yourself and how your friends perceived you "
+                f"for {consistency_pct}% of wisdom statements. "
+                f"You may want to reflect on the inconsistencies between your own assessment and those of your friends.</p>"
+            )
+
+            
+            if 0 < consistency_pct <= 25:
                 peer_text = inconsistent_text
-
-            if 0 == consistency_pct:
+            elif consistency_pct == 0:
                 peer_text = no_consistent_text
-
             else:
                 peer_text = consistent_text
 
-            # peer_text = (
-            #     f'<p>There was consistency in how you assessed yourself and how your friends perceived you for {consistency_pct}% of wisdom statements (for {consistent_traits})
-                
-                
-            #     <p>Consistency with peer assessment: {consistency_pct}% '
-            #     f'({", ".join(consistent_traits)}). '
-            #     f'Inconsistencies: {", ".join(inconsistent_traits)}</p>'
-            # )
 
         # Render a single card
         st.markdown(
