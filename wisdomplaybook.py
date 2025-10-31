@@ -7,6 +7,7 @@ import pandas as pd
 import streamlit.components.v1 as components
 import numpy as np
 import textwrap
+import base64
 
 # Set-up
 creds_info = st.secrets
@@ -210,8 +211,15 @@ def display_dynamic_message(
     peer_strengths=None, peer_growth=None, 
     consistency_pct=None, consistent_traits=None, inconsistent_traits=None
 ):
+    def get_base64_image(image_path):
+        with open(image_path,"rb") as img_file:
+            return base64.b64encode(img_file.read()).decode()
+        
+    img_base64 = get_base64_image("assets/wisdomplaybook-logo.png")
+
     # Main container
     with st.container():
+
         st.markdown(
             f'''
             <div class="welcome-card">
@@ -219,8 +227,7 @@ def display_dynamic_message(
                     Welcome <span class="user-name">{user_name}</span> to the 
                     <span class="wisdom-playbook">Wisdom Playbook</span>
                 </h2>
-                <img src="assets/wisdomplaybook-logo.png" alt = "logo"/>
-                
+                <img src="data:image/png;base64,{img_base64}" alt="logo" style="max-width:150px; margin-top:10px;"/>
             </div>
             ''',
             unsafe_allow_html=True
