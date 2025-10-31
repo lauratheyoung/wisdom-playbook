@@ -13,7 +13,6 @@ html, body, [class*="st-"], .welcome-card {
     justify-content: center;
     flex-wrap: wrap;
     gap: 0.5em;
-    padding: 2% 3%;
     box-sizing: border-box;
     max-width: 100%;
     overflow: hidden;
@@ -51,7 +50,6 @@ html, body, [class*="st-"], .welcome-card {
     vertical-align: middle;
     object-fit: contain;
     flex-shrink: 1; /* scales proportionally */
-    margin-left: 0.4em;
 }
 
 
