@@ -227,11 +227,30 @@ def display_dynamic_message(
         # peer text conditional
         peer_text = ""
         if peer_strengths and peer_growth and consistency_pct is not None:
-            peer_text = (
-                f'<p>Consistency with peer assessment: {consistency_pct}% '
-                f'({", ".join(consistent_traits)}). '
-                f'Inconsistencies: {", ".join(inconsistent_traits)}</p>'
-            )
+
+            inconsistent_text = f'<p>There was a low consistency in how you assessed yourself and how your friends perceived you for {consistency_pct}% of wisdom statements (for {consistent_traits}). You may want to reflect on the inconsistencies between your own assessment and those of your friends, in particular, these {inconsistent_traits} wisdom statements.</p>'
+            consistent_text = f'<p>There was consistency in how you assessed yourself and how your friends perceived you for {consistency_pct}% of wisdom statements (for {consistent_traits}). You may want to reflect on the inconsistencies between your own assessment and those of your friends, in particular, these {inconsistent_traits} wisdom statements.</p>'
+            no_consistent_text = f'<p>There was no consistency in how you assessed yourself and how your friends perceived you for {consistency_pct}% of wisdom statements. You may want to reflect on the inconsistencies between your own assessment and those of your friends.</p>'
+            
+            body_text = ''
+
+            if 0 < consistency_pct > 25:
+                body_text = inconsistent_text
+
+            if 0 == consistency_pct:
+                body_text = no_consistent_text
+
+            else:
+                body_text = consistent_text
+
+            # peer_text = (
+            #     f'<p>There was consistency in how you assessed yourself and how your friends perceived you for {consistency_pct}% of wisdom statements (for {consistent_traits})
+                
+                
+            #     <p>Consistency with peer assessment: {consistency_pct}% '
+            #     f'({", ".join(consistent_traits)}). '
+            #     f'Inconsistencies: {", ".join(inconsistent_traits)}</p>'
+            # )
 
         # Render a single card
         st.markdown(
