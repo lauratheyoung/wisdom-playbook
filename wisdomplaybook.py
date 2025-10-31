@@ -321,7 +321,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         orientation='h',
         marker_color= '#898DF7',
         text=[f"{s}%" for s in self_scores],
-        textposition='outside'
+        textposition='outside',
     ))
 
     # Peer assessment bars
@@ -377,7 +377,6 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         automargin=True,
         side='left',                   # keep on left side
         ticklabelposition='outside left',
-        hoverinfo='skip'
         ),
     )
 
@@ -604,7 +603,7 @@ display_dynamic_message(
 
 # Load the overview chart
 fig = plot_trait_comparison(user_row, peer_mean_scores, TRAIT_COLS)
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 df_user_data = prepare_user_data(data)
 df_peer_data = prepare_peer_data(peerdata)
