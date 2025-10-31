@@ -20,7 +20,7 @@ html, body, [class*="st-"], .welcome-card {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 0.5em;
+    gap: 0.4em;
 }
 
 .welcome-card .user-name {
