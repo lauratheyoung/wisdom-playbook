@@ -17,6 +17,7 @@ html, body, [class*="st-"], .welcome-card {
     font-size: 2.5em;
     margin: 0;               /* remove default spacing */
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     flex-wrap: wrap;
     gap: 0.4em;
