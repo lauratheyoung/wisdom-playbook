@@ -15,7 +15,7 @@ html, body, [class*="st-"], .welcome-card {
     gap: 0.5em;
     padding: 0 1rem;
     box-sizing: border-box;
-    overflow: hidden; /* prevents cutting off */
+    overflow: hidden; /* ensures nothing cuts off */
 }
 
 .welcome-card h2 {
@@ -25,19 +25,22 @@ html, body, [class*="st-"], .welcome-card {
     gap: 0.4em;
     white-space: nowrap; 
     margin: 0;
-    flex-shrink: 1; /* allow text to shrink proportionally */
+    flex-shrink: 1;
     max-width: 100%;
     overflow: hidden;
-    text-overflow: ellipsis; /* optional, shows ... if extreme shrink */
+    text-overflow: ellipsis;
 }
 
 .welcome-card .user-name,
 .welcome-card .wisdom-playbook {
-    flex-shrink: 1; /* allow them to scale */
+    flex-shrink: 1; /* allows scaling */
     font-size: clamp(0.7rem, 1.5vw + 0.5rem, 1.2rem); /* responsive font */
-    padding: clamp(0.1em, 0.3vw, 0.4em) clamp(0.2em, 0.5vw, 0.6em);
+    padding: clamp(0.1em, 0.3vw, 0.4em) clamp(0.2em, 0.5vw, 0.6em); /* responsive padding */
+    border-radius: clamp(0.2em, 0.5vw, 0.4em); /* optional: scales radius */
     white-space: nowrap;
-    border-radius: 0.3em;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis; /* optional */
 }
 
 .welcome-card .user-name {
@@ -55,7 +58,7 @@ html, body, [class*="st-"], .welcome-card {
     display: inline-block;
     vertical-align: middle;
     object-fit: contain;
-    flex-shrink: 1; /* allow logo to scale */
+    flex-shrink: 1;
     margin-left: 0.4em;
 }
 
