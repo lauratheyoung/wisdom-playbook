@@ -59,7 +59,7 @@ html, body, [class*="st-"], .welcome-card {
     display: inline-block;
     vertical-align: middle;
     object-fit: contain;
-    flex-shrink: 0;
+    flex-shrink: 1;
     margin-left: 0.4em;
 }
 
