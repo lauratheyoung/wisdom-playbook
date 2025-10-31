@@ -5,6 +5,9 @@
 /* Styling the intro */
 html, body, [class*="st-"], .welcome-card {
     font-family: 'Inter', sans-serif !important;
+}
+
+body{
     display: flex;
     justify-content: center;
     min-height: 100vh;
