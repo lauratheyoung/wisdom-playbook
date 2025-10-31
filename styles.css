@@ -14,13 +14,39 @@ html, body, [class*="st-"], .welcome-card {
 
 .welcome-card h2{
     font-size: 3vw;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5em;
 }
 
-.welcome-card * .user-name {
+.welcome-card .user-name {
+    background-color: #7276F5;
+    color: white;
+    padding: 0.2em 0.4em;
+    border-radius: 0.3em;
+    text-align: center;
+}
+
+.welcome-card .wisdom-playbook {
+    background-color: #070D2E;
+    color: white;
+    padding: 0.2em 0.4em;
+    border-radius: 0.3em;
+    text-align: center;
+}
+
+.welcome-card .logo {
+    height: 2em;
+    border-radius: 0.3em;
+    object-fit: contain;
+}
+
+/* .welcome-card * .user-name {
     display: inline-block;
     background-color: #7276F5;
     color: white;
-    padding: 0.2em 0.4em;   /* use em so it scales with font-size */
+    padding: 0.2em 0.4em; 
     border-radius: 0.3em;
     text-align: center;
 }
@@ -29,7 +55,7 @@ html, body, [class*="st-"], .welcome-card {
     display: inline-block;
     background-color: #070D2E;
     color: white;
-    padding: 0.2em 0.4em;   /* em-based padding scales with font */
+    padding: 0.2em 0.4em;
     border-radius: 0.3em;
     text-align: center;
 }
@@ -37,11 +63,11 @@ html, body, [class*="st-"], .welcome-card {
 .welcome-card .logo {
     display: inline-block;
     vertical-align: middle;
-    height: 1.2em;              
+    height: 2em;              
     margin-left: 0.4em;
     border-radius: 0.3em;
     object-fit: contain;
-}
+} */
 
 
 .congrats-card {
