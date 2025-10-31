@@ -219,6 +219,8 @@ def display_dynamic_message(
                     Welcome <span class="user-name">{user_name}</span> to the 
                     <span class="wisdom-playbook">Wisdom Playbook</span>
                 </h2>
+                <img class= "logo" src="/assets/logo.png" alt = "logo"/>
+                
             </div>
             ''',
             unsafe_allow_html=True
@@ -374,7 +376,8 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         tickfont=dict(color='black', size=16),  
         automargin=True,
         side='left',                   # keep on left side
-        ticklabelposition='outside left'
+        ticklabelposition='outside left',
+        hoverinfo=False
         ),
     )
 
