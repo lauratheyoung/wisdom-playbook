@@ -15,7 +15,7 @@ html, body, [class*="st-"], .welcome-card {
 }
 
 .welcome-card h2 {
-    font-size: 4vw;
+    font-size: 2.5em;
     margin: 0;               /* remove default spacing */
     display: flex;
     align-items: center;
@@ -62,7 +62,7 @@ html, body, [class*="st-"], .welcome-card {
 }
 
 #congrats-text{
-    font-size: 2vw;
+    font-size: 1.5em;
 }
 
 .conclusion-card {
