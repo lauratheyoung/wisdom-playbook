@@ -34,7 +34,7 @@ html, body, [class*="st-"], .welcome-card {
     text-align: center;
 }
 
-.welcome-card .logo {
+.welcome-card * .logo {
     display: inline-block;
     vertical-align: middle;
     height: 1.5em;
