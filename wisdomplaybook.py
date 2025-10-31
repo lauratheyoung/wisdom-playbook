@@ -321,7 +321,8 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         orientation='h',
         marker_color= '#898DF7',
         text=[f"{s}%" for s in self_scores],
-        textposition='outside'
+        textposition='outside',
+        hoverinfo=False
     ))
 
     # Peer assessment bars
@@ -376,8 +377,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         tickfont=dict(color='black', size=16),  
         automargin=True,
         side='left',                   # keep on left side
-        ticklabelposition='outside left',
-        hoverinfo=False
+        ticklabelposition='outside left'
         ),
     )
 
