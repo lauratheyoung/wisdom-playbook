@@ -13,11 +13,11 @@ html, body, [class*="st-"], .welcome-card {
     justify-content: center;
     flex-wrap: wrap;
     gap: 0.5em;
-    padding: 2% 3%; /* scales like congrats-card */
+    padding: 2% 3%;
     box-sizing: border-box;
-    max-width: 95%; /* prevents overflow */
-    margin: 5% auto; /* center and spacing like congrats-card */
-    overflow: hidden; /* ensures nothing cuts off */
+    max-width: 100%;
+    overflow: hidden;
+    flex-shrink: 1;
 }
 
 .welcome-card h2,
@@ -27,8 +27,6 @@ html, body, [class*="st-"], .welcome-card {
     flex-shrink: 1; /* shrink proportionally */
     white-space: nowrap;
     margin: 0;
-    overflow: hidden;
-    text-overflow: ellipsis; /* optional */
 }
 
 .welcome-card .user-name,
