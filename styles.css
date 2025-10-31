@@ -11,11 +11,11 @@ html, body, [class*="st-"], .welcome-card {
     display: flex;
     align-items: center;     /* vertically center text and image */
     flex-wrap: wrap;         /* allow wrapping on smaller screens */
-    gap: 0.8em;              /* space between text and logo */
+    gap: 0.5em;              /* space between text and logo */
 }
 
 .welcome-card h2 {
-    font-size: 3vw;
+    font-size: 4vw;
     margin: 0;               /* remove default spacing */
     display: flex;
     align-items: center;
