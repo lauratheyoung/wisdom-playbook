@@ -322,6 +322,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         marker_color= '#898DF7',
         text=[f"{s}%" for s in self_scores],
         textposition='outside',
+        hoverinfo='skip'
     ))
 
     # Peer assessment bars
@@ -332,7 +333,8 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         orientation='h',
         marker_color='#070D2E',
         text=[f"{p}%" for p in peer_scores],
-        textposition='outside'
+        textposition='outside',
+        hoverinfo='skip'
     ))
 
     # Add delta annotation
