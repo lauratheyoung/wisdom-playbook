@@ -41,6 +41,7 @@ html, body, [class*="st-"], .welcome-card {
     height: 4vw;
     border-radius: 0.3em;
     object-fit: contain;
+    vertical-align: middle;
 }
 
 
