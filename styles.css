@@ -11,20 +11,19 @@ html, body, [class*="st-"], .welcome-card {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap: nowrap; /* stay in one row */
+    flex-wrap: wrap;
     gap: 0.5em;
     padding: 2% 3%; /* scales like congrats-card */
     box-sizing: border-box;
     max-width: 95%; /* prevents overflow */
     margin: 5% auto; /* center and spacing like congrats-card */
-    box-shadow: 0 0.4rem 0.8rem rgba(0,0,0,0.1); /* optional styling */
     overflow: hidden; /* ensures nothing cuts off */
 }
 
 .welcome-card h2,
 .welcome-card .user-name,
 .welcome-card .wisdom-playbook {
-    font-size: clamp(0.5rem, 2vw + 1rem, 4rem); /* all text scales together */
+    font-size: clamp(1rem, 2vw + 1rem, 4rem); /* all text scales together */
     flex-shrink: 1; /* shrink proportionally */
     white-space: nowrap;
     margin: 0;
