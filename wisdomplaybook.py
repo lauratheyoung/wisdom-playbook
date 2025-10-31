@@ -227,9 +227,7 @@ def display_dynamic_message(
         # peer text conditional
         peer_text = ""
 
-        if peer_strengths and peer_growth and consistency_pct is not None:
-
-            def format_trait_list(traits):
+        def format_trait_list(traits):
                 if not traits:
                     return ""
                 elif len(traits) == 1:
@@ -238,6 +236,18 @@ def display_dynamic_message(
                     return f"{traits[0]} and {traits[1]}"
                 else:
                     return f"{', '.join(traits[:-1])}, and {traits[-1]}"
+
+        if peer_strengths and peer_growth and consistency_pct is not None:
+
+            # def format_trait_list(traits):
+            #     if not traits:
+            #         return ""
+            #     elif len(traits) == 1:
+            #         return traits[0]
+            #     elif len(traits) == 2:
+            #         return f"{traits[0]} and {traits[1]}"
+            #     else:
+            #         return f"{', '.join(traits[:-1])}, and {traits[-1]}"
 
             # Format trait lists properly
             formatted_consistent_traits = format_trait_list(consistent_traits)
@@ -271,6 +281,10 @@ def display_dynamic_message(
             else:
                 peer_text = consistent_text
 
+        
+        formatted_strengths = format_trait_list(strengths)
+        formatted_growth = format_trait_list(growth)
+
 
         # Render a single card
         st.markdown(
@@ -280,9 +294,9 @@ def display_dynamic_message(
                 <p>
                     You've taken the first steps towards reflecting on your own wisdom. 
                     Your self-assessment shows your areas of strength are: 
-                    <span class="strengths">{', '.join(strengths)}</span> traits. 
+                    <span class="strengths">{', '.join(formatted_strengths)}</span> traits. 
                     The areas for you to work on are: 
-                    <span class="growth">{', '.join(growth)}</span> traits.
+                    <span class="growth">{', '.join(formatted_growth)}</span> traits.
                 </p>
                 {peer_text}
             </div>
