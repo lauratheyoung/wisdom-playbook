@@ -8,42 +8,48 @@ html, body, [class*="st-"], .welcome-card {
 }
 
 .welcome-card {
-    display: flex;               /* horizontal row layout */
-    align-items: center;         /* vertically align items */
-    gap: 0.5em;                  /* space between h2 and logo */
-    flex-wrap: nowrap;           /* prevent wrapping onto a new line */
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    flex-wrap: nowrap;              /* keep everything in one row */
+    justify-content: center;        /* center horizontally */
+    flex-shrink: 1;                 /* allow scaling on small screens */
+    overflow: hidden;               /* prevent overflow from breaking layout */
 }
 
 .welcome-card h2 {
-    font-size: 2.5em;            /* relative size, stays bigger than congrats */
+    font-size: min(6vw, 2.5em);     /* scales down on smaller screens */
     margin: 0;
-    display: flex;               /* keep inner spans in a row */
-    flex-wrap: nowrap;           /* prevent spans from breaking lines */
-    align-items: center;         /* vertically center text in h2 */
-    gap: 0.4em;                  /* spacing between inline elements */
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;              /* keep text + logo on one line */
+    gap: 0.4em;
+    white-space: nowrap;            /* prevent weird internal line breaks */
 }
 
-.welcome-card .user-name {
+.welcome-card .user-name,
+.welcome-card .wisdom-playbook {
     background-color: #7276F5;
     color: white;
     padding: 0.2em 0.4em;
     border-radius: 0.3em;
+    flex-shrink: 0;                 /* prevent shrinking mid-word */
+    white-space: nowrap;            /* prevent text breaking inside boxes */
 }
 
 .welcome-card .wisdom-playbook {
     background-color: #070D2E;
-    color: white;
-    padding: 0.2em 0.4em;
-    border-radius: 0.3em;
 }
 
 .welcome-card .logo {
-    height: 5em;                 /* adjust size to match text */
+    height: 1.5em;                  /* scales with font size */
     object-fit: contain;
+    vertical-align: middle;
     display: inline-block;
-    vertical-align: middle;      /* aligns with text vertically */
-    margin-left: 0.4em;          /* space from text */
+    margin-left: 0.4em;
+    flex-shrink: 0;                 /* prevent logo from shrinking weirdly */
 }
+
 
 
 /* .welcome-card {
