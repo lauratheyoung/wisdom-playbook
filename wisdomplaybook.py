@@ -227,7 +227,7 @@ def display_dynamic_message(
                     Welcome <span class="user-name">{user_name}</span> to the 
                     <span class="wisdom-playbook">Wisdom Playbook</span>
                 </h2>
-                <img src="data:image/png;base64,{img_base64}" alt="logo" style="max-width:150px; margin-top:10px;"/>
+                <img class= "logo" src="data:image/png;base64,{img_base64}" alt="logo"/>
             </div>
             ''',
             unsafe_allow_html=True
