@@ -219,7 +219,7 @@ def display_dynamic_message(
                     Welcome <span class="user-name">{user_name}</span> to the 
                     <span class="wisdom-playbook">Wisdom Playbook</span>
                 </h2>
-                <img class= "logo" src="assets/wisdomplaybook-logo.png" alt = "logo"/>
+                <img class= "logo" src="./assets/wisdomplaybook-logo.png" alt = "logo"/>
                 
             </div>
             ''',
