@@ -294,9 +294,9 @@ def display_dynamic_message(
                 <p>
                     You've taken the first steps towards reflecting on your own wisdom. 
                     Your self-assessment shows your areas of strength are: 
-                    <span class="strengths">{', '.join(formatted_strengths)}</span> traits. 
+                    <span class="strengths">{formatted_strengths}</span> traits. 
                     The areas for you to work on are: 
-                    <span class="growth">{', '.join(formatted_growth)}</span> traits.
+                    <span class="growth">{formatted_growth}</span> traits.
                 </p>
                 {peer_text}
             </div>
