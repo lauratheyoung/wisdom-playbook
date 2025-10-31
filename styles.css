@@ -7,9 +7,47 @@ html, body, [class*="st-"], .welcome-card {
     font-family: 'Inter', sans-serif !important;
 }
 
-.welcome-card, 
+.welcome-card {
+    display: flex;
+    align-items: center;     /* vertically center text and image */
+    flex-wrap: wrap;         /* allow wrapping on smaller screens */
+    gap: 0.8em;              /* space between text and logo */
+}
+
+.welcome-card h2 {
+    font-size: 3vw;
+    margin: 0;               /* remove default spacing */
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5em;
+}
+
+.welcome-card .user-name {
+    background-color: #7276F5;
+    color: white;
+    padding: 0.2em 0.4em;
+    border-radius: 0.3em;
+}
+
+.welcome-card .wisdom-playbook {
+    background-color: #070D2E;
+    color: white;
+    padding: 0.2em 0.4em;
+    border-radius: 0.3em;
+}
+
+.welcome-card .logo {
+    height: 2.2em;
+    border-radius: 0.3em;
+    object-fit: contain;
+}
+
+
+
+/* .welcome-card, 
 .welcome-card * {
-    font-size: 4vw;  /* forces all nested elements to scale */
+    font-size: 4vw; 
 }
 
 .welcome-card h2{
@@ -40,7 +78,7 @@ html, body, [class*="st-"], .welcome-card {
     height: 2em;
     border-radius: 0.3em;
     object-fit: contain;
-}
+} */
 
 /* .welcome-card * .user-name {
     display: inline-block;
