@@ -19,7 +19,7 @@ html, body, [class*="st-"], .welcome-card {
     margin: 0;               /* remove default spacing */
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 0.4em;
 }
 
