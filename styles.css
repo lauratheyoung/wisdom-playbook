@@ -14,12 +14,12 @@ html, body, [class*="st-"], .welcome-card {
     flex-wrap: nowrap; 
     justify-content: center;
     gap: 0.5em;
-    padding: 0 1 rem;
+    padding: 0 1rem;
     box-sizing: border-box;
 }
 
 .welcome-card h2 {
-    font-size: clamp(1.8rem, 2.5vw + 1rem, 5rem);
+    font-size: clamp(0.8rem, 2.5vw + 1rem, 5rem);
     display: flex;
     align-items: center; 
     gap: 0.4em;
@@ -55,7 +55,7 @@ html, body, [class*="st-"], .welcome-card {
 }
 
 .welcome-card .logo {
-    height: clamp(3rem, 5vw + 1rem, 10rem);
+    height: clamp(2rem, 5vw + 1rem, 10rem);
     display: inline-block;
     vertical-align: middle;
     object-fit: contain;
