@@ -126,7 +126,7 @@ html, body, [class*="st-"], .welcome-card {
     box-sizing: border-box;
 }
 
-.congrats-text{
+#congrats-text{
     font-size: 2vw;
 }
 
