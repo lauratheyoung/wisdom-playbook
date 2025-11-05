@@ -455,7 +455,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             title_font=dict(family='Inter, sans-serif', size=16, color='black'),
             xaxis=dict(
                 title="Score (%)",
-                range=[0, 100],
+                range=[0, 105],
                 domain=[0.0, 1.0],
                 tickvals=[0, 20, 40, 60, 80, 100],
                 ticktext=["0%", "20%", "40%", "60%", "80%", "100%"]
