@@ -8,6 +8,7 @@ import streamlit.components.v1 as components
 import numpy as np
 import textwrap
 import base64
+from decimal import Decimal, ROUND_HALF_UP
 
 # Set-up
 creds_info = st.secrets
@@ -319,15 +320,20 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     max_score = 6
     range_score = max_score - min_score  # 5
     #To correct rounding up too much
-    epsilon = 1e-8
+
+    def round_half_up(value, ndigits=1):
+        """Round a float to ndigits decimals using ROUND_HALF_UP method."""
+        decimal_value = Decimal(str(value))
+        rounded = decimal_value.quantize(Decimal(f'1e-{ndigits}'), rounding=ROUND_HALF_UP)
+        return float(rounded)
 
     self_scores = [
-        round(((user_row[trait] - min_score) / range_score) * 100 - epsilon, 1)
+        round_half_up(((user_row[trait] - min_score) / range_score) * 100, 1)
         for trait in trait_cols
     ]
 
     peer_scores = [
-        round(((peer_mean_scores[trait] - min_score) / range_score) * 100 - epsilon, 1) 
+        round_half_up(((peer_mean_scores[trait] - min_score) / range_score) * 100, 1) 
         if peer_mean_scores is not None else 0
         for trait in trait_cols
     ]
