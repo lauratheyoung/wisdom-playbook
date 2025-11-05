@@ -315,6 +315,8 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     self_scores_raw = [user_row[trait] / 6 for trait in trait_cols]
     peer_scores_raw = [peer_mean_scores[trait] / 6 if peer_mean_scores is not None else 0
                     for trait in trait_cols]
+    
+    st.write(user_row)
 
     # delta raw
     delta_raw = [p - s for s, p in zip(self_scores_raw, peer_scores_raw)]
@@ -326,7 +328,9 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
 
 
     # Compute delta (in %)
-    delta_scores = [round(peer - self_, 1) for self_, peer in zip(self_scores, peer_scores)]
+    # Compute delta (in %) without rounding
+    delta_scores = [peer - self_ for self_, peer in zip(self_scores, peer_scores)]
+
 
     # Build horizontal bar chart
     fig = go.Figure()
