@@ -419,44 +419,52 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
 
 
         # --- Create grouped horizontal bar chart ---
+
         bar_fig = go.Figure()
-        
-        # Individual scores
+
+        # Convert scores to percentages (assuming scale is 1–6)
+        question_scores_pct = [(s / 6) * 100 for s in question_scores]
+
+        # Add individual self-assessment scores
         bar_fig.add_trace(go.Bar(
-            x=question_scores,
+            x=question_scores_pct,
             y=question_cols,
             orientation='h',
             name='Self Assessment',
             marker_color='#898DF7',
-            text=[str(round(s)) for s in question_scores],
+            text=[f"{round(s)}%" for s in question_scores_pct],
             textposition='outside'
         ))
-        
-        # If peer scores are available
+
+        # Add peer scores if available
         if has_peer:
+            peer_scores_pct = [(s / 6) * 100 for s in peer_scores]
             bar_fig.add_trace(go.Bar(
-                x=peer_scores,
+                x=peer_scores_pct,
                 y=question_cols,
                 orientation='h',
                 name='Peer Average',
                 marker_color='#070D2E',
-                text=[str(round(s)) for s in peer_scores],
+                text=[f"{round(s)}%" for s in peer_scores_pct],
                 textposition='outside'
             ))
-        
+
+        # Layout settings
         bar_fig.update_layout(
-            title_text=f"{trait} Questions",
+            title_text=f"{trait} Statements",
             title_font=dict(family='Inter, sans-serif', size=16, color='black'),
             xaxis=dict(
-                title="Score",
-                range=[0, 7],
-                domain=[0.0, 1.0]  # ensures all figures share the same axis domain
+                title="Score (%)",
+                range=[0, 100],
+                domain=[0.0, 1.0],
+                tickvals=[0, 20, 40, 60, 80, 100],
+                ticktext=["0%", "20%", "40%", "60%", "80%", "100%"]
             ),
             yaxis=dict(
                 title="",
                 tickfont=dict(family='Inter, sans-serif', size=12, color='black'),
-                automargin=True,     # dynamically adjusts to label length
-                anchor="x",          # tie y-axis to the same x-axis position
+                automargin=True,
+                anchor="x"
             ),
             barmode='group',
             font=dict(family='Inter, sans-serif'),
@@ -467,23 +475,21 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
                 xanchor='right',
                 x=1
             ),
-            margin=dict(b=80, t=50),  # small, flexible top/bottom margins
+            margin=dict(b=80, t=50)
         )
 
-        #bar_fig.update_traces(hoverinfo='skip')
-
+        # Function to wrap long y-axis labels
         def wrap_labels(labels, width=40):
             wrapped = []
             for label in labels:
-                # wrap at word boundaries
                 wrapped_label = "<br>".join(textwrap.wrap(label, width=width))
                 wrapped.append(wrapped_label)
             return wrapped
 
-        # Apply to y-axis
+        # Apply label wrapping and remove hover info
         bar_fig.update_traces(
             y=wrap_labels(question_cols, width=40),
-            hoverinfo='skip'  # removes hover labels
+            hoverinfo='skip'
         )
 
 
