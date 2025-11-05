@@ -165,7 +165,7 @@ df_peer_traits = compute_trait_scores(peerdata)
 def determine_strength_growth(user_row, trait_cols):
     """
     Determine the top 3 strength traits and bottom 2 growth traits for a given user,
-    ensuring the trait-score mapping is preserved and ties are broken by priority.
+    ensuring trait-score mapping is preserved and the fixed priority order is applied.
 
     Parameters:
         user_row: pandas Series representing a user's trait scores
@@ -176,37 +176,23 @@ def determine_strength_growth(user_row, trait_cols):
         growth (list): exactly 2 bottom trait names
     """
 
-    # Desired priority order for ties
-    priority_order = ['Purposeful', 'Adventurous', 'Curious', 'Engaged',
-                      'Playful', 'Adaptable', 'Charitable', 'Ethical']
+    # Desired order of traits for display/priority
+    desired_order = ['Purposeful', 'Adventurous', 'Curious', 'Engaged',
+                     'Playful', 'Adaptable', 'Charitable', 'Ethical']
 
-    # Extract numeric trait values
-    traits = user_row[trait_cols].astype(float)
+    # Map user scores to the desired order
+    traits_ordered = user_row.reindex(desired_order)
 
-    # Ensure only traits present in both user_row and priority_order are considered
-    traits = traits[[t for t in priority_order if t in traits.index]]
+    # --- Top 3 strengths ---
+    # Sort descending by score, preserving order in desired_order for ties
+    strengths = traits_ordered.sort_values(ascending=False, kind='mergesort').head(3).index.tolist()
 
-    # Create a list of (trait, score) pairs
-    trait_score_pairs = [(trait, traits[trait]) for trait in traits.index]
-
-    # Sort descending by score, then by priority order
-    sorted_traits = sorted(
-        trait_score_pairs,
-        key=lambda x: (-x[1], priority_order.index(x[0]))
-    )
-
-    # --- Select top 3 strengths ---
-    strengths = [trait for trait, _ in sorted_traits[:3]]
-
-    # --- Select bottom 2 growth traits ---
-    # Sort ascending by score, then by priority
-    sorted_traits_asc = sorted(
-        trait_score_pairs,
-        key=lambda x: (x[1], priority_order.index(x[0]))
-    )
-    growth = [trait for trait, _ in sorted_traits_asc[:2]]
+    # --- Bottom 2 growth traits ---
+    # Sort ascending by score, preserving order in desired_order for ties
+    growth = traits_ordered.sort_values(ascending=True, kind='mergesort').head(2).index.tolist()
 
     return strengths, growth
+
 
 
 
