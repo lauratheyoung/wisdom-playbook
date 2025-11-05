@@ -224,8 +224,8 @@ def display_dynamic_message(
             f'''
             <div class="welcome-card">
                 <h2>
-                    Welcome <span class="user-name">{user_name}</span> to the 
-                    <span class="wisdom-playbook">Wisdom Playbook</span>
+                    Welcome <span class="user-name">{user_name}</span> to your 
+                    <span class="wisdom-playbook">Wisdom Report</span>
                 </h2>
                 <img class= "logo" src="data:image/png;base64,{img_base64}" alt="logo"/>
             </div>
