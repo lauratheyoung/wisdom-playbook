@@ -145,34 +145,44 @@ df_traits = compute_trait_scores(data)
 df_peer_traits = compute_trait_scores(peerdata)
 
 # Backend logic to determine users strength and growth traits by aggregating trait scores and comparing  --> not sure what to do if there are ties
-def determine_strength_growth(user_row, trait_cols, top_n=3):
-    """
-    Determine the top and bottom traits for a given user.
+# def determine_strength_growth(user_row, trait_cols, top_n=3):
+#     # Extract only the numeric trait values
+#     traits = user_row[trait_cols].astype(float)
 
-    Parameters:
-        user_row: pandas Series representing a user's trait scores
-        trait_cols: list of trait column names
-        top_n: number of traits to include for strengths and growth areas
+#     # Sort traits descending for strengths, ascending for growth
+#     sorted_traits = traits.sort_values(ascending=False)
 
-    Returns:
-        strengths (list): top N trait names
-        growth (list): bottom N trait names
-    """
-    # Extract only the numeric trait values
+#     # Get top N strengths (including ties)
+#     strengths_cutoff = sorted_traits.iloc[top_n - 1]
+#     strengths = sorted_traits[sorted_traits >= strengths_cutoff].index.tolist()
+
+#     # Get bottom N growth traits (including ties)
+#     growth_cutoff = sorted_traits.iloc[-top_n]
+#     growth = sorted_traits[sorted_traits <= growth_cutoff].index.tolist()
+
+#     return strengths, growth
+
+def determine_strength_growth(user_row, trait_cols):
+
+    # Define the fixed priority order
+    priority_order = ['Purposeful', 'Adventurous', 'Curious', 'Engaged',
+                      'Playful', 'Adaptable', 'Charitable', 'Ethical']
+
+    # Extract numeric values for the traits in the dataset
     traits = user_row[trait_cols].astype(float)
 
-    # Sort traits descending for strengths, ascending for growth
-    sorted_traits = traits.sort_values(ascending=False)
+    # Sort by (score descending, then by priority order)
+    sorted_traits = sorted(
+        traits.items(),
+        key=lambda x: (-x[1], priority_order.index(x[0]))
+    )
 
-    # Get top N strengths (including ties)
-    strengths_cutoff = sorted_traits.iloc[top_n - 1]
-    strengths = sorted_traits[sorted_traits >= strengths_cutoff].index.tolist()
-
-    # Get bottom N growth traits (including ties)
-    growth_cutoff = sorted_traits.iloc[-top_n]
-    growth = sorted_traits[sorted_traits <= growth_cutoff].index.tolist()
+    # Select exactly 3 strengths and 2 growth traits
+    strengths = [trait for trait, _ in sorted_traits[:3]]
+    growth = [trait for trait, _ in sorted_traits[-2:]]
 
     return strengths, growth
+
 
 # --- Helper functions ---
 
