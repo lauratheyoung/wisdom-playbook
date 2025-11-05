@@ -311,22 +311,19 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     trait_cols: list of traits in the order to plot
 
     """
-    # Extract and normalize scores (convert 0–6 scale to %) and round to 1 decimal
+    # raw fractions for each trait
+    self_scores_raw = [(user_row[trait] / 6) for trait in trait_cols]
 
-    # def round_half_up(value, ndigits=1):
-    #     decimal_value = Decimal(str(value))
-    #     rounded = decimal_value.quantize(Decimal(f'1e-{ndigits}'), rounding=ROUND_HALF_UP)
-    #     return float(rounded)
+    peer_scores_raw = [(peer_mean_scores[trait] / 6) if peer_mean_scores is not None else 0
+                    for trait in trait_cols]
 
-    self_scores = [
-        round((user_row[trait] / 6) * 100, 1)
-        for trait in trait_cols
-    ]
+    # delta raw (fractions)
+    delta_raw = [p - s for s, p in zip(self_scores_raw, peer_scores_raw)]
 
-    peer_scores = [
-        round((peer_mean_scores[trait] / 6) * 100, 1) if peer_mean_scores is not None else 0
-        for trait in trait_cols
-    ]
+    # Convert to percentages for display
+    self_scores = [round(s*100, 1) for s in self_scores_raw]
+    peer_scores = [round(p*100, 1) for p in peer_scores_raw]
+    delta_scores = [round(d*100, 1) for d in delta_raw]
 
     # Compute delta (in %)
     delta_scores = [round(peer - self_, 1) for self_, peer in zip(self_scores, peer_scores)]
