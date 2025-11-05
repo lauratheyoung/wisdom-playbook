@@ -322,9 +322,9 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     delta_raw = [p - s for s, p in zip(self_scores_raw, peer_scores_raw)]
 
     # Convert to percentages for display (no rounding)
-    self_scores = [s * 100 for s in self_scores_raw]
-    peer_scores = [p * 100 for p in peer_scores_raw]
-    delta_scores = [d * 100 for d in delta_raw]
+    self_scores = [round(s * 100,1) for s in self_scores_raw]
+    peer_scores = [round(p * 100,1) for p in peer_scores_raw]
+    delta_scores = [round(d * 100,1) for d in delta_raw]
 
 
     # Compute delta (in %)
