@@ -313,18 +313,18 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     """
     # Extract and normalize scores (convert 0–6 scale to %) and round to 1 decimal
 
-    def round_half_up(value, ndigits=1):
-        decimal_value = Decimal(str(value))
-        rounded = decimal_value.quantize(Decimal(f'1e-{ndigits}'), rounding=ROUND_HALF_UP)
-        return float(rounded)
+    # def round_half_up(value, ndigits=1):
+    #     decimal_value = Decimal(str(value))
+    #     rounded = decimal_value.quantize(Decimal(f'1e-{ndigits}'), rounding=ROUND_HALF_UP)
+    #     return float(rounded)
 
     self_scores = [
-        round_half_up((user_row[trait] / 6) * 100, 1)
+        round((user_row[trait] / 6) * 100, 1)
         for trait in trait_cols
     ]
 
     peer_scores = [
-        round_half_up((peer_mean_scores[trait] / 6) * 100, 1) if peer_mean_scores is not None else 0
+        round((peer_mean_scores[trait] / 6) * 100, 1) if peer_mean_scores is not None else 0
         for trait in trait_cols
     ]
 
