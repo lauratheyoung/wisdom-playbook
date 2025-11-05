@@ -322,12 +322,12 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     epsilon = 1e-8
 
     self_scores = [
-        round(((user_row[trait] - min_score) / range_score) * 100 + epsilon, 1)
+        round(((user_row[trait] - min_score) / range_score) * 100 - epsilon, 1)
         for trait in trait_cols
     ]
 
     peer_scores = [
-        round(((peer_mean_scores[trait] - min_score) / range_score) * 100 + epsilon, 1) 
+        round(((peer_mean_scores[trait] - min_score) / range_score) * 100 - epsilon, 1) 
         if peer_mean_scores is not None else 0
         for trait in trait_cols
     ]
