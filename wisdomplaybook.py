@@ -318,13 +318,11 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         rounded = decimal_value.quantize(Decimal(f'1e-{ndigits}'), rounding=ROUND_HALF_UP)
         return float(rounded)
 
-    # Normalize self scores (1–6 → 0–100%)
     self_scores = [
         round_half_up((user_row[trait] / 6) * 100, 1)
         for trait in trait_cols
     ]
 
-    # Normalize peer scores (if available)
     peer_scores = [
         round_half_up((peer_mean_scores[trait] / 6) * 100, 1) if peer_mean_scores is not None else 0
         for trait in trait_cols
@@ -512,13 +510,27 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         # --- Create pie chart for self score ---
 
         # Make conditional overall_score
-        if has_peer:
-            overall_score = ((((sum(question_scores) + sum(peer_scores)) / 2) - 4) / 20) * 100
-        else:
+        # if has_peer:
+        #     overall_score = ((((sum(question_scores) + sum(peer_scores)) / 2) - 4) / 20) * 100
+        # else:
             
-            overall_score = (((sum(question_scores)) - 4) / 20) * 100
-            st.write(overall_score)
-            st.write(question_scores)
+        #     overall_score = (((sum(question_scores)) - 4) / 20) * 100
+        #     st.write(overall_score)
+        #     st.write(question_scores)
+
+        def percent_of_max(scores):
+            if not scores:
+                return 0
+            return round(sum(scores) / (4 * 6) * 100, 1)
+
+        # Compute overall score
+        if has_peer and peer_scores is not None:
+            # Average of self and peer scores
+            combined_scores = [(s + p) / 2 for s, p in zip(question_scores, peer_scores)]
+            overall_score = percent_of_max(combined_scores)
+    
+        else:
+            overall_score = percent_of_max(question_scores)
 
         #overall_score = ((((sum(question_scores) + sum(peer_scores)) / 2) - 4) / 20) * 100
         pie_fig = go.Figure(go.Pie(
