@@ -497,7 +497,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
 
         #overall_score = ((((sum(question_scores) + sum(peer_scores)) / 2) - 4) / 20) * 100
         pie_fig = go.Figure(go.Pie(
-            labels=[f"{trait} Score"],
+            labels=[f"{trait} Score", ""],
             values=[overall_score, 100 - overall_score],
             hole=0.4,
             marker_colors=['#549D8A', '#D9D9D9'],
