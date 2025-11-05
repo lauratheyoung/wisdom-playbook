@@ -144,24 +144,6 @@ df_traits = compute_trait_scores(data)
 # Compute for peer data
 df_peer_traits = compute_trait_scores(peerdata)
 
-# Backend logic to determine users strength and growth traits by aggregating trait scores and comparing  --> not sure what to do if there are ties
-# def determine_strength_growth(user_row, trait_cols, top_n=3):
-#     # Extract only the numeric trait values
-#     traits = user_row[trait_cols].astype(float)
-
-#     # Sort traits descending for strengths, ascending for growth
-#     sorted_traits = traits.sort_values(ascending=False)
-
-#     # Get top N strengths (including ties)
-#     strengths_cutoff = sorted_traits.iloc[top_n - 1]
-#     strengths = sorted_traits[sorted_traits >= strengths_cutoff].index.tolist()
-
-#     # Get bottom N growth traits (including ties)
-#     growth_cutoff = sorted_traits.iloc[-top_n]
-#     growth = sorted_traits[sorted_traits <= growth_cutoff].index.tolist()
-
-#     return strengths, growth
-
 def determine_strength_growth(user_row, trait_cols):
     """
     Determine the top 3 strength traits and bottom 2 growth traits for a given user,
@@ -440,84 +422,272 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
 
     return fig
 
+# def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
+
+#     all_question_cols = split_user_data(pd.DataFrame(user_row).T)[1].columns
+#     all_question_scores = get_user_scores_from_row(user_row)
+#     all_peer_scores = avg_peer_scores(user_peer_data)
+
+#     if user_peer_data is not None and not user_peer_data.empty:
+#         all_peer_scores = avg_peer_scores(user_peer_data)
+#         has_peer = True
+#     else:
+#         # Fallback: use zeros
+#         all_peer_scores = [0] * len(all_question_cols)
+#         has_peer = False
+
+#     display_order = [
+#         'Purposeful', 'Adventurous', 'Curious', 'Engaged',
+#         'Playful', 'Adaptable', 'Charitable', 'Ethical'
+#     ]
+#     TRAIT_COLS = [trait for trait in display_order if trait in TRAIT_COLS]
+
+#     col_ind_lower = 0
+#     for trait in TRAIT_COLS:
+#         col_ind_upper = col_ind_lower + 4
+
+#         question_cols = all_question_cols[col_ind_lower:col_ind_upper]
+#         question_scores = all_question_scores[col_ind_lower:col_ind_upper]
+#         peer_scores = all_peer_scores[col_ind_lower:col_ind_upper]
+
+#         col_ind_lower += 4
+
+
+#         # --- Create grouped horizontal bar chart ---
+
+#         bar_fig = go.Figure()
+
+#         # Convert scores to percentages (assuming scale is 1–6)
+#         question_scores_pct = [(s / 6) * 100 for s in question_scores]
+
+#         # Add individual self-assessment scores
+#         bar_fig.add_trace(go.Bar(
+#             x=question_scores_pct,
+#             y=question_cols,
+#             orientation='h',
+#             name='Self Assessment',
+#             marker_color='#898DF7',
+#             text=[f"{round(s)}%" for s in question_scores_pct],
+#             textposition='outside'
+#         ))
+
+#         # Add peer scores if available
+#         if has_peer:
+#             peer_scores_pct = [(s / 6) * 100 for s in peer_scores]
+#             bar_fig.add_trace(go.Bar(
+#                 x=peer_scores_pct,
+#                 y=question_cols,
+#                 orientation='h',
+#                 name='Peer Average',
+#                 marker_color='#070D2E',
+#                 text=[f"{round(s)}%" for s in peer_scores_pct],
+#                 textposition='outside'
+#             ))
+
+#         # Layout settings
+#         bar_fig.update_layout(
+#             title_text=f"{trait} Statements",
+#             title_font=dict(family='Inter, sans-serif', size=16, color='black'),
+#             xaxis=dict(
+#                 title="Score (%)",
+#                 range=[0, 105],
+#                 domain=[0.0, 1.0],
+#                 tickvals=[0, 20, 40, 60, 80, 100],
+#                 ticktext=["0%", "20%", "40%", "60%", "80%", "100%"]
+#             ),
+#             yaxis=dict(
+#                 title="",
+#                 tickfont=dict(family='Inter, sans-serif', size=12, color='black'),
+#                 automargin=True,
+#                 anchor="x"
+#             ),
+#             barmode='group',
+#             font=dict(family='Inter, sans-serif'),
+#             legend=dict(
+#                 orientation='h',
+#                 yanchor='top',
+#                 y=-0.2,
+#                 xanchor='right',
+#                 x=1
+#             ),
+#             margin=dict(b=80, t=50)
+#         )
+
+#         # Function to wrap long y-axis labels
+#         def wrap_labels(labels, width=40):
+#             wrapped = []
+#             for label in labels:
+#                 wrapped_label = "<br>".join(textwrap.wrap(label, width=width))
+#                 wrapped.append(wrapped_label)
+#             return wrapped
+
+#         # Apply label wrapping and remove hover info
+#         bar_fig.update_traces(
+#             y=wrap_labels(question_cols, width=40),
+#             hoverinfo='skip'
+#         )
+
+
+#         # --- Create pie chart for self score ---
+
+#         def percent_of_max(scores):
+#             if not scores:
+#                 return 0
+#             return round(sum(scores) / (4 * 6) * 100, 1)
+
+#         # Compute overall score
+#         if has_peer and peer_scores is not None:
+#             # Average of self and peer scores
+#             combined_scores = [(s + p) / 2 for s, p in zip(question_scores, peer_scores)]
+#             overall_score = percent_of_max(combined_scores)
+    
+#         else:
+#             overall_score = percent_of_max(question_scores)
+
+#         #overall_score = ((((sum(question_scores) + sum(peer_scores)) / 2) - 4) / 20) * 100
+#         pie_fig = go.Figure(go.Pie(
+#             labels=[f"{trait} Score", " "],
+#             values=[overall_score, 100 - overall_score],
+#             hole=0.4,
+#             marker_colors=['#549D8A', '#D9D9D9'],
+#             textinfo='none',
+#             hoverinfo='skip',
+#             sort = False,
+#             rotation = 180
+#         ))
+#         pie_fig.add_annotation(
+#             x=0.5,
+#             y=0.5,
+#             text=f"{round(overall_score,1)}%",
+#             showarrow=False,
+#             font=dict(family='Inter, sans-serif', size=24, color='black')
+#         )
+#         pie_fig.update_layout(
+#             title=dict(
+#                 text=f"{trait}",
+#                 font=dict(family='Inter, sans-serif', size=25, color='black')
+#             ),
+#             legend=dict(
+#                 orientation='h',
+#                 y=-0.2,
+#                 x=0.5,
+#                 xanchor='center',
+#                 yanchor='top',
+#                 font=dict(family='Inter, sans-serif', size=12, color='black')
+#             ),
+            
+#         )
+
+#         st.markdown("""
+#         <div style="
+#             display: flex;
+#             flex-wrap: wrap;
+#             background-color: #F7F7F7;
+#             border-radius: 1.3rem;
+#             padding: 1rem;
+#             margin-bottom: 1rem;
+#             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+#         ">
+#         """, unsafe_allow_html=True)
+   
+#         # --- Display charts side by side ---
+#         col1, col2 = st.columns([1, 2])
+#         with col1:
+#             st.plotly_chart(pie_fig, use_container_width=True, config={'displayModeBar':False})
+#         with col2:
+#             st.plotly_chart(bar_fig, use_container_width=True, config={'displayModeBar':False})
+
+#         st.markdown("</div>", unsafe_allow_html=True)
+
 def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
 
+    # --- Extract user and peer data ---
     all_question_cols = split_user_data(pd.DataFrame(user_row).T)[1].columns
     all_question_scores = get_user_scores_from_row(user_row)
-    all_peer_scores = avg_peer_scores(user_peer_data)
-
+    
     if user_peer_data is not None and not user_peer_data.empty:
         all_peer_scores = avg_peer_scores(user_peer_data)
         has_peer = True
     else:
-        # Fallback: use zeros
         all_peer_scores = [0] * len(all_question_cols)
         has_peer = False
 
+    # --- Desired trait display order ---
     display_order = [
         'Purposeful', 'Adventurous', 'Curious', 'Engaged',
         'Playful', 'Adaptable', 'Charitable', 'Ethical'
     ]
     TRAIT_COLS = [trait for trait in display_order if trait in TRAIT_COLS]
 
+    # --- Map traits to their questions and scores ---
+    trait_data = {}
     col_ind_lower = 0
     for trait in TRAIT_COLS:
-        col_ind_upper = col_ind_lower + 4
+        col_ind_upper = col_ind_lower + 4  # assuming 4 questions per trait
+        trait_data[trait] = {
+            "question_cols": all_question_cols[col_ind_lower:col_ind_upper],
+            "self_scores": all_question_scores[col_ind_lower:col_ind_upper],
+            "peer_scores": all_peer_scores[col_ind_lower:col_ind_upper]
+        }
+        col_ind_lower = col_ind_upper
 
-        question_cols = all_question_cols[col_ind_lower:col_ind_upper]
-        question_scores = all_question_scores[col_ind_lower:col_ind_upper]
-        peer_scores = all_peer_scores[col_ind_lower:col_ind_upper]
+    # --- Function to wrap long labels ---
+    def wrap_labels(labels, width=40):
+        wrapped = []
+        for label in labels:
+            wrapped.append("<br>".join(textwrap.wrap(label, width=width)))
+        return wrapped
 
-        col_ind_lower += 4
+    # --- Loop over traits in display order to plot ---
+    for trait in TRAIT_COLS:
+        question_cols = trait_data[trait]["question_cols"]
+        question_scores = trait_data[trait]["self_scores"]
+        peer_scores = trait_data[trait]["peer_scores"]
 
-
-        # --- Create grouped horizontal bar chart ---
-
-        bar_fig = go.Figure()
-
-        # Convert scores to percentages (assuming scale is 1–6)
+        # Convert scores to percentages (scale 1–6)
         question_scores_pct = [(s / 6) * 100 for s in question_scores]
+        if has_peer:
+            peer_scores_pct = [(s / 6) * 100 for s in peer_scores]
 
-        # Add individual self-assessment scores
+        # --- Horizontal bar chart ---
+        bar_fig = go.Figure()
         bar_fig.add_trace(go.Bar(
             x=question_scores_pct,
-            y=question_cols,
+            y=wrap_labels(question_cols, width=40),
             orientation='h',
             name='Self Assessment',
             marker_color='#898DF7',
             text=[f"{round(s)}%" for s in question_scores_pct],
-            textposition='outside'
+            textposition='outside',
+            hoverinfo='skip'
         ))
 
-        # Add peer scores if available
         if has_peer:
-            peer_scores_pct = [(s / 6) * 100 for s in peer_scores]
             bar_fig.add_trace(go.Bar(
                 x=peer_scores_pct,
-                y=question_cols,
+                y=wrap_labels(question_cols, width=40),
                 orientation='h',
                 name='Peer Average',
                 marker_color='#070D2E',
                 text=[f"{round(s)}%" for s in peer_scores_pct],
-                textposition='outside'
+                textposition='outside',
+                hoverinfo='skip'
             ))
 
-        # Layout settings
+        # Layout for bar chart
         bar_fig.update_layout(
             title_text=f"{trait} Statements",
             title_font=dict(family='Inter, sans-serif', size=16, color='black'),
             xaxis=dict(
                 title="Score (%)",
                 range=[0, 105],
-                domain=[0.0, 1.0],
                 tickvals=[0, 20, 40, 60, 80, 100],
                 ticktext=["0%", "20%", "40%", "60%", "80%", "100%"]
             ),
             yaxis=dict(
                 title="",
                 tickfont=dict(family='Inter, sans-serif', size=12, color='black'),
-                automargin=True,
-                anchor="x"
+                automargin=True
             ),
             barmode='group',
             font=dict(family='Inter, sans-serif'),
@@ -531,38 +701,18 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             margin=dict(b=80, t=50)
         )
 
-        # Function to wrap long y-axis labels
-        def wrap_labels(labels, width=40):
-            wrapped = []
-            for label in labels:
-                wrapped_label = "<br>".join(textwrap.wrap(label, width=width))
-                wrapped.append(wrapped_label)
-            return wrapped
-
-        # Apply label wrapping and remove hover info
-        bar_fig.update_traces(
-            y=wrap_labels(question_cols, width=40),
-            hoverinfo='skip'
-        )
-
-
-        # --- Create pie chart for self score ---
-
+        # --- Pie chart for overall trait score ---
         def percent_of_max(scores):
             if not scores:
                 return 0
-            return round(sum(scores) / (4 * 6) * 100, 1)
+            return round(sum(scores) / (len(scores) * 6) * 100, 1)
 
-        # Compute overall score
         if has_peer and peer_scores is not None:
-            # Average of self and peer scores
             combined_scores = [(s + p) / 2 for s, p in zip(question_scores, peer_scores)]
             overall_score = percent_of_max(combined_scores)
-    
         else:
             overall_score = percent_of_max(question_scores)
 
-        #overall_score = ((((sum(question_scores) + sum(peer_scores)) / 2) - 4) / 20) * 100
         pie_fig = go.Figure(go.Pie(
             labels=[f"{trait} Score", " "],
             values=[overall_score, 100 - overall_score],
@@ -570,8 +720,8 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             marker_colors=['#549D8A', '#D9D9D9'],
             textinfo='none',
             hoverinfo='skip',
-            sort = False,
-            rotation = 180
+            sort=False,
+            rotation=180
         ))
         pie_fig.add_annotation(
             x=0.5,
@@ -592,10 +742,10 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
                 xanchor='center',
                 yanchor='top',
                 font=dict(family='Inter, sans-serif', size=12, color='black')
-            ),
-            
+            )
         )
 
+        # --- Display charts side by side in Streamlit ---
         st.markdown("""
         <div style="
             display: flex;
@@ -607,8 +757,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         ">
         """, unsafe_allow_html=True)
-   
-        # --- Display charts side by side ---
+
         col1, col2 = st.columns([1, 2])
         with col1:
             st.plotly_chart(pie_fig, use_container_width=True, config={'displayModeBar':False})
