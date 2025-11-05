@@ -311,19 +311,19 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     trait_cols: list of traits in the order to plot
 
     """
-    # raw fractions for each trait
-    self_scores_raw = [(user_row[trait] / 6) for trait in trait_cols]
-
-    peer_scores_raw = [(peer_mean_scores[trait] / 6) if peer_mean_scores is not None else 0
+    # raw fractions for each trait (1–6 scale → 0–1)
+    self_scores_raw = [user_row[trait] / 6 for trait in trait_cols]
+    peer_scores_raw = [peer_mean_scores[trait] / 6 if peer_mean_scores is not None else 0
                     for trait in trait_cols]
 
-    # delta raw (fractions)
+    # delta raw
     delta_raw = [p - s for s, p in zip(self_scores_raw, peer_scores_raw)]
 
-    # Convert to percentages for display
-    self_scores = [round(s*100, 1) for s in self_scores_raw]
-    peer_scores = [round(p*100, 1) for p in peer_scores_raw]
-    delta_scores = [round(d*100, 1) for d in delta_raw]
+    # Convert to percentages for display (no rounding)
+    self_scores = [s * 100 for s in self_scores_raw]
+    peer_scores = [p * 100 for p in peer_scores_raw]
+    delta_scores = [d * 100 for d in delta_raw]
+
 
     # Compute delta (in %)
     delta_scores = [round(peer - self_, 1) for self_, peer in zip(self_scores, peer_scores)]
@@ -505,15 +505,6 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
 
 
         # --- Create pie chart for self score ---
-
-        # Make conditional overall_score
-        # if has_peer:
-        #     overall_score = ((((sum(question_scores) + sum(peer_scores)) / 2) - 4) / 20) * 100
-        # else:
-            
-        #     overall_score = (((sum(question_scores)) - 4) / 20) * 100
-        #     st.write(overall_score)
-        #     st.write(question_scores)
 
         def percent_of_max(scores):
             if not scores:
