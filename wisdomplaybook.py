@@ -145,22 +145,69 @@ df_traits = compute_trait_scores(data)
 df_peer_traits = compute_trait_scores(peerdata)
 
 # Backend logic to determine users strength and growth traits by aggregating trait scores and comparing  --> not sure what to do if there are ties
-def determine_strength_growth(user_row, trait_cols, top_n=3):
-    # Extract only the numeric trait values
+# def determine_strength_growth(user_row, trait_cols, top_n=3):
+#     # Extract only the numeric trait values
+#     traits = user_row[trait_cols].astype(float)
+
+#     # Sort traits descending for strengths, ascending for growth
+#     sorted_traits = traits.sort_values(ascending=False)
+
+#     # Get top N strengths (including ties)
+#     strengths_cutoff = sorted_traits.iloc[top_n - 1]
+#     strengths = sorted_traits[sorted_traits >= strengths_cutoff].index.tolist()
+
+#     # Get bottom N growth traits (including ties)
+#     growth_cutoff = sorted_traits.iloc[-top_n]
+#     growth = sorted_traits[sorted_traits <= growth_cutoff].index.tolist()
+
+#     return strengths, growth
+
+def determine_strength_growth(user_row, trait_cols):
+    """
+    Determine the top 3 strength traits and bottom 2 growth traits for a given user,
+    ensuring the trait-score mapping is preserved and ties are broken by priority.
+
+    Parameters:
+        user_row: pandas Series representing a user's trait scores
+        trait_cols: list of trait column names from the dataset
+
+    Returns:
+        strengths (list): exactly 3 top trait names
+        growth (list): exactly 2 bottom trait names
+    """
+
+    # Desired priority order for ties
+    priority_order = ['Purposeful', 'Adventurous', 'Curious', 'Engaged',
+                      'Playful', 'Adaptable', 'Charitable', 'Ethical']
+
+    # Extract numeric trait values
     traits = user_row[trait_cols].astype(float)
 
-    # Sort traits descending for strengths, ascending for growth
-    sorted_traits = traits.sort_values(ascending=False)
+    # Ensure only traits present in both user_row and priority_order are considered
+    traits = traits[[t for t in priority_order if t in traits.index]]
 
-    # Get top N strengths (including ties)
-    strengths_cutoff = sorted_traits.iloc[top_n - 1]
-    strengths = sorted_traits[sorted_traits >= strengths_cutoff].index.tolist()
+    # Create a list of (trait, score) pairs
+    trait_score_pairs = [(trait, traits[trait]) for trait in traits.index]
 
-    # Get bottom N growth traits (including ties)
-    growth_cutoff = sorted_traits.iloc[-top_n]
-    growth = sorted_traits[sorted_traits <= growth_cutoff].index.tolist()
+    # Sort descending by score, then by priority order
+    sorted_traits = sorted(
+        trait_score_pairs,
+        key=lambda x: (-x[1], priority_order.index(x[0]))
+    )
+
+    # --- Select top 3 strengths ---
+    strengths = [trait for trait, _ in sorted_traits[:3]]
+
+    # --- Select bottom 2 growth traits ---
+    # Sort ascending by score, then by priority
+    sorted_traits_asc = sorted(
+        trait_score_pairs,
+        key=lambda x: (x[1], priority_order.index(x[0]))
+    )
+    growth = [trait for trait, _ in sorted_traits_asc[:2]]
 
     return strengths, growth
+
 
 
 
