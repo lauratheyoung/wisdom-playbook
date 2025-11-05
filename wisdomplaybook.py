@@ -304,107 +304,212 @@ def display_dynamic_message(
             unsafe_allow_html=True
         )
 
+# def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
+#     """
+#     user_row: pandas Series with individual user's trait scores
+#     peer_mean_scores: pandas Series with aggregated peer scores
+#     trait_cols: list of traits in the order to plot
+
+#     """
+#     # raw fractions for each trait (1–6 scale → 0–1)
+#     self_scores_raw = [user_row[trait] / 6 for trait in trait_cols]
+#     peer_scores_raw = [peer_mean_scores[trait] / 6 if peer_mean_scores is not None else 0
+#                     for trait in trait_cols]
+    
+#     st.write(user_row)
+
+#     # delta raw
+#     delta_raw = [p - s for s, p in zip(self_scores_raw, peer_scores_raw)]
+
+#     # Convert to percentages for display (no rounding)
+#     self_scores = [round(s * 100,1) for s in self_scores_raw]
+#     peer_scores = [round(p * 100,1) for p in peer_scores_raw]
+#     delta_scores = [round(d * 100,1) for d in delta_raw]
+
+
+#     # Compute delta (in %)
+#     delta_scores = [peer - self_ for self_, peer in zip(self_scores, peer_scores)]
+
+
+#     # Build horizontal bar chart
+#     fig = go.Figure()
+
+#     # Individual self-assessment bars
+#     fig.add_trace(go.Bar(
+#         y=trait_cols,
+#         x=self_scores,
+#         name='Self Assessment',
+#         orientation='h',
+#         marker_color= '#898DF7',
+#         text=[f"{s}%" for s in self_scores],
+#         textposition='outside',
+#         hoverinfo='skip'
+#     ))
+
+#     # Peer assessment bars
+#     fig.add_trace(go.Bar(
+#         y=trait_cols,
+#         x=peer_scores,
+#         name='Peer Average',
+#         orientation='h',
+#         marker_color='#070D2E',
+#         text=[f"{p}%" for p in peer_scores],
+#         textposition='outside',
+#         hoverinfo='skip'
+#     ))
+
+#     # Add delta annotation
+#     for i, trait in enumerate(trait_cols):
+#         fig.add_annotation(
+#             x=100,
+#             y=trait,
+#             text=f"Δ {delta_scores[i]}%",
+#             showarrow=False,
+#             font=dict(color='black', size=15),
+#             xanchor='right',
+#             yanchor='middle'
+#         )
+#     fig.add_annotation(
+#     x=100,  # align with the delta scores column
+#     y=len(trait_cols),  # just above the top-most bar
+#     text="Score<br>Differences",
+#     showarrow=False,
+#     font=dict(color='black', size=15, family='Inter, sans-serif'),
+#     xanchor='right',
+#     yanchor='bottom'
+# )
+
+#     fig.update_layout(
+#         barmode='group',
+#         font=dict(family='Inter, sans-serif'),
+#         title=dict(text='Your Wisdom Traits Assessment',
+#                    font=dict(family='Inter',size=20,color='black')),
+#         xaxis=dict(title='Score (%)', range=[0, 100]),
+#         height=50*len(trait_cols) + 100,
+#         margin=dict(l=150, r=50, t=40, b=100),  # increase bottom margin for legend
+#         legend=dict(
+#             orientation='h',
+#             y=-0.2,  # position below the x-axis
+#             x=0,
+#             xanchor='left',
+#             yanchor='top'
+#         ),
+#         yaxis=dict(
+#         title='',                    
+#         tickfont=dict(color='black', size=16),  
+#         automargin=True,
+#         side='left',                   # keep on left side
+#         ticklabelposition='outside left',
+#         ),
+#     )
+
+#     return fig
+
 def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     """
     user_row: pandas Series with individual user's trait scores
-    peer_mean_scores: pandas Series with aggregated peer scores
+    peer_mean_scores: pandas Series with aggregated peer scores (can be None)
     trait_cols: list of traits in the order to plot
-
     """
-    # raw fractions for each trait (1–6 scale → 0–1)
+    import plotly.graph_objects as go
+
+    # Determine if peer data is available
+    has_peer_data = peer_mean_scores is not None and not peer_mean_scores.empty
+
+    # Raw fractions for each trait (1–6 scale → 0–1)
     self_scores_raw = [user_row[trait] / 6 for trait in trait_cols]
-    peer_scores_raw = [peer_mean_scores[trait] / 6 if peer_mean_scores is not None else 0
-                    for trait in trait_cols]
-    
-    st.write(user_row)
+    peer_scores_raw = [peer_mean_scores[trait] / 6 for trait in trait_cols] if has_peer_data else None
 
-    # delta raw
-    delta_raw = [p - s for s, p in zip(self_scores_raw, peer_scores_raw)]
+    # Convert to percentages
+    self_scores = [round(s * 100, 1) for s in self_scores_raw]
+    peer_scores = [round(p * 100, 1) for p in peer_scores_raw] if has_peer_data else None
 
-    # Convert to percentages for display (no rounding)
-    self_scores = [round(s * 100,1) for s in self_scores_raw]
-    peer_scores = [round(p * 100,1) for p in peer_scores_raw]
-    delta_scores = [round(d * 100,1) for d in delta_raw]
-
-
-    # Compute delta (in %)
-    # Compute delta (in %) without rounding
-    delta_scores = [peer - self_ for self_, peer in zip(self_scores, peer_scores)]
-
+    # Compute delta (in %), only if peer data exists
+    delta_scores = (
+        [peer - self_ for self_, peer in zip(self_scores, peer_scores)]
+        if has_peer_data else None
+    )
 
     # Build horizontal bar chart
     fig = go.Figure()
 
-    # Individual self-assessment bars
+    # --- Self-assessment bars ---
     fig.add_trace(go.Bar(
         y=trait_cols,
         x=self_scores,
         name='Self Assessment',
         orientation='h',
-        marker_color= '#898DF7',
+        marker_color='#898DF7',
         text=[f"{s}%" for s in self_scores],
         textposition='outside',
         hoverinfo='skip'
     ))
 
-    # Peer assessment bars
-    fig.add_trace(go.Bar(
-        y=trait_cols,
-        x=peer_scores,
-        name='Peer Average',
-        orientation='h',
-        marker_color='#070D2E',
-        text=[f"{p}%" for p in peer_scores],
-        textposition='outside',
-        hoverinfo='skip'
-    ))
+    # --- Peer bars (only if data exists) ---
+    if has_peer_data:
+        fig.add_trace(go.Bar(
+            y=trait_cols,
+            x=peer_scores,
+            name='Peer Average',
+            orientation='h',
+            marker_color='#070D2E',
+            text=[f"{p}%" for p in peer_scores],
+            textposition='outside',
+            hoverinfo='skip'
+        ))
 
-    # Add delta annotation
-    for i, trait in enumerate(trait_cols):
+        # --- Delta annotations ---
+        for i, trait in enumerate(trait_cols):
+            fig.add_annotation(
+                x=100,
+                y=trait,
+                text=f"Δ {delta_scores[i]}%",
+                showarrow=False,
+                font=dict(color='black', size=15),
+                xanchor='right',
+                yanchor='middle'
+            )
+
+        # Delta title
         fig.add_annotation(
             x=100,
-            y=trait,
-            text=f"Δ {delta_scores[i]}%",
+            y=len(trait_cols),
+            text="Score<br>Differences",
             showarrow=False,
-            font=dict(color='black', size=15),
+            font=dict(color='black', size=15, family='Inter, sans-serif'),
             xanchor='right',
-            yanchor='middle'
+            yanchor='bottom'
         )
-    fig.add_annotation(
-    x=100,  # align with the delta scores column
-    y=len(trait_cols),  # just above the top-most bar
-    text="Score<br>Differences",
-    showarrow=False,
-    font=dict(color='black', size=15, family='Inter, sans-serif'),
-    xanchor='right',
-    yanchor='bottom'
-)
 
+    # --- Layout ---
     fig.update_layout(
         barmode='group',
         font=dict(family='Inter, sans-serif'),
-        title=dict(text='Your Wisdom Traits Assessment',
-                   font=dict(family='Inter',size=20,color='black')),
+        title=dict(
+            text='Your Wisdom Traits Assessment',
+            font=dict(family='Inter', size=20, color='black')
+        ),
         xaxis=dict(title='Score (%)', range=[0, 100]),
-        height=50*len(trait_cols) + 100,
-        margin=dict(l=150, r=50, t=40, b=100),  # increase bottom margin for legend
+        height=50 * len(trait_cols) + 100,
+        margin=dict(l=150, r=50, t=40, b=100),
         legend=dict(
             orientation='h',
-            y=-0.2,  # position below the x-axis
+            y=-0.2,
             x=0,
             xanchor='left',
             yanchor='top'
         ),
         yaxis=dict(
-        title='',                    
-        tickfont=dict(color='black', size=16),  
-        automargin=True,
-        side='left',                   # keep on left side
-        ticklabelposition='outside left',
+            title='',
+            tickfont=dict(color='black', size=16),
+            automargin=True,
+            side='left',
+            ticklabelposition='outside left',
         ),
     )
 
     return fig
+
 
 def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
 
