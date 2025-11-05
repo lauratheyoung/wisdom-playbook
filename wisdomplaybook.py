@@ -412,6 +412,8 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
             automargin=True,
             side='left',
             ticklabelposition='outside left',
+            categoryorder='array',
+            categoryarray=list(reversed(trait_cols))
         ),
     )
 
