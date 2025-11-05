@@ -350,8 +350,6 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         hoverinfo='skip'
     ))
 
-    st.write(trait_cols)
-
     # --- Peer bars (only if data exists) ---
     if has_peer_data:
         fig.add_trace(go.Bar(
@@ -432,6 +430,12 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         # Fallback: use zeros
         all_peer_scores = [0] * len(all_question_cols)
         has_peer = False
+
+    display_order = [
+        'Purposeful', 'Adventurous', 'Curious', 'Engaged',
+        'Playful', 'Adaptable', 'Charitable', 'Ethical'
+    ]
+    TRAIT_COLS = [trait for trait in display_order if trait in TRAIT_COLS]
 
     col_ind_lower = 0
     for trait in TRAIT_COLS:
