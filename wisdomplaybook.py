@@ -713,8 +713,15 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         ">
         """, unsafe_allow_html=True)
 
-        st.plotly_chart(bar_fig, use_container_width=True)
-        st.plotly_chart(pie_fig, use_container_width=True)
+        # Make graphs side-by-side
+
+        col1, col2 = st.columns([1, 2])
+        with col1:
+            st.plotly_chart(pie_fig, use_container_width=True, config={'displayModeBar':False})
+        with col2:
+            st.plotly_chart(bar_fig, use_container_width=True, config={'displayModeBar':False})
+
+        st.markdown("</div>", unsafe_allow_html=True)
 
 
 
