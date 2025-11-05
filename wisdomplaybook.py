@@ -368,7 +368,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     fig.update_layout(
         barmode='group',
         font=dict(family='Inter, sans-serif'),
-        title=dict(text='Self vs Peer Wisdom Traits Assessment',
+        title=dict(text='Your Wisdom Traits Assessment',
                    font=dict(family='Inter',size=20,color='black')),
         xaxis=dict(title='Score (%)', range=[0, 100]),
         height=50*len(trait_cols) + 100,
@@ -499,7 +499,10 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         if has_peer:
             overall_score = ((((sum(question_scores) + sum(peer_scores)) / 2) - 4) / 20) * 100
         else:
+            
             overall_score = (((sum(question_scores)) - 4) / 20) * 100
+            st.write(overall_score)
+            st.write(question_scores)
 
         #overall_score = ((((sum(question_scores) + sum(peer_scores)) / 2) - 4) / 20) * 100
         pie_fig = go.Figure(go.Pie(
@@ -561,9 +564,9 @@ def dynamic_closing():
     st.markdown(f'''
         <div class="conclusion-card">
             <p>Your job now is to:</p>
-            <p>1. Use your strong traits in how you show up; continue to share your strengths with the world</p>
-            <p>2. Explore ways of improving the scores on the traits and statements you scored lowest. The Wisdom Playbook offers you ways to do just that, working at your own pace</p>
-            <p>3. Reflect on the wisdom traits and statements where there was inconsistency between your own assessment and that of others</p>
+            <p>1. Use your strong traits in how you show up; continue to share your strengths with the world.</p>
+            <p>2. Explore ways of improving the scores on the traits and statements you scored lowest. The Wisdom Playbook offers you ways to do just that, working at your own pace.</p>
+            <p>3. Reflect on the wisdom traits and statements where there was inconsistency between your own assessment and that of others.</p>
         </div>
 
         ''',
