@@ -350,6 +350,8 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         hoverinfo='skip'
     ))
 
+    st.write(trait_cols)
+
     # --- Peer bars (only if data exists) ---
     if has_peer_data:
         fig.add_trace(go.Bar(
