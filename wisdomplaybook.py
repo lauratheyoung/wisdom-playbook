@@ -426,9 +426,10 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
 
     # Compute delta (in %), only if peer data exists
     delta_scores = (
-        [peer - self_ for self_, peer in zip(self_scores, peer_scores)]
-        if has_peer_data else None
+    [round(peer - self_, 1) for self_, peer in zip(self_scores, peer_scores)]
+    if has_peer_data else None
     )
+
 
     # Build horizontal bar chart
     fig = go.Figure()
