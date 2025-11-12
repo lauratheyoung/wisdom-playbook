@@ -768,6 +768,8 @@ if user_traits.empty:
 
 # Compute user's strengths/growth
 user_row = user_traits.iloc[0]
+st.write('user row after strength/growth')
+st.write(user_row)
 strengths, growth = determine_strength_growth(user_row, TRAIT_COLS)
 
 
@@ -790,8 +792,6 @@ display_dynamic_message(
 
 # Load the overview chart
 fig = plot_trait_comparison(user_row, peer_mean_scores, TRAIT_COLS)
-st.write('peer mean score after plot_trait_comp')
-st.write(peer_mean_scores)
 st.write('user row after plot_trait_comp')
 st.write(user_row)
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
