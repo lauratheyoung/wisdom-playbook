@@ -330,12 +330,15 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     self_scores = [round(s * 100, 1) for s in self_scores_raw]
     peer_scores = [round(p * 100, 1) for p in peer_scores_raw] if has_peer_data else None
 
+    
+
     # Compute delta (in %), only if peer data exists
     delta_scores = (
     [round(peer - self_, 1) for self_, peer in zip(self_scores, peer_scores)]
     if has_peer_data else None
     )
-
+    
+    st.write(self_scores_raw)
     st.write(self_scores)
 
     # Build horizontal bar chart
