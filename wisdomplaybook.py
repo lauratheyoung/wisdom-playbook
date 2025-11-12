@@ -133,7 +133,7 @@ def compute_trait_scores(df):
         # Convert to numeric safely (turn invalid entries into NaN)
         df_traits[cols] = df_traits[cols].apply(pd.to_numeric, errors='coerce')
         # Compute mean ignoring NaN
-        df_traits[trait] = df_traits[cols].mean(axis=1) #.round(1)
+        df_traits[trait] = df_traits[cols].mean(axis=1)
 
     id_cols = ["Timestamp", "What is your first name?", "UUID"]
     id_cols = [col for col in id_cols if col in df_traits.columns]
@@ -596,8 +596,6 @@ if user_traits.empty:
 
 # Compute user's strengths/growth
 user_row = user_traits.iloc[0]
-st.write('user row after strength/growth')
-st.write(user_row)
 strengths, growth = determine_strength_growth(user_row, TRAIT_COLS)
 
 
@@ -620,8 +618,6 @@ display_dynamic_message(
 
 # Load the overview chart
 fig = plot_trait_comparison(user_row, peer_mean_scores, TRAIT_COLS)
-st.write('user row after plot_trait_comp')
-st.write(user_row)
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 
@@ -632,7 +628,5 @@ user_row = get_user_row_by_uuid(df_user_data, uuid_input)
 user_peer_data = get_peer_data_from_user_row(df_peer_data, user_row)
 
 trait_plots(uuid_input, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data)
-st.write('user row after trait_plots')
-st.write(user_row)
 
 dynamic_closing()
