@@ -340,9 +340,6 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     if has_peer_data else None
     )
 
-    st.write(self_scores_raw)
-    st.write(self_scores)
-
     # Build horizontal bar chart
     fig = go.Figure()
 
@@ -463,8 +460,6 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         question_scores = data["question_scores"]
         peer_scores = data["peer_scores"]
 
-        st.write(question_scores)
-
         # --- Create grouped horizontal bar chart ---
         bar_fig = go.Figure()
         question_scores_pct = [(s / 6) * 100 for s in question_scores]
@@ -558,8 +553,6 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             st.plotly_chart(bar_fig, use_container_width=True, config={'displayModeBar':False})
 
         st.markdown("</div>", unsafe_allow_html=True)
-
-
 
 def dynamic_closing():
     st.markdown(f'''
