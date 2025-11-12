@@ -95,6 +95,7 @@ def avg_peer_scores(peer_data):
     df_peer_qs = split_peer_data(peer_data)[1]
     return list(df_peer_qs.mean())
 
+
 def get_user_scores_from_row(user_row):
     df_user_row = split_user_data(pd.DataFrame(user_row).T)[1]
     return list(df_user_row.iloc[0].astype(float))
@@ -791,6 +792,7 @@ display_dynamic_message(
 fig = plot_trait_comparison(user_row, peer_mean_scores, TRAIT_COLS)
 st.write(user_row)
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
+st.write(avg_peer_scores)
 
 df_user_data = prepare_user_data(data)
 df_peer_data = prepare_peer_data(peerdata)
