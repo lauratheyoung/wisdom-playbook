@@ -790,11 +790,12 @@ display_dynamic_message(
 
 # Load the overview chart
 fig = plot_trait_comparison(user_row, peer_mean_scores, TRAIT_COLS)
+st.write('peer mean score after plot_trait_comp')
+st.write(peer_mean_scores)
 st.write('user row after plot_trait_comp')
 st.write(user_row)
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
-st.write('Ave peer score')
-st.write(avg_peer_scores)
+
 
 df_user_data = prepare_user_data(data)
 df_peer_data = prepare_peer_data(peerdata)
