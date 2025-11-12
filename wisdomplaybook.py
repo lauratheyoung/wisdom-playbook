@@ -6,9 +6,8 @@ import streamlit as st
 import pandas as pd
 import streamlit.components.v1 as components
 import numpy as np
-import textwrap
 import base64
-from decimal import Decimal, ROUND_HALF_UP
+
 
 # Set-up
 creds_info = st.secrets
@@ -581,7 +580,6 @@ if user_data.empty:
 df_traits["Full Name"] = data["What is your first name?"].str.strip() + " " + data["What is your last name?"].str.strip()
 df_peer_traits["Full Name"] = peerdata["Who are you peer reviewing? (First and Last Name)"].str.strip()
 
-
 user_traits = df_traits[df_traits["UUID"] == uuid_input]
 if user_traits.empty:
     st.error("No trait data found for this report code.")
@@ -591,7 +589,6 @@ if user_traits.empty:
 user_row = user_traits.iloc[0]
 strengths, growth = determine_strength_growth(user_row, TRAIT_COLS)
 
-
 # User's name
 user_name = user_data["What is your first name?"].iloc[0]
 
@@ -600,7 +597,6 @@ df_peer_traits = compute_peer_strengths(df_peer_traits, TRAIT_COLS)
 peer_rows = df_peer_traits[df_peer_traits["Full Name"] == user_row["Full Name"]]
 peer_strengths, peer_growth, peer_mean_scores = get_user_peer_feedback(peer_rows, TRAIT_COLS)
 consistency_pct, consistent_traits, inconsistent_traits = compute_consistency(user_row, peer_mean_scores, TRAIT_COLS)
-
 
 # Display message
 display_dynamic_message(
