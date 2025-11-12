@@ -337,7 +337,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     [round(peer - self_, 1) for self_, peer in zip(self_scores, peer_scores)]
     if has_peer_data else None
     )
-    
+
     st.write(self_scores_raw)
     st.write(self_scores)
 
@@ -789,6 +789,7 @@ display_dynamic_message(
 
 # Load the overview chart
 fig = plot_trait_comparison(user_row, peer_mean_scores, TRAIT_COLS)
+st.write(user_row)
 st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 df_user_data = prepare_user_data(data)
