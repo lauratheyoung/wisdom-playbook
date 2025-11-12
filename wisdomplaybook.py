@@ -631,6 +631,8 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         question_scores = data["question_scores"]
         peer_scores = data["peer_scores"]
 
+        st.write(question_scores)
+
         # --- Create grouped horizontal bar chart ---
         bar_fig = go.Figure()
         question_scores_pct = [(s / 6) * 100 for s in question_scores]
