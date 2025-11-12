@@ -336,6 +336,8 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     if has_peer_data else None
     )
 
+    st.write(peer_scores)
+
     # Build horizontal bar chart
     fig = go.Figure()
 
