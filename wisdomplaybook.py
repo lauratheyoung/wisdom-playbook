@@ -799,5 +799,6 @@ user_row = get_user_row_by_uuid(df_user_data, uuid_input)
 user_peer_data = get_peer_data_from_user_row(df_peer_data, user_row)
 
 trait_plots(uuid_input, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data)
+st.write(user_row)
 
 dynamic_closing()
