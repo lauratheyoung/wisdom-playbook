@@ -162,7 +162,7 @@ body{
 .full-logo-text {
     display: flex;
     flex-direction: column;
-    line-height: 1;
+    line-height: 0.2;
     gap: 0.2rem;
 }
 
