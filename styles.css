@@ -13,7 +13,7 @@ body{
     min-height: 100vh;
     margin: 0;
 }
-
+/* 
 .welcome-card {
     display: flex;
     align-items: center;
@@ -80,7 +80,79 @@ body{
         white-space: normal;
         text-align: center;
     }
+} */
+
+
+.welcome-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 0.5em;
+    box-sizing: border-box;
+    max-width: 135%;
+    padding: 2% 3%;
+    margin: 5% auto;
+    overflow: hidden;
+    white-space: nowrap;
 }
+
+
+.welcome-card > * {
+    min-width: 0;  
+    flex-shrink: 1;    
+}
+
+
+.welcome-card h2,
+.welcome-card .user-name,
+.welcome-card .wisdom-playbook {
+    font-size: clamp(0.8rem, 2vw + 0.4rem, 6rem);
+    white-space: nowrap;
+    margin: 0;
+}
+
+.welcome-card .user-name,
+.welcome-card .wisdom-playbook {
+    padding: 0.4em 0.8em;
+    border-radius: 0.5em;
+}
+
+
+.welcome-card .user-name {
+    background: #7276F5;
+    color: white;
+}
+
+.welcome-card .wisdom-playbook {
+    background: #070D2E;
+    color: white;
+}
+
+
+.welcome-card .logo {
+    height: clamp(2rem, 6vw, 8rem);
+    flex-shrink: 1;
+    min-width: 0;
+}
+
+
+.welcome-card [data-testid="stHeaderActionElements"] {
+    display: none !important;
+}
+
+.welcome-card [data-testid="stHeadingWithActionElements"] {
+    display: contents !important;
+}
+
+@media (max-width: 600px) {
+    .welcome-card {
+        flex-wrap: wrap;
+        white-space: normal;
+        text-align: center;
+    }
+}
+
 
 .congrats-card {
     display: flex;
