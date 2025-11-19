@@ -172,7 +172,7 @@ body{
 }
 
 .full-logo h2 {
-    font-size: clamp(0.5rem, 2vw + 0.2rem, 1rem);
+    font-size: clamp(0.5rem, 2vw + 0.2rem, 2rem);
     margin: 0; 
     padding: 0;
     line-height: 1.1;
