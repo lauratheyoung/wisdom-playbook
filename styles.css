@@ -221,9 +221,6 @@ body{
         white-space: normal;
         text-align: center;
     }
-    .welcome-card .logo {
-        margin-top: 1em;
-    }
 }
 
 .congrats-card {
