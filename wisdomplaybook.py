@@ -220,14 +220,26 @@ def display_dynamic_message(
     # Main container
     with st.container():
 
+        # st.markdown(
+        #     f'''
+        #     <div class="welcome-card">
+        #         <h2>
+        #             Welcome <span class="user-name">{user_name}</span> to your 
+        #             <span class="wisdom-playbook">Wisdom Report</span>
+        #         </h2>
+        #         <img class= "logo" src="data:image/png;base64,{img_base64}" alt="logo"/>
+        #     </div>
+        #     ''',
+        #     unsafe_allow_html=True
+        # )
+
         st.markdown(
             f'''
-            <div class="welcome-card">
-                <h2>
-                    Welcome <span class="user-name">{user_name}</span> to your 
-                    <span class="wisdom-playbook">Wisdom Report</span>
-                </h2>
+            <div class="logo">
                 <img class= "logo" src="data:image/png;base64,{img_base64}" alt="logo"/>
+                <h2> The </h2>
+                <h2> Wisdom </h2>
+                <h2> Playbook </h2>
             </div>
             ''',
             unsafe_allow_html=True
@@ -292,7 +304,7 @@ def display_dynamic_message(
                 <h1 class="congrats-text">Congratulations, {user_name}!</h1>
                 <p>
                     You've taken the first steps towards reflecting on your own wisdom. 
-                    Your self-assessment shows your areas of strength are: 
+                    Your Wisdom Report shows your areas of strength are: 
                     <span class="strengths">{formatted_strengths}</span> traits. 
                     The areas for you to work on are: 
                     <span class="growth">{formatted_growth}</span> traits.
