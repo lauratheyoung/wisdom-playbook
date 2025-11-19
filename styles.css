@@ -59,49 +59,46 @@ body{
     flex-shrink: 1; 
 } */
 /* Base card layout */
-
-.welcome-card > * {
-    min-width: 0;
-}
-
-
 .welcome-card {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap: nowrap; 
+    flex-wrap: nowrap;
     gap: 0.5em;
     box-sizing: border-box;
     max-width: 100%;
+    white-space: nowrap;
     overflow: hidden;
-    white-space: nowrap; 
 }
 
+/* ⭐ CRITICAL FIX */
+.welcome-card > * {
+    min-width: 0;   /* allows shrinking instead of clipping */
+}
 
 .welcome-card * {
     max-width: 100%;
     flex-shrink: 1;
 }
 
-/* Override Streamlit heading wrapper */
+/* Streamlit wrapper */
 .welcome-card [data-testid="stHeadingWithActionElements"] {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
+    flex-wrap: nowrap;  /* ensure it doesn't wrap either */
+    min-width: 0;       /* ⭐ also allow shrink here */
 }
 
-/* Hide the auto-injected anchor icon */
 .welcome-card [data-testid="stHeaderActionElements"] {
     display: none !important;
 }
 
-/* Text resizing */
+/* Prevent sub-wrapping */
 .welcome-card h2,
 .welcome-card .user-name,
 .welcome-card .wisdom-playbook {
-    white-space: nowrap; /* prevent text inside badges from breaking */
+    white-space: nowrap;
 }
-
 
 /* Badges */
 .welcome-card .user-name,
@@ -110,32 +107,19 @@ body{
     border-radius: clamp(0.3em, 0.5vw, 0.5em);
 }
 
-.welcome-card .user-name {
-    background-color: #7276F5;
-    color: white;
-}
-
-.welcome-card .wisdom-playbook {
-    background-color: #070D2E;
-    color: white;
-}
-
+/* Logo */
 .welcome-card .logo {
     max-width: 100%;
     height: clamp(2rem, 5vw + 1rem, 6rem);
-    flex-shrink: 1;  
+    flex-shrink: 1;
 }
 
-
-/* Mobile layout */
+/* Mobile fallback */
 @media (max-width: 600px) {
     .welcome-card {
         flex-direction: column;
         text-align: center;
-    }
-
-    .welcome-card img.logo {
-        margin-top: 1em;
+        white-space: normal; /* stack vertically */
     }
 }
 
