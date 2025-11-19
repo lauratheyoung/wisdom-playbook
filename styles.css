@@ -153,16 +153,30 @@ body{
     }
 } */
 
+.full-logo {
+    display: flex;
+    align-items: center; 
+    gap: 0.4rem;     
+}
+
+.full-logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    gap: 0.2rem;
+}
+
 .logo {
     height: clamp(1.8rem, 6vw, 8rem);
     flex-shrink: 1;
     min-width: 0;
 }
 
-.full-logo h2{
+.full-logo h2 {
     font-size: clamp(0.5rem, 2vw + 0.2rem, 1rem);
-
+    margin: 0; 
 }
+
 
 .full-logo [data-testid="stHeaderActionElements"] {
     display: none !important;

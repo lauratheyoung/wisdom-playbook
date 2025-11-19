@@ -237,9 +237,11 @@ def display_dynamic_message(
             f'''
             <div class="full-logo">
                 <img class= "logo" src="data:image/png;base64,{img_base64}" alt="logo"/>
-                <h2> The </h2>
-                <h2> Wisdom </h2>
-                <h2> Playbook </h2>
+                <div class= "ful-logo-text">
+                    <h2> The </h2>
+                    <h2> Wisdom </h2>
+                    <h2> Playbook </h2>
+                </div>
             </div>
             ''',
             unsafe_allow_html=True
