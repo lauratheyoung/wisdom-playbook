@@ -18,19 +18,21 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap;    
     gap: 0.8em;
     box-sizing: border-box;
-    max-width: 135%;
+    max-width: 95%;     
+    padding: 2% 3%;       
+    margin: 5% auto;      
     overflow: hidden;
-    white-space: nowrap;
+    white-space: nowrap;    
 }
-
 
 .welcome-card > * {
-    min-width: 0;  
-    flex-shrink: 1;    
+    min-width: 0;
+    flex-shrink: 0;       
 }
+
 
 
 .welcome-card h2,
