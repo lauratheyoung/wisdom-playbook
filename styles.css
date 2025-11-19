@@ -19,7 +19,7 @@ body{
     align-items: center;
     justify-content: center;
     flex-wrap: nowrap;
-    gap: 0.5em;
+    gap: 0.8em;
     box-sizing: border-box;
     max-width: 135%;
     overflow: hidden;
