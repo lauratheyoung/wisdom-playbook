@@ -60,7 +60,7 @@ body{
 } */
 /* Base card layout */
 
-.welcome-card > * {
+/* .welcome-card > * {
     min-width: 0;
 }
 
@@ -84,14 +84,14 @@ body{
     flex-shrink: 1;
 }
 
-/* Override Streamlit heading wrapper */
+
 .welcome-card [data-testid="stHeadingWithActionElements"] {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
 }
 
-/* Hide the auto-injected anchor icon */
+
 .welcome-card [data-testid="stHeaderActionElements"] {
     display: none !important;
 }
@@ -105,7 +105,7 @@ body{
 
 
 
-/* Text resizing */
+
 .welcome-card h2,
 .welcome-card .user-name,
 .welcome-card .wisdom-playbook {
@@ -114,7 +114,7 @@ body{
 }
 
 
-/* Badges */
+
 .welcome-card .user-name,
 .welcome-card .wisdom-playbook {
     padding: clamp(0.2em, 0.5vw, 0.6em) clamp(0.4em, 1vw, 1em);
@@ -138,7 +138,7 @@ body{
 }
 
 
-/* Mobile layout */
+
 @media (max-width: 600px) {
     .welcome-card {
         flex-direction: column;
@@ -148,8 +148,80 @@ body{
     .welcome-card img.logo {
         margin-top: 1em;
     }
+} */
+
+/* Core layout */
+.welcome-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    padding: 2% 3%;
+    max-width: 95%;
+    margin: 0 auto;
+    white-space: nowrap; /* force one line */
+    overflow: hidden;    /* prevent spillover */
 }
 
+/* Everything inside must be shrinkable */
+.welcome-card > * {
+    min-width: 0;       /* critical for preventing overflow */
+    flex-shrink: 1;     /* allow shrinking instead of wrapping */
+}
+
+/* Text + badges */
+.welcome-card h2,
+.welcome-card .user-name,
+.welcome-card .wisdom-playbook {
+    font-size: clamp(0.8rem, 2vw + 0.4rem, 2.8rem);
+    white-space: nowrap;
+    margin: 0;
+}
+
+.welcome-card .user-name,
+.welcome-card .wisdom-playbook {
+    padding: 0.4em 0.8em;
+    border-radius: 0.5em;
+}
+
+/* Colours */
+.welcome-card .user-name {
+    background: #7276F5;
+    color: white;
+}
+
+.welcome-card .wisdom-playbook {
+    background: #070D2E;
+    color: white;
+}
+
+/* Logo */
+.welcome-card .logo {
+    height: clamp(2rem, 5vw, 6rem);
+    flex-shrink: 1;
+    min-width: 0;
+}
+
+/* Remove Streamlit junk */
+.welcome-card [data-testid="stHeaderActionElements"] {
+    display: none !important;
+}
+
+.welcome-card [data-testid="stHeadingWithActionElements"] {
+    display: contents !important; /* 💡 perfect trick: removes wrapper */
+}
+
+/* Mobile fallback (vertical stack) */
+@media (max-width: 600px) {
+    .welcome-card {
+        flex-wrap: wrap;
+        white-space: normal;
+        text-align: center;
+    }
+    .welcome-card .logo {
+        margin-top: 1em;
+    }
+}
 
 .congrats-card {
     display: flex;
