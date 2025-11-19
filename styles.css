@@ -159,6 +159,11 @@ body{
     min-width: 0;
 }
 
+.full-logo h2{
+    font-size: clamp(0.5rem, 2vw + 0.2rem, 1rem);
+
+}
+
 
 .congrats-card {
     display: flex;
