@@ -155,12 +155,15 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.6em;
-    padding: 2% 3%;
+    flex-wrap: nowrap;
+    gap: 0.5em;
+    box-sizing: border-box;
     max-width: 95%;
-    margin: 0 auto;
-    white-space: nowrap; /* force one line */
-    overflow: hidden;    /* prevent spillover */
+    padding: 2% 3%;
+    width: 100%;
+    margin: 5% auto;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 /* Everything inside must be shrinkable */
@@ -197,7 +200,7 @@ body{
 
 /* Logo */
 .welcome-card .logo {
-    height: clamp(2rem, 5vw, 6rem);
+    height: clamp(2rem, 5vw, 8rem);
     flex-shrink: 1;
     min-width: 0;
 }
