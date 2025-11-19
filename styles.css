@@ -131,7 +131,7 @@ body{
 
 
 .welcome-card .logo {
-    height: clamp(2rem, 6vw, 8rem);
+    height: clamp(1.8rem, 6vw, 8rem);
     flex-shrink: 1;
     min-width: 0;
 }
