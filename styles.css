@@ -14,143 +14,6 @@ body{
     margin: 0;
 }
 
-/* .welcome-card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.5em;
-    box-sizing: border-box;
-    max-width: 100%;
-    overflow: hidden;
-    flex-shrink: 1;
-}
-
-.welcome-card h2,
-.welcome-card .user-name,
-.welcome-card .wisdom-playbook {
-    font-size: clamp(0.7rem, 2vw + 1rem, 4rem);
-    flex-shrink: 1;
-
-    margin: 0;
-}
-
-.welcome-card .user-name,
-.welcome-card .wisdom-playbook {
-    padding: clamp(0.2em, 0.5vw, 0.6em) clamp(0.4em, 1vw, 1em); 
-    border-radius: clamp(0.3em, 0.5vw, 0.5em);
-}
-
-.welcome-card .user-name {
-    background-color: #7276F5;
-    color: white;
-}
-
-.welcome-card .wisdom-playbook {
-    background-color: #070D2E;
-    color: white;
-}
-
-.welcome-card .logo {
-    height: clamp(2rem, 5vw + 1rem, 8rem); 
-    display: inline-block;
-    vertical-align: middle;
-    object-fit: contain;
-    flex-shrink: 1; 
-} */
-/* Base card layout */
-
-/* .welcome-card > * {
-    min-width: 0;
-}
-
-
-.welcome-card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: nowrap; 
-    gap: 0.5em;
-    box-sizing: border-box;
-    max-width: 100%;
-    padding: 2% 3%;
-    overflow: hidden;
-    white-space: nowrap; 
-}
-
-
-.welcome-card * {
-    max-width: 100%;
-    flex-shrink: 1;
-}
-
-
-.welcome-card [data-testid="stHeadingWithActionElements"] {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-
-.welcome-card [data-testid="stHeaderActionElements"] {
-    display: none !important;
-}
-
-
-.welcome-card h2,
-.welcome-card .user-name,
-.welcome-card .wisdom-playbook {
-    font-size: clamp(0.6rem, 2vw + 0.6rem, 3rem);
-}
-
-
-
-
-.welcome-card h2,
-.welcome-card .user-name,
-.welcome-card .wisdom-playbook {
-    white-space: nowrap;
-    flex-shrink:1;
-}
-
-
-
-.welcome-card .user-name,
-.welcome-card .wisdom-playbook {
-    padding: clamp(0.2em, 0.5vw, 0.6em) clamp(0.4em, 1vw, 1em);
-    border-radius: clamp(0.3em, 0.5vw, 0.5em);
-}
-
-.welcome-card .user-name {
-    background-color: #7276F5;
-    color: white;
-}
-
-.welcome-card .wisdom-playbook {
-    background-color: #070D2E;
-    color: white;
-}
-
-.welcome-card .logo {
-    max-width: 100%;
-    height: clamp(2rem, 5vw + 1rem, 6rem);
-    flex-shrink: 1;  
-}
-
-
-
-@media (max-width: 600px) {
-    .welcome-card {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .welcome-card img.logo {
-        margin-top: 1em;
-    }
-} */
-
-/* Core layout */
 .welcome-card {
     display: flex;
     align-items: center;
@@ -159,35 +22,32 @@ body{
     gap: 0.5em;
     box-sizing: border-box;
     max-width: 135%;
-    padding: 2% 3%;
-    /* width: 100%; */
-    margin: 5% auto;
     overflow: hidden;
     white-space: nowrap;
 }
 
-/* Everything inside must be shrinkable */
+
 .welcome-card > * {
-    min-width: 0;       /* critical for preventing overflow */
-    flex-shrink: 1;     /* allow shrinking instead of wrapping */
+    min-width: 0;  
+    flex-shrink: 1;    
 }
 
-/* Text + badges */
+
 .welcome-card h2,
 .welcome-card .user-name,
 .welcome-card .wisdom-playbook {
-    font-size: clamp(0.8rem, 2vw + 0.4rem, 4rem);
+    font-size: clamp(0.8rem, 2vw + 0.4rem, 6rem);
     white-space: nowrap;
     margin: 0;
 }
 
-.welcome-card .user-name,
+/* .welcome-card .user-name,
 .welcome-card .wisdom-playbook {
     padding: 0.4em 0.8em;
     border-radius: 0.5em;
-}
+} */
 
-/* Colours */
+
 .welcome-card .user-name {
     background: #7276F5;
     color: white;
@@ -198,23 +58,22 @@ body{
     color: white;
 }
 
-/* Logo */
+
 .welcome-card .logo {
-    height: clamp(2rem, 5vw, 8rem);
+    height: clamp(2rem, 6vw, 8rem);
     flex-shrink: 1;
     min-width: 0;
 }
 
-/* Remove Streamlit junk */
+
 .welcome-card [data-testid="stHeaderActionElements"] {
     display: none !important;
 }
 
 .welcome-card [data-testid="stHeadingWithActionElements"] {
-    display: contents !important; /* 💡 perfect trick: removes wrapper */
+    display: contents !important;
 }
 
-/* Mobile fallback (vertical stack) */
 @media (max-width: 600px) {
     .welcome-card {
         flex-wrap: wrap;
