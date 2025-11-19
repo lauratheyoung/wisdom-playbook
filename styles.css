@@ -153,6 +153,12 @@ body{
     }
 } */
 
+.logo {
+    height: clamp(1.8rem, 6vw, 8rem);
+    flex-shrink: 1;
+    min-width: 0;
+}
+
 
 .congrats-card {
     display: flex;

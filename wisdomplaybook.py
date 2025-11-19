@@ -235,7 +235,7 @@ def display_dynamic_message(
 
         st.markdown(
             f'''
-            <div class="logo">
+            <div class="full-logo">
                 <img class= "logo" src="data:image/png;base64,{img_base64}" alt="logo"/>
                 <h2> The </h2>
                 <h2> Wisdom </h2>
