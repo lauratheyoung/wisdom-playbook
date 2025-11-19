@@ -147,7 +147,7 @@ body{
 
 @media (max-width: 600px) {
     .welcome-card {
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         white-space: normal;
         text-align: center;
     }
