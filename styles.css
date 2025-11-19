@@ -95,6 +95,15 @@ body{
     display: none !important;
 }
 
+
+.welcome-card h2,
+.welcome-card .user-name,
+.welcome-card .wisdom-playbook {
+    font-size: clamp(0.6rem, 2vw + 0.6rem, 2.2rem);
+}
+
+
+
 /* Text resizing */
 .welcome-card h2,
 .welcome-card .user-name,
