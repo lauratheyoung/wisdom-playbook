@@ -73,6 +73,7 @@ body{
     gap: 0.5em;
     box-sizing: border-box;
     max-width: 100%;
+    padding: 2% 3%;
     overflow: hidden;
     white-space: nowrap; 
 }
