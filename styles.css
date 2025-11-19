@@ -164,7 +164,13 @@ body{
 
 }
 
+.full-logo [data-testid="stHeaderActionElements"] {
+    display: none !important;
+}
 
+.full-logo [data-testid="stHeadingWithActionElements"] {
+    display: contents !important;
+}
 .congrats-card {
     display: flex;
     align-items: center;
