@@ -138,7 +138,6 @@ def compute_trait_scores(df):
     id_cols = [col for col in id_cols if col in df_traits.columns]
     return df_traits[id_cols + TRAIT_COLS]
 
-
 # Compute aggregated scores for all users and get df_traits
 df_traits = compute_trait_scores(data)
 
@@ -289,20 +288,19 @@ def display_dynamic_message(
         # Render a single card
         st.markdown(
             f'''
-            <div class="congrats-card">
-                <h1 class="congrats-text">Congratulations, {user_name}!</h1>
-                <p>
-                    You've taken the first steps towards reflecting on your own wisdom. 
-                    Your self-assessment shows your areas of strength are: 
-                    <span class="strengths">{formatted_strengths}</span> traits. 
-                    The areas for you to work on are: 
-                    <span class="growth">{formatted_growth}</span> traits.
-                </p>
-                {peer_text}
+            <div class="welcome-card">
+                <div class="title-wrap">
+                    <h2>
+                        Welcome <span class="user-name">{user_name}</span> to your 
+                        <span class="wisdom-playbook">Wisdom Report</span>
+                    </h2>
+                </div>
+                <img class="logo" src="data:image/png;base64,{img_base64}" alt="logo"/>
             </div>
             ''',
             unsafe_allow_html=True
         )
+
 
 def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     """
