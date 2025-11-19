@@ -60,6 +60,11 @@ body{
 } */
 /* Base card layout */
 
+.welcome-card > * {
+    min-width: 0;
+}
+
+
 .welcome-card {
     display: flex;
     align-items: center;
