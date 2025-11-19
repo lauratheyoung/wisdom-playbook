@@ -41,11 +41,11 @@ body{
     margin: 0;
 }
 
-/* .welcome-card .user-name,
+.welcome-card .user-name,
 .welcome-card .wisdom-playbook {
     padding: 0.4em 0.8em;
     border-radius: 0.5em;
-} */
+}
 
 
 .welcome-card .user-name {
