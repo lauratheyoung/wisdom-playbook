@@ -158,9 +158,9 @@ body{
     flex-wrap: nowrap;
     gap: 0.5em;
     box-sizing: border-box;
-    max-width: 115%;
+    max-width: 135%;
     padding: 2% 3%;
-    width: 100%;
+    /* width: 100%; */
     margin: 5% auto;
     overflow: hidden;
     white-space: nowrap;
@@ -176,7 +176,7 @@ body{
 .welcome-card h2,
 .welcome-card .user-name,
 .welcome-card .wisdom-playbook {
-    font-size: clamp(0.8rem, 2vw + 0.4rem, 2.8rem);
+    font-size: clamp(0.8rem, 2vw + 0.4rem, 4rem);
     white-space: nowrap;
     margin: 0;
 }
