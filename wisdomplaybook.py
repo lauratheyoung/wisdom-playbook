@@ -724,38 +724,19 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         #             {trait_descriptions.get(trait, "No definition available")}
         #         </div>
         #     """, unsafe_allow_html=True)
-
-
-        # Initialize session state for this trait
-        toggle_key = f"{trait}_expanded"
-        if toggle_key not in st.session_state:
-            st.session_state[toggle_key] = False
-
-        # Function to toggle expand/collapse
-        def toggle():
-            st.session_state[toggle_key] = not st.session_state[toggle_key]
-
-        # Hidden button to handle toggle via callback
-        st.button("toggle", key=f"btn_{toggle_key}", on_click=toggle)
-
-        # Render the card styled as your trait-window
-        st.markdown(f"""
-        <div class='trait-window' style='
-            background-color:#F7F7F7;
-            border-radius:1.3rem;
-            padding:1rem;
-            margin-bottom:1rem;
-            box-shadow:0 4px 8px rgba(0,0,0,0.1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: Inter, sans-serif;
-        ' onclick="document.getElementById('btn_{toggle_key}').click()">
-            <div style='font-weight:bold; font-size:1rem;'>{trait} — Click to see definition</div>
-            {"<div style='margin-top:0.5rem;'>{}</div>".format(trait_descriptions) if st.session_state[toggle_key] else ""}
-        </div>
-        """, unsafe_allow_html=True)
-
-
+        with st.expander(f"{trait} — Click to see definition", expanded=False):
+            st.markdown(f"""
+                <div style='
+                    background-color:#F7F7F7;
+                    border-radius:1.3rem;
+                    padding:1rem;
+                    margin-bottom:1rem;
+                    box-shadow:0 4px 8px rgba(0,0,0,0.1);
+                    font-family: Inter, sans-serif;
+                '>
+                    {trait_description}
+                </div>
+            """, unsafe_allow_html=True)
 
 
 
