@@ -88,3 +88,8 @@ body{
     max-width: 95%;
     box-sizing: border-box;
 }
+
+div[data-testid="stExpanderHeader"] span[data-testid="stIconMaterial"]::after {
+    content: '' !important;
+}
+
