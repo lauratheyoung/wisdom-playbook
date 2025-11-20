@@ -584,7 +584,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         }
         col_ind_lower += 4
 
-    # Define placeholder trait descriptions
+    # Placeholder trait descriptions
     trait_descriptions = {
         "Purposeful": "You set clear goals and follow through with intention.",
         "Adventurous": "You enjoy exploring new ideas, people, and experiences.",
@@ -596,14 +596,47 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         "Ethical": "You act with integrity and follow moral principles."
     }
 
-    # Loop through traits in the desired order
+    # Loop through traits
     for trait in desired_order:
         data = trait_scores_dict[trait]
         question_cols = data["question_cols"]
         question_scores = data["question_scores"]
         peer_scores = data["peer_scores"]
 
-        # --- Create grouped horizontal bar chart ---
+        # --- Create pie chart ---
+        def percent_of_max(scores):
+            if not scores:
+                return 0
+            return round(sum(scores) / (4 * 6) * 100, 1)
+
+        if has_peer and peer_scores is not None:
+            combined_scores = [(s + p) / 2 for s, p in zip(question_scores, peer_scores)]
+            overall_score = percent_of_max(combined_scores)
+        else:
+            overall_score = percent_of_max(question_scores)
+
+        pie_fig = go.Figure(go.Pie(
+            labels=[f"{trait} Score", " "],
+            values=[overall_score, 100 - overall_score],
+            hole=0.4,
+            marker_colors=['#549D8A', '#D9D9D9'],
+            textinfo='none',
+            hoverinfo='skip',
+            sort=False,
+            rotation=180
+        ))
+        pie_fig.add_annotation(
+            x=0.5, y=0.5,
+            text=f"{round(overall_score, 1)}%",
+            showarrow=False,
+            font=dict(family='Inter, sans-serif', size=22, color='black')
+        )
+        pie_fig.update_layout(
+            title=dict(text=f"{trait}", font=dict(family='Inter, sans-serif', size=25, color='black')),
+            legend=dict(orientation='h', yanchor='top', xanchor='left', x=0.05)
+        )
+
+        # --- Create horizontal bar chart ---
         bar_fig = go.Figure()
         question_scores_pct = [(s / 6) * 100 for s in question_scores]
 
@@ -616,7 +649,6 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             text=[f"{round(s)}%" for s in question_scores_pct],
             textposition='outside'
         ))
-
         if has_peer:
             peer_scores_pct = [(s / 6) * 100 for s in peer_scores]
             bar_fig.add_trace(go.Bar(
@@ -641,69 +673,20 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
 
         def wrap_labels(labels, width=40):
             return ["<br>".join(textwrap.wrap(label, width=width)) for label in labels]
-
         bar_fig.update_traces(y=wrap_labels(question_cols, width=40), hoverinfo='skip')
 
-        # --- Create pie chart for self score ---
-        def percent_of_max(scores):
-            if not scores:
-                return 0
-            return round(sum(scores) / (4 * 6) * 100, 1)
+        # --- Display charts first, outside expander ---
+        st.markdown(f"<div class='trait-window' style='display:flex; flex-wrap:wrap; background-color:#F7F7F7; border-radius:1.3rem; padding:1rem; margin-bottom:1rem; box-shadow:0 4px 8px rgba(0,0,0,0.1);'>", unsafe_allow_html=True)
+        col1, col2 = st.columns([1, 2])
+        with col1:
+            st.plotly_chart(pie_fig, use_container_width=True, config={'displayModeBar':False})
+        with col2:
+            st.plotly_chart(bar_fig, use_container_width=True, config={'displayModeBar':False})
+        st.markdown("</div>", unsafe_allow_html=True)
 
-        if has_peer and peer_scores is not None:
-            combined_scores = [(s + p) / 2 for s, p in zip(question_scores, peer_scores)]
-            overall_score = percent_of_max(combined_scores)
-        else:
-            overall_score = percent_of_max(question_scores)
-
-        pie_fig = go.Figure(go.Pie(
-            labels=[f"{trait} Score", " "],
-            values=[overall_score, 100 - overall_score],
-            hole=0.4,
-            marker_colors=['#549D8A', '#D9D9D9'],
-            textinfo='none',
-            hoverinfo='skip',
-            sort=False,
-            rotation=180
-        ))
-
-        pie_fig.add_annotation(
-            x=0.5, y=0.5,
-            text=f"{round(overall_score, 1)}%",
-            showarrow=False,
-            font=dict(family='Inter, sans-serif', size=22, color='black')
-        )
-
-        pie_fig.update_layout(
-            title=dict(text=f"{trait}", font=dict(family='Inter, sans-serif', size=25, color='black')),
-            legend=dict(orientation='h', yanchor='top', xanchor='left', x=0.05)
-        )
-
-        # --- Display trait in an expander ---
+        # --- Expander with only trait definition ---
         with st.expander(f"{trait} — Click to see definition", expanded=False):
-            # Optional: trait definition text
-            st.markdown(f"<div style='margin-top:1.5rem; margin-bottom:1rem;'>{trait_descriptions.get(trait, 'No definition available')}</div>")
-
-            # Wrap your existing .trait-window styling
-            # st.markdown("""
-            # <div class="trait-window" style="
-            #     display: flex;
-            #     flex-wrap: wrap;
-            #     background-color: #F7F7F7;
-            #     border-radius: 1.3rem;
-            #     padding: 1rem;
-            #     margin-bottom: 1rem;
-            #     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            # ">
-            # """, unsafe_allow_html=True)
-
-            col1, col2 = st.columns([1, 2])
-            with col1:
-                st.plotly_chart(pie_fig, use_container_width=True, config={'displayModeBar':False})
-            with col2:
-                st.plotly_chart(bar_fig, use_container_width=True, config={'displayModeBar':False})
-
-            st.markdown("</div>")
+            st.write(trait_descriptions.get(trait, "No definition available"))
 
 
 def dynamic_closing():
