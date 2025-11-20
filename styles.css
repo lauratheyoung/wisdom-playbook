@@ -93,3 +93,14 @@ div[data-testid="stExpanderHeader"] span[data-testid="stIconMaterial"]::after {
     content: '' !important;
 }
 
+/* Hide the fallback text for the expander arrow */
+div[data-testid="stExpanderHeader"] span[data-testid="stIconMaterial"] {
+    font-family: 'Material Icons' !important; /* optional to ensure correct font */
+    display: inline-block; /* keep the icon visible */
+    text-indent: -9999px; /* hide the fallback text */
+    width: 1em;
+    height: 1em;
+    overflow: hidden;
+}
+
+
