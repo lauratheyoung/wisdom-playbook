@@ -725,18 +725,21 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         #         </div>
         #     """, unsafe_allow_html=True)
 
-        with st.expander(trait, expanded=False):
+        with st.expander(f"{trait} — Click to see definition", expanded=False):
             st.markdown(f"""
                 <div style='
                     background-color:#F7F7F7;
                     border-radius:1.3rem;
                     padding:1rem;
+                    margin-top:0.5rem;
                     margin-bottom:1rem;
                     box-shadow:0 4px 8px rgba(0,0,0,0.1);
+                    font-family: Inter, sans-serif;
                 '>
                     {trait_descriptions.get(trait, "No definition available")}
                 </div>
             """, unsafe_allow_html=True)
+
 
 
 
