@@ -394,14 +394,13 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     fig.update_layout(
         barmode='group',
         font=dict(family='Inter, sans-serif'),
-        margin=dict(l=150, r=50, t=90, b=100),
         title=dict(
             text='Your Wisdom Traits Assessment',
             font=dict(family='Inter', size=20, color='black')
         ),
         xaxis=dict(title='Score (%)', range=[0, 100]),
         height=50 * len(trait_cols) + 100,
-        margin=dict(l=150, r=50, t=40, b=100),
+        margin=dict(l=150, r=50, t=90, b=100),
         legend=dict(
             orientation='h',
             y=-0.2,
