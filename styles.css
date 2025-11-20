@@ -2,7 +2,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,175;1,14..32,175&display=swap');
 
-/* Styling the intro */
+
 html, body, [class*="st-"], .welcome-card {
     font-family: 'Inter', sans-serif !important;
 }
@@ -13,145 +13,6 @@ body{
     min-height: 100vh;
     margin: 0;
 }
-/* 
-.welcome-card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: nowrap;    
-    gap: 0.8em;
-    box-sizing: border-box;
-    max-width: 100%;     
-    padding: 2% 3%;       
-    margin: 5% auto;      
-    overflow: hidden;
-    white-space: nowrap;    
-}
-
-.welcome-card > * {
-    min-width: 0;
-    flex-shrink: 0;       
-}
-
-.welcome-card h2,
-.welcome-card .user-name,
-.welcome-card .wisdom-playbook {
-    font-size: clamp(0.8rem, 2vw + 0.6rem, 8rem);
-    white-space: nowrap;
-    margin: 0;
-}
-
-.welcome-card .user-name,
-.welcome-card .wisdom-playbook {
-    padding: 0.4em 0.8em;
-    border-radius: 0.5em;
-}
-
-
-.welcome-card .user-name {
-    background: #7276F5;
-    color: white;
-}
-
-.welcome-card .wisdom-playbook {
-    background: #070D2E;
-    color: white;
-}
-
-
-.welcome-card .logo {
-    height: clamp(2rem, 6vw, 8rem);
-    flex-shrink: 1;
-    min-width: 0;
-}
-
-
-.welcome-card [data-testid="stHeaderActionElements"] {
-    display: none !important;
-}
-
-.welcome-card [data-testid="stHeadingWithActionElements"] {
-    display: contents !important;
-}
-
-@media (max-width: 600px) {
-    .welcome-card {
-        flex-wrap: wrap;
-        white-space: normal;
-        text-align: center;
-    }
-} */
-
-
-/* .welcome-card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: nowrap;
-    gap: 0.8em;
-    box-sizing: border-box;
-    max-width: 95%;
-    padding: 2% 3%;
-    margin: 5% auto;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-
-.welcome-card > * {
-    min-width: 0;  
-    flex-shrink: 1;    
-}
-
-
-.welcome-card h2,
-.welcome-card .user-name,
-.welcome-card .wisdom-playbook {
-    font-size: clamp(0.8rem, 2vw + 0.4rem, 8rem);
-    white-space: nowrap;
-    margin: 0;
-}
-
-.welcome-card .user-name,
-.welcome-card .wisdom-playbook {
-    padding: 0.4em 0.8em;
-    border-radius: 0.5em;
-}
-
-
-.welcome-card .user-name {
-    background: #7276F5;
-    color: white;
-}
-
-.welcome-card .wisdom-playbook {
-    background: #070D2E;
-    color: white;
-}
-
-
-.welcome-card .logo {
-    height: clamp(1.8rem, 6vw, 8rem);
-    flex-shrink: 1;
-    min-width: 0;
-}
-
-
-.welcome-card [data-testid="stHeaderActionElements"] {
-    display: none !important;
-}
-
-.welcome-card [data-testid="stHeadingWithActionElements"] {
-    display: contents !important;
-}
-
-@media (max-width: 600px) {
-    .welcome-card {
-        flex-wrap: nowrap;
-        white-space: normal;
-        text-align: center;
-    }
-} */
 
 .full-logo {
     display: flex;
@@ -163,6 +24,7 @@ body{
     display: flex;
     flex-direction: column;
     line-height: 0.2;
+    
 }
 
 .logo {
@@ -188,7 +50,7 @@ body{
     display: contents !important;
 }
 
-.congrats-card {
+/* .congrats-card {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -204,17 +66,33 @@ body{
     margin-top: 5%;
     margin-bottom: 5%;
     box-sizing: border-box;
+} */
+
+.congrats-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: none;
+    border: 0.3rem solid #070D2E;
+    border-radius: 2rem;
+    padding: 2% 3%;
+    margin: 5% auto;   /* centers horizontally */
+    box-shadow: 0 0.4rem 0.8rem rgba(0,0,0,0.1);
+    max-width: 95%;
+    box-sizing: border-box;
 }
 
+
 #congrats-text{
-    /* font-size: 1.5em; */
     font-size: clamp(0.8rem, 2vw + 0.4rem, 1.5rem);
     white-space: nowrap;
     margin: 0;
 }
 
 .conclusion-card {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     background-color: none;
@@ -226,5 +104,18 @@ body{
     max-width: 95%;
     margin-top: 5%;
     margin-bottom: 5%;
+    box-sizing: border-box; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: none;
+    border: 0.3rem solid #070D2E;
+    border-radius: 2rem;
+    padding: 2% 3%;
+    margin: 5% auto;   /* centers horizontally */
+    box-shadow: 0 0.4rem 0.8rem rgba(0,0,0,0.1);
+    max-width: 95%;
     box-sizing: border-box;
 }
