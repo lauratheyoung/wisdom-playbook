@@ -683,47 +683,79 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             st.plotly_chart(bar_fig, use_container_width=True, config={'displayModeBar':False})
         st.markdown("</div>", unsafe_allow_html=True)
 
-        # Use a button for full-card click
-        toggle_key = f"{trait}_definition"
+        # # Use a button for full-card click
+        # toggle_key = f"{trait}_definition"
 
-        # Button styled as full div
-        show_definition = st.button(
-            f"{trait} — Click to see definition",
-            key=toggle_key,
-            help="Click to expand",
-        )
+        # # Button styled as full div
+        # show_definition = st.button(
+        #     f"{trait} — Click to see definition",
+        #     key=toggle_key,
+        #     help="Click to expand",
+        # )
 
-        # Style the button as a card
-        st.markdown(f"""
-            <style>
-            div.stButton > button#{toggle_key} {{
-                width: 100%;
-                text-align: left;
-                background-color: #F7F7F7;
-                border-radius: 1.3rem;
-                padding: 1rem;
-                margin-bottom: 1rem;
-                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-                font-weight: bold;
-                font-size: 1rem;
-                cursor: pointer;
-            }}
-            </style>
-        """, unsafe_allow_html=True)
+        # # Style the button as a card
+        # st.markdown(f"""
+        #     <style>
+        #     div.stButton > button#{toggle_key} {{
+        #         width: 100%;
+        #         text-align: left;
+        #         background-color: #F7F7F7;
+        #         border-radius: 1.3rem;
+        #         padding: 1rem;
+        #         margin-bottom: 1rem;
+        #         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        #         font-weight: bold;
+        #         font-size: 1rem;
+        #         cursor: pointer;
+        #     }}
+        #     </style>
+        # """, unsafe_allow_html=True)
 
-        # If clicked, show definition inside same styled container
-        if show_definition:
-            st.markdown(f"""
-                <div class='trait-window' style='
-                    background-color:#F7F7F7;
-                    border-radius:1.3rem;
-                    padding:1rem;
-                    margin-bottom:1rem;
-                    box-shadow:0 4px 8px rgba(0,0,0,0.1);
-                '>
-                    {trait_descriptions.get(trait, "No definition available")}
-                </div>
-            """, unsafe_allow_html=True)
+        # # If clicked, show definition inside same styled container
+        # if show_definition:
+        #     st.markdown(f"""
+        #         <div class='trait-window' style='
+        #             background-color:#F7F7F7;
+        #             border-radius:1.3rem;
+        #             padding:1rem;
+        #             margin-bottom:1rem;
+        #             box-shadow:0 4px 8px rgba(0,0,0,0.1);
+        #         '>
+        #             {trait_descriptions.get(trait, "No definition available")}
+        #         </div>
+        #     """, unsafe_allow_html=True)
+
+        # Initialize session state for this trait
+        toggle_key = f"{trait}_expanded"
+        if toggle_key not in st.session_state:
+            st.session_state[toggle_key] = False
+
+        # When the card is clicked, toggle the expanded state
+        def toggle_trait():
+            st.session_state[toggle_key] = not st.session_state[toggle_key]
+
+        # Render the card as a clickable div
+        card_content = f"""
+        <div class='trait-window' style='
+            background-color:#F7F7F7;
+            border-radius:1.3rem;
+            padding:1rem;
+            margin-bottom:1rem;
+            box-shadow:0 4px 8px rgba(0,0,0,0.1);
+            cursor:pointer;
+            transition: all 0.3s ease;
+        ' onclick="window.dispatchEvent(new CustomEvent('toggle_{toggle_key}'))">
+            <div style='font-weight:bold; font-size:1rem;'>{trait} — Click to see definition</div>
+            {f"<div style='margin-top:0.5rem;'>{trait_descriptions.get(trait)}</div>" if st.session_state[toggle_key] else ""}
+        </div>
+        """
+
+        st.markdown(card_content, unsafe_allow_html=True)
+
+        # Listen for clicks via Streamlit button hack
+        if st.button(f"toggle_{toggle_key}", key=f"btn_{toggle_key}", help="Hidden toggle", on_click=toggle_trait):
+            pass
+
 
 
 
