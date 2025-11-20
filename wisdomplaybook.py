@@ -741,6 +741,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
 
 
 
+
 def dynamic_closing():
     st.markdown(f'''
         <div class="conclusion-card">
