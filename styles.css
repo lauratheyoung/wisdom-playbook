@@ -50,24 +50,6 @@ body{
     display: contents !important;
 }
 
-/* .congrats-card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-    background-color: none;
-    border: 0.3rem solid #070D2E;
-    border-radius: 2rem;
-    padding: 2% 3%;
-    margin-bottom: 2%;
-    box-shadow: 0 0.4rem 0.8rem rgba(0,0,0,0.1);
-    max-width: 95%;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    box-sizing: border-box;
-} */
-
 .congrats-card {
     display: flex;
     align-items: center;
@@ -92,19 +74,6 @@ body{
 }
 
 .conclusion-card {
-    /* display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    background-color: none;
-    border: 0.3rem solid #070D2E;
-    border-radius: 2rem;
-    padding: 2% 3%;
-    margin-bottom: 2%;
-    box-shadow: 0 0.4rem 0.8rem rgba(0,0,0,0.1);
-    max-width: 95%;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    box-sizing: border-box; */
     display: flex;
     align-items: center;
     justify-content: center;
