@@ -420,6 +420,138 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
 
     return fig
 
+# def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
+#     import pandas as pd
+#     import plotly.graph_objects as go
+#     import textwrap
+#     import streamlit as st
+
+#     # Define the custom order
+#     desired_order = ['Purposeful', 'Adventurous', 'Curious', 'Engaged', 'Playful', 'Adaptable', 'Charitable', 'Ethical']
+
+#     all_question_cols = split_user_data(pd.DataFrame(user_row).T)[1].columns
+#     all_question_scores = get_user_scores_from_row(user_row)
+    
+#     if user_peer_data is not None and not user_peer_data.empty:
+#         all_peer_scores = avg_peer_scores(user_peer_data)
+#         has_peer = True
+#     else:
+#         all_peer_scores = [0] * len(all_question_cols)
+#         has_peer = False
+
+#     # Build a dictionary mapping trait -> its scores
+#     trait_scores_dict = {}
+#     col_ind_lower = 0
+#     for trait in TRAIT_COLS:
+#         col_ind_upper = col_ind_lower + 4
+#         trait_scores_dict[trait] = {
+#             "question_cols": all_question_cols[col_ind_lower:col_ind_upper],
+#             "question_scores": all_question_scores[col_ind_lower:col_ind_upper],
+#             "peer_scores": all_peer_scores[col_ind_lower:col_ind_upper] if has_peer else None
+#         }
+#         col_ind_lower += 4
+
+#     # Loop through traits in the desired order
+#     for trait in desired_order:
+#         data = trait_scores_dict[trait]
+#         question_cols = data["question_cols"]
+#         question_scores = data["question_scores"]
+#         peer_scores = data["peer_scores"]
+
+#         # --- Create grouped horizontal bar chart ---
+#         bar_fig = go.Figure()
+#         question_scores_pct = [(s / 6) * 100 for s in question_scores]
+
+#         bar_fig.add_trace(go.Bar(
+#             x=question_scores_pct,
+#             y=question_cols,
+#             orientation='h',
+#             name='Self Assessment',
+#             marker_color='#898DF7',
+#             text=[f"{round(s)}%" for s in question_scores_pct],
+#             textposition='outside'
+#         ))
+
+#         if has_peer:
+#             peer_scores_pct = [(s / 6) * 100 for s in peer_scores]
+#             bar_fig.add_trace(go.Bar(
+#                 x=peer_scores_pct,
+#                 y=question_cols,
+#                 orientation='h',
+#                 name='Peer Average',
+#                 marker_color='#070D2E',
+#                 text=[f"{round(s)}%" for s in peer_scores_pct],
+#                 textposition='outside'
+#             ))
+
+#         bar_fig.update_layout(
+#             title_text=f"{trait} Statements",
+#             title_font=dict(family='Inter, sans-serif', size=16, color='black'),
+#             xaxis=dict(range=[0, 105], tickvals=[0, 20, 40, 60, 80, 100], ticktext=["0%", "20%", "40%", "60%", "80%", "100%"]),
+#             barmode='group',
+#             margin=dict(b=80, t=50)
+#         )
+
+#         def wrap_labels(labels, width=40):
+#             return ["<br>".join(textwrap.wrap(label, width=width)) for label in labels]
+
+#         bar_fig.update_traces(y=wrap_labels(question_cols, width=40), hoverinfo='skip')
+
+#         # --- Create pie chart for self score ---
+#         def percent_of_max(scores):
+#             if not scores:
+#                 return 0
+#             return round(sum(scores) / (4 * 6) * 100, 1)
+
+#         if has_peer and peer_scores is not None:
+#             combined_scores = [(s + p) / 2 for s, p in zip(question_scores, peer_scores)]
+#             overall_score = percent_of_max(combined_scores)
+#         else:
+#             overall_score = percent_of_max(question_scores)
+
+#         pie_fig = go.Figure(go.Pie(
+#             labels=[f"{trait} Score", " "],
+#             values=[overall_score, 100 - overall_score],
+#             hole=0.4,
+#             marker_colors=['#549D8A', '#D9D9D9'],
+#             textinfo='none',
+#             hoverinfo='skip',
+#             sort=False,
+#             rotation=180
+#         ))
+
+#         pie_fig.add_annotation(
+#             x=0.5, y=0.5,
+#             text=f"{round(overall_score, 1)}%",
+#             showarrow=False,
+#             font=dict(family='Inter, sans-serif', size=22, color='black')
+#         )
+
+#         pie_fig.update_layout(title=dict(text=f"{trait}", font=dict(family='Inter, sans-serif', size=25, color='black')), legend=dict(orientation='h',yanchor='top',xanchor='left',x=0.05))
+
+#         # --- Display in Streamlit ---
+#         st.markdown("""
+#         <div class= "trait-window" style="
+#             display: flex;
+#             flex-wrap: wrap;
+#             background-color: #F7F7F7;
+#             border-radius: 1.3rem;
+#             padding: 1rem;
+#             margin-bottom: 1rem;
+#             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+#         ">
+#         """, unsafe_allow_html=True)
+
+#         # Make graphs side-by-side
+
+#         col1, col2 = st.columns([1, 2])
+#         with col1:
+#             st.plotly_chart(pie_fig, use_container_width=True, config={'displayModeBar':False})
+#         with col2:
+#             st.plotly_chart(bar_fig, use_container_width=True, config={'displayModeBar':False})
+
+#         st.markdown("</div>", unsafe_allow_html=True)
+
 def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
     import pandas as pd
     import plotly.graph_objects as go
@@ -427,11 +559,12 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
     import streamlit as st
 
     # Define the custom order
-    desired_order = ['Purposeful', 'Adventurous', 'Curious', 'Engaged', 'Playful', 'Adaptable', 'Charitable', 'Ethical']
+    desired_order = ['Purposeful', 'Adventurous', 'Curious', 'Engaged', 
+                     'Playful', 'Adaptable', 'Charitable', 'Ethical']
 
     all_question_cols = split_user_data(pd.DataFrame(user_row).T)[1].columns
     all_question_scores = get_user_scores_from_row(user_row)
-    
+
     if user_peer_data is not None and not user_peer_data.empty:
         all_peer_scores = avg_peer_scores(user_peer_data)
         has_peer = True
@@ -450,6 +583,18 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             "peer_scores": all_peer_scores[col_ind_lower:col_ind_upper] if has_peer else None
         }
         col_ind_lower += 4
+
+    # Define placeholder trait descriptions
+    trait_descriptions = {
+        "Purposeful": "You set clear goals and follow through with intention.",
+        "Adventurous": "You enjoy exploring new ideas, people, and experiences.",
+        "Curious": "You seek to learn and understand the world around you.",
+        "Engaged": "You participate actively and invest attention in tasks.",
+        "Playful": "You approach life with creativity and joy.",
+        "Adaptable": "You adjust easily to new circumstances.",
+        "Charitable": "You show generosity and care towards others.",
+        "Ethical": "You act with integrity and follow moral principles."
+    }
 
     # Loop through traits in the desired order
     for trait in desired_order:
@@ -487,7 +632,9 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         bar_fig.update_layout(
             title_text=f"{trait} Statements",
             title_font=dict(family='Inter, sans-serif', size=16, color='black'),
-            xaxis=dict(range=[0, 105], tickvals=[0, 20, 40, 60, 80, 100], ticktext=["0%", "20%", "40%", "60%", "80%", "100%"]),
+            xaxis=dict(range=[0, 105],
+                       tickvals=[0, 20, 40, 60, 80, 100],
+                       ticktext=["0%", "20%", "40%", "60%", "80%", "100%"]),
             barmode='group',
             margin=dict(b=80, t=50)
         )
@@ -527,30 +674,37 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             font=dict(family='Inter, sans-serif', size=22, color='black')
         )
 
-        pie_fig.update_layout(title=dict(text=f"{trait}", font=dict(family='Inter, sans-serif', size=25, color='black')), legend=dict(orientation='h',yanchor='top',xanchor='left',x=0.05))
+        pie_fig.update_layout(
+            title=dict(text=f"{trait}", font=dict(family='Inter, sans-serif', size=25, color='black')),
+            legend=dict(orientation='h', yanchor='top', xanchor='left', x=0.05)
+        )
 
-        # --- Display in Streamlit ---
-        st.markdown("""
-        <div class= "trait-window" style="
-            display: flex;
-            flex-wrap: wrap;
-            background-color: #F7F7F7;
-            border-radius: 1.3rem;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        ">
-        """, unsafe_allow_html=True)
+        # --- Display trait in an expander ---
+        with st.expander(f"{trait} — Click to see definition", expanded=False):
+            # Optional: trait definition text
+            st.markdown(f"<div style='margin-bottom:1rem;'>{trait_descriptions.get(trait, 'No definition available')}</div>", unsafe_allow_html=True)
 
-        # Make graphs side-by-side
+            # Wrap your existing .trait-window styling
+            st.markdown("""
+            <div class="trait-window" style="
+                display: flex;
+                flex-wrap: wrap;
+                background-color: #F7F7F7;
+                border-radius: 1.3rem;
+                padding: 1rem;
+                margin-bottom: 1rem;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            ">
+            """, unsafe_allow_html=True)
 
-        col1, col2 = st.columns([1, 2])
-        with col1:
-            st.plotly_chart(pie_fig, use_container_width=True, config={'displayModeBar':False})
-        with col2:
-            st.plotly_chart(bar_fig, use_container_width=True, config={'displayModeBar':False})
+            col1, col2 = st.columns([1, 2])
+            with col1:
+                st.plotly_chart(pie_fig, use_container_width=True, config={'displayModeBar':False})
+            with col2:
+                st.plotly_chart(bar_fig, use_container_width=True, config={'displayModeBar':False})
 
-        st.markdown("</div>", unsafe_allow_html=True)
+            st.markdown("</div>", unsafe_allow_html=True)
+
 
 def dynamic_closing():
     st.markdown(f'''
