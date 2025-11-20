@@ -686,17 +686,15 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             st.plotly_chart(bar_fig, use_container_width=True, config={'displayModeBar':False})
         st.markdown("</div>", unsafe_allow_html=True)
 
-        st.markdown("""
-            <style>
-            /* Hide the expander arrow text/icon */
-            div.streamlit-expanderHeader button span[data-testid="stExpanderChevron"] {
-                display: none !important;
-            }
-            </style>
+        toggle_key = f"{trait}_definition"
+        show_definition = st.checkbox(f"Show {trait} definition", value=False, key=toggle_key)
+
+        if show_definition:
+            st.markdown(f"""
+                <div class='trait-window' style='background-color:#F7F7F7; border-radius:1.3rem; padding:1rem; margin-bottom:1rem; box-shadow:0 4px 8px rgba(0,0,0,0.1);'>
+                    {trait_descriptions.get(trait, "No definition available")}
+                </div>
             """, unsafe_allow_html=True)
-        # --- Expander with only trait definition ---
-        with st.expander(f"{trait} — Click to see definition", expanded=False):
-            st.write(trait_descriptions.get(trait, "No definition available"))
 
 
 def dynamic_closing():
