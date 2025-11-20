@@ -528,7 +528,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             font=dict(family='Inter, sans-serif', size=22, color='black')
         )
 
-        pie_fig.update_layout(title=dict(text=f"{trait}", font=dict(family='Inter, sans-serif', size=25, color='black')))
+        pie_fig.update_layout(title=dict(text=f"{trait}", font=dict(family='Inter, sans-serif', size=25, color='black')), legend=dict(orientation='h',yanchor='top',y=0.15,xanchor='left',x=0.5))
 
         # --- Display in Streamlit ---
         st.markdown("""
