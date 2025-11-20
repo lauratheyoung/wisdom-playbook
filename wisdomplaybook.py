@@ -725,7 +725,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         #         </div>
         #     """, unsafe_allow_html=True)
 
-        with st.expander(f"{trait} — Click to see definition", icon="🌱", icon="🌱"):
+        with st.expander(f"{trait} — Click to see definition", icon="🌱", icon="🌸"):
             st.markdown(f"""
                 <div style='
                     background-color:#F7F7F7;
