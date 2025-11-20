@@ -684,14 +684,28 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         st.markdown("</div>", unsafe_allow_html=True)
 
         toggle_key = f"{trait}_definition"
-        show_definition = st.checkbox(f"Show {trait} definition", value=False, key=toggle_key)
+        show_definition = st.checkbox("", value=False, key=toggle_key)  # Empty label; we’ll render it manually
 
-        if show_definition:
-            st.markdown(f"""
-                <div class='trait-window' style='background-color:#F7F7F7; border-radius:1.3rem; padding:1rem; margin-bottom:1rem; box-shadow:0 4px 8px rgba(0,0,0,0.1);'>
-                    {trait_descriptions.get(trait, "No definition available")}
+        # --- Wrapper div with trait title ---
+        st.markdown(f"""
+            <div class='trait-window' style='
+                background-color:#F7F7F7;
+                border-radius:1.3rem;
+                padding:1rem;
+                margin-bottom:1rem;
+                box-shadow:0 4px 8px rgba(0,0,0,0.1);
+                transition: all 0.3s ease;
+                cursor: pointer;
+                display: flex;
+                flex-direction: column;
+            ' onclick="document.getElementById('{toggle_key}').click()">
+                <div style='font-weight:bold; font-size:1rem; display:flex; align-items:center;'>
+                    {trait} — Click to see definition
                 </div>
-            """, unsafe_allow_html=True)
+                {"<div style='margin-top:0.5rem;'>" + trait_descriptions.get(trait, "No definition available") + "</div>" if show_definition else ""}
+            </div>
+        """, unsafe_allow_html=True)
+
 
 
 def dynamic_closing():
