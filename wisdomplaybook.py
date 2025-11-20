@@ -688,13 +688,12 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
 
         st.markdown("""
             <style>
-            /* Hide the expander arrow to prevent overlapping text */
-            div.streamlit-expanderHeader > button > svg {
+            /* Hide the expander arrow text/icon */
+            div.streamlit-expanderHeader button span[data-testid="stExpanderChevron"] {
                 display: none !important;
             }
             </style>
             """, unsafe_allow_html=True)
-
         # --- Expander with only trait definition ---
         with st.expander(f"{trait} — Click to see definition", expanded=False):
             st.write(trait_descriptions.get(trait, "No definition available"))
