@@ -675,7 +675,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             return ["<br>".join(textwrap.wrap(label, width=width)) for label in labels]
         bar_fig.update_traces(y=wrap_labels(question_cols, width=40), hoverinfo='skip')
 
-
+        st.markdown(f"<div class='trait-window' style='display:flex; flex-wrap:wrap; background-color:#F7F7F7; border-radius:1.3rem; padding:1rem; margin-bottom:1rem; box-shadow:0 4px 8px rgba(0,0,0,0.1);'>", unsafe_allow_html=True)
         col1, col2 = st.columns([1, 2])
         with col1:
             st.plotly_chart(pie_fig, use_container_width=True, config={'displayModeBar':False})
@@ -724,36 +724,6 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         #             {trait_descriptions.get(trait, "No definition available")}
         #         </div>
         #     """, unsafe_allow_html=True)
-
-        # Initialize session state for toggle
-        toggle_key = f"{trait}_expanded"
-        if toggle_key not in st.session_state:
-            st.session_state[toggle_key] = False
-
-        # Function to toggle state
-        def toggle():
-            st.session_state[toggle_key] = not st.session_state[toggle_key]
-
-        # Invisible Streamlit button to trigger toggle
-        st.button("toggle", key=f"btn_{toggle_key}", on_click=toggle)
-
-        # Render the full card dynamically
-        st.markdown(f"""
-        <div class='trait-window' style='
-            background-color:#F7F7F7;
-            border-radius:1.3rem;
-            padding:1rem;
-            margin-bottom:1rem;
-            box-shadow:0 4px 8px rgba(0,0,0,0.1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: Inter, sans-serif;
-        ' onclick="document.getElementById('btn_{toggle_key}').click()">
-            <div style='font-weight:bold; font-size:1rem;'>{trait} — Click to see definition</div>
-            {"<div style='margin-top:0.5rem;'>{}</div>".format(trait_description) if st.session_state[toggle_key] else ""}
-        </div>
-        """, unsafe_allow_html=True)
-
 
 
 
