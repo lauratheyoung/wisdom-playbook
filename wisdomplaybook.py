@@ -682,20 +682,20 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         # --- Display trait in an expander ---
         with st.expander(f"{trait} — Click to see definition", expanded=False):
             # Optional: trait definition text
-            st.markdown(f"<div style='margin-bottom:1rem;'>{trait_descriptions.get(trait, 'No definition available')}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='margin-top:1.5rem; margin-bottom:1rem;'>{trait_descriptions.get(trait, 'No definition available')}</div>")
 
             # Wrap your existing .trait-window styling
-            st.markdown("""
-            <div class="trait-window" style="
-                display: flex;
-                flex-wrap: wrap;
-                background-color: #F7F7F7;
-                border-radius: 1.3rem;
-                padding: 1rem;
-                margin-bottom: 1rem;
-                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            ">
-            """, unsafe_allow_html=True)
+            # st.markdown("""
+            # <div class="trait-window" style="
+            #     display: flex;
+            #     flex-wrap: wrap;
+            #     background-color: #F7F7F7;
+            #     border-radius: 1.3rem;
+            #     padding: 1rem;
+            #     margin-bottom: 1rem;
+            #     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            # ">
+            # """, unsafe_allow_html=True)
 
             col1, col2 = st.columns([1, 2])
             with col1:
@@ -703,7 +703,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             with col2:
                 st.plotly_chart(bar_fig, use_container_width=True, config={'displayModeBar':False})
 
-            st.markdown("</div>", unsafe_allow_html=True)
+            st.markdown("</div>")
 
 
 def dynamic_closing():
