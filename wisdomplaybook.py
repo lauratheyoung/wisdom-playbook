@@ -400,7 +400,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         ),
         xaxis=dict(title='Score (%)', range=[0, 100]),
         height=50 * len(trait_cols) + 100,
-        margin=dict(l=150, r=50, t=90, b=100),
+        margin=dict(l=150, r=50, t=90, b=90),
         legend=dict(
             orientation='h',
             y=-0.2,
