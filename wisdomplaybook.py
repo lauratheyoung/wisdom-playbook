@@ -725,6 +725,16 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         #         </div>
         #     """, unsafe_allow_html=True)
 
+        st.markdown("""
+            <style>
+            /* Hide the expander arrow text even on hover */
+            div[data-testid="stExpander"] span[data-testid="stIconMaterial"] {
+                display: none !important;
+            }
+            </style>
+        """, unsafe_allow_html=True)
+
+
         with st.expander(f"{trait} — Click to see definition", icon="🌸"):
             st.markdown(f"""
                 <div style='
