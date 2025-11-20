@@ -540,7 +540,6 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             padding: 1rem;
             margin-bottom: 1rem;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            font: 2rem;
         ">
         """, unsafe_allow_html=True)
 
