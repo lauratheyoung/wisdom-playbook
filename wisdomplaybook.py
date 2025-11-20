@@ -683,79 +683,48 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             st.plotly_chart(bar_fig, use_container_width=True, config={'displayModeBar':False})
         st.markdown("</div>", unsafe_allow_html=True)
 
-        # # Use a button for full-card click
-        # toggle_key = f"{trait}_definition"
+        # Use a button for full-card click
+        toggle_key = f"{trait}_definition"
 
-        # # Button styled as full div
-        # show_definition = st.button(
-        #     f"{trait} — Click to see definition",
-        #     key=toggle_key,
-        #     help="Click to expand",
-        # )
-
-        # # Style the button as a card
-        # st.markdown(f"""
-        #     <style>
-        #     div.stButton > button#{toggle_key} {{
-        #         width: 100%;
-        #         text-align: left;
-        #         background-color: #F7F7F7;
-        #         border-radius: 1.3rem;
-        #         padding: 1rem;
-        #         margin-bottom: 1rem;
-        #         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        #         font-weight: bold;
-        #         font-size: 1rem;
-        #         cursor: pointer;
-        #     }}
-        #     </style>
-        # """, unsafe_allow_html=True)
-
-        # # If clicked, show definition inside same styled container
-        # if show_definition:
-        #     st.markdown(f"""
-        #         <div class='trait-window' style='
-        #             background-color:#F7F7F7;
-        #             border-radius:1.3rem;
-        #             padding:1rem;
-        #             margin-bottom:1rem;
-        #             box-shadow:0 4px 8px rgba(0,0,0,0.1);
-        #         '>
-        #             {trait_descriptions.get(trait, "No definition available")}
-        #         </div>
-        #     """, unsafe_allow_html=True)
-
-         # Initialize session state for toggle
-        toggle_key = f"{trait}_expanded"
-        if toggle_key not in st.session_state:
-            st.session_state[toggle_key] = False
-
-        # Function to toggle state
-        def toggle():
-            st.session_state[toggle_key] = not st.session_state[toggle_key]
-
-        # Button styled as full card
-        if st.button(
+        # Button styled as full div
+        show_definition = st.button(
             f"{trait} — Click to see definition",
-            key=f"btn_{toggle_key}",
-            on_click=toggle
-        ):
-            pass  # The button click triggers toggle()
+            key=toggle_key,
+            help="Click to expand",
+        )
 
-        # Card container with dynamic height/content
+        # Style the button as a card
         st.markdown(f"""
-        <div class='trait-window' style='
-            background-color:#F7F7F7;
-            border-radius:1.3rem;
-            padding:1rem;
-            margin-bottom:1rem;
-            box-shadow:0 4px 8px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        '>
-            <div style='font-weight:bold; font-size:1rem; cursor:pointer;'>{trait} — Click to see definition</div>
-            {'<div style="margin-top:0.5rem;">' + trait_description + '</div>' if st.session_state[toggle_key] else ''}
-        </div>
+            <style>
+            div.stButton > button#{toggle_key} {{
+                width: 100%;
+                text-align: left;
+                background-color: #F7F7F7;
+                border-radius: 1.3rem;
+                padding: 1rem;
+                margin-bottom: 1rem;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                font-weight: bold;
+                font-size: 1rem;
+                cursor: pointer;
+            }}
+            </style>
         """, unsafe_allow_html=True)
+
+        # If clicked, show definition inside same styled container
+        if show_definition:
+            st.markdown(f"""
+                <div class='trait-window' style='
+                    background-color:#F7F7F7;
+                    border-radius:1.3rem;
+                    padding:1rem;
+                    margin-bottom:1rem;
+                    box-shadow:0 4px 8px rgba(0,0,0,0.1);
+                '>
+                    {trait_descriptions.get(trait, "No definition available")}
+                </div>
+            """, unsafe_allow_html=True)
+
 
 
 
