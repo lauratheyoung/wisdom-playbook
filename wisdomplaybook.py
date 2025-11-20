@@ -751,7 +751,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             font-family: Inter, sans-serif;
         ' onclick="document.getElementById('btn_{toggle_key}').click()">
             <div style='font-weight:bold; font-size:1rem;'>{trait} — Click to see definition</div>
-            {"<div style='margin-top:0.5rem;'>{}</div>".format(trait_description) if st.session_state[toggle_key] else ""}
+            {"<div style='margin-top:0.5rem;'>{}</div>".format(trait_descriptions) if st.session_state[toggle_key] else ""}
         </div>
         """, unsafe_allow_html=True)
 
