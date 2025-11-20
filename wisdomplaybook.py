@@ -530,17 +530,17 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         pie_fig.update_layout(title=dict(text=f"{trait}", font=dict(family='Inter, sans-serif', size=25, color='black')), legend=dict(orientation='h',yanchor='top',xanchor='left',x=0.05))
 
         # --- Display in Streamlit ---
-        # st.markdown("""
-        # <div style="
-        #     display: flex;
-        #     flex-wrap: wrap;
-        #     background-color: #F7F7F7;
-        #     border-radius: 1.3rem;
-        #     padding: 1rem;
-        #     margin-bottom: 1rem;
-        #     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        # ">
-        # """, unsafe_allow_html=True)
+        st.markdown("""
+        <div style="
+            display: flex;
+            flex-wrap: wrap;
+            background-color: #F7F7F7;
+            border-radius: 1.3rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        ">
+        """, unsafe_allow_html=True)
 
         # Make graphs side-by-side
 
