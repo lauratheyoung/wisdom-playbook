@@ -220,19 +220,6 @@ def display_dynamic_message(
     # Main container
     with st.container():
 
-        # st.markdown(
-        #     f'''
-        #     <div class="welcome-card">
-        #         <h2>
-        #             Welcome <span class="user-name">{user_name}</span> to your 
-        #             <span class="wisdom-playbook">Wisdom Report</span>
-        #         </h2>
-        #         <img class= "logo" src="data:image/png;base64,{img_base64}" alt="logo"/>
-        #     </div>
-        #     ''',
-        #     unsafe_allow_html=True
-        # )
-
         st.markdown(
             f'''
             <div class="full-logo">
@@ -538,7 +525,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             x=0.5, y=0.5,
             text=f"{round(overall_score, 1)}%",
             showarrow=False,
-            font=dict(family='Inter, sans-serif', size=24, color='black')
+            font=dict(family='Inter, sans-serif', size=22, color='black')
         )
 
         pie_fig.update_layout(title=dict(text=f"{trait}", font=dict(family='Inter, sans-serif', size=25, color='black')))
