@@ -734,7 +734,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
                     box-shadow:0 4px 8px rgba(0,0,0,0.1);
                     font-family: Inter, sans-serif;
                 '>
-                    {trait_description}
+                    {trait_descriptions}
                 </div>
             """, unsafe_allow_html=True)
 
