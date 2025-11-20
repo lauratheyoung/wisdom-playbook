@@ -677,6 +677,34 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
 
         # --- Display charts first, outside expander ---
         st.markdown(f"<div class='trait-window' style='display:flex; flex-wrap:wrap; background-color:#F7F7F7; border-radius:1.3rem; padding:1rem; margin-bottom:1rem; box-shadow:0 4px 8px rgba(0,0,0,0.1);'>", unsafe_allow_html=True)
+        st.markdown("""
+            <style>
+            /* Style the expander container */
+            div.streamlit-expanderHeader {
+                background-color: #F7F7F7 !important;
+                border-radius: 1.3rem !important;
+                padding: 0.5rem 1rem !important;
+                margin-bottom: 1rem !important;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+                font-family: 'Inter, sans-serif';
+            }
+
+            /* Optional: change expander arrow color */
+            div.streamlit-expanderHeader > button > svg {
+                fill: #070D2E !important;
+            }
+
+            /* Style the content inside expander */
+            div.streamlit-expanderContent {
+                padding: 1rem 1rem 1rem 1rem !important;
+                font-family: 'Inter, sans-serif';
+                background-color: #F7F7F7;
+                border-radius: 0 0 1.3rem 1.3rem;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            }
+            </style>
+            """, unsafe_allow_html=True)
+
         col1, col2 = st.columns([1, 2])
         with col1:
             st.plotly_chart(pie_fig, use_container_width=True, config={'displayModeBar':False})
