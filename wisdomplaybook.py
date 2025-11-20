@@ -352,7 +352,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         text=[f"{s}%" for s in self_scores],
         textposition='outside',
         hoverinfo='skip',
-        width=0.4
+        width=0.8
     ))
 
     # --- Peer bars (only if data exists) ---
