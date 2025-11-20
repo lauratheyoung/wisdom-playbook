@@ -531,7 +531,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
 
         # --- Display in Streamlit ---
         st.markdown("""
-        <div style="
+        <div class= "trait-window" style="
             display: flex;
             flex-wrap: wrap;
             background-color: #F7F7F7;
