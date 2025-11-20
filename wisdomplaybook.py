@@ -724,7 +724,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         #             {trait_descriptions.get(trait, "No definition available")}
         #         </div>
         #     """, unsafe_allow_html=True)
-        with st.expander(f"{trait} — Click to see definition", expanded=False):
+        with st.expander(trait, expanded=False):
             st.markdown(f"""
                 <div style='
                     background-color:#F7F7F7;
@@ -737,6 +737,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
                     {trait_descriptions.get(trait, "No definition available")}
                 </div>
             """, unsafe_allow_html=True)
+
 
 
 
