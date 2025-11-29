@@ -557,7 +557,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         def percent_of_max(scores):
             if not scores:
                 return 0
-            return round(sum(scores) / (4 * 6) * 100, 1)
+            return round(sum(scores) / (4 * 6) * 100)
 
         if has_peer and peer_scores is not None:
             combined_scores = [(s + p) / 2 for s, p in zip(question_scores, peer_scores)]
@@ -672,10 +672,6 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
                     {trait_descriptions.get(trait, "No definition available")}
                 </div>
             """, unsafe_allow_html=True)
-
-
-
-
 
 
 def dynamic_closing():
