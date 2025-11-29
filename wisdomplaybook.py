@@ -530,6 +530,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             ))
 
         bar_fig.update_layout(
+            title_text=f"",
             title_font=dict(family='Inter, sans-serif', size=16, color='black'),
             xaxis=dict(range=[0, 105],
                        tickvals=[0, 20, 40, 60, 80, 100],
