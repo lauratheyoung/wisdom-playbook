@@ -334,10 +334,10 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     
 
     # Compute delta (in %), only if peer data exists
-    delta_scores = (
-    [round(peer - self_, 1) for self_, peer in zip(self_scores, peer_scores)]
-    if has_peer_data else None
-    )
+    # delta_scores = (
+    # [round(peer - self_, 1) for self_, peer in zip(self_scores, peer_scores)]
+    # if has_peer_data else None
+    # )
 
     # Build horizontal bar chart
     fig = go.Figure()
@@ -368,27 +368,27 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         ))
 
         # --- Delta annotations ---
-        for i, trait in enumerate(trait_cols):
-            fig.add_annotation(
-                x=100,
-                y=trait,
-                text=f"Δ {delta_scores[i]}%",
-                showarrow=False,
-                font=dict(color='black', size=15),
-                xanchor='right',
-                yanchor='middle'
-            )
+        # for i, trait in enumerate(trait_cols):
+            # fig.add_annotation(
+            #     x=100,
+            #     y=trait,
+            #     text=f"Δ {delta_scores[i]}%",
+            #     showarrow=False,
+            #     font=dict(color='black', size=15),
+            #     xanchor='right',
+            #     yanchor='middle'
+            # )
 
         # Delta title
-        fig.add_annotation(
-            x=100,
-            y=len(trait_cols),
-            text="Score<br>Differences",
-            showarrow=False,
-            font=dict(color='black', size=15, family='Inter, sans-serif'),
-            xanchor='right',
-            yanchor='bottom'
-        )
+        # fig.add_annotation(
+        #     x=100,
+        #     y=len(trait_cols),
+        #     text="Score<br>Differences",
+        #     showarrow=False,
+        #     font=dict(color='black', size=15, family='Inter, sans-serif'),
+        #     xanchor='right',
+        #     yanchor='bottom'
+        # )
 
     fig.update_layout(
         barmode='group',
