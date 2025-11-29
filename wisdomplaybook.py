@@ -617,9 +617,9 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             xaxis=dict(range=[0, 105],
                        tickvals=[0, 20, 40, 60, 80, 100],
                        ticktext=["0%", "20%", "40%", "60%", "80%", "100%"],
-                       tickfont=dict(size=13,color='black')),
+                       tickfont=dict(family='Inter, sans-serif', size=13,color='black')),
             yaxis=dict(
-                tickfont=dict(size=13, color='black')
+                tickfont=dict(family='Inter, sans-serif', size=14, color='black')
             ),
             barmode='group',
             margin=dict(l=150, r=50, t=90, b=90),
@@ -629,7 +629,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
                 y=-0.3,
                 xanchor='right',
                 yanchor='bottom',
-                font=dict(size=13, color='black')
+                font=dict(family='Inter, sans-serif', size=13, color='black')
             ),
             dragmode=False,
         )
