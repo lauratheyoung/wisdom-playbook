@@ -473,7 +473,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             - What have I been too scared of trying?
         """,
         "Curious": """Curiosity drives the continuous expansion of understanding and the pursuit of knowledge across diverse domains. Curious individuals maintain a growth mindset that treats
-            challenges as learning opportunities rather than threats to their competence. <br>They approach learning with genuine enthusiasm rather than mere obligation, finding joy in the process of
+            challenges as learning opportunities rather than threats to their competence. <br><br>They approach learning with genuine enthusiasm rather than mere obligation, finding joy in the process of
             discovery itself. This trait involves the sophisticated ability to synthesize information from various sources, creating new insights through the masterful connection of seemingly unrelated ideas.
             
             <br>In order to become more curious, consider the following questions:
@@ -484,7 +484,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             - What is a future trend which will shape the world which I could learn and become competent in?
         """,
         "Engaged": """Being engaged means bringing full presence and committed attention to whatever situation
-            or relationship demands focus. Engaged individuals develop strong emotional intelligence that allows them to read situations accurately and respond appropriately. <br>They maintain
+            or relationship demands focus. Engaged individuals develop strong emotional intelligence that allows them to read situations accurately and respond appropriately. <br><br>They maintain
             authentic optimism that acknowledges challenges while focusing on possibilities and solutions. They participate actively in their relationships and communities, understanding
             that meaningful connection requires consistent investment of time and energy.
             
@@ -496,7 +496,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             - What activities in my life should I stop, to make space for more impactful engagement?
         """,
         "Playful": """ Playfulness represents the art of maintaining lightness and joy while navigating life's challenges and opportunities. A playful person approaches situations with humour and
-            audacity, willing to take calculated risks because they don't attach their entire identity to any single outcome. <br>This trait involves the wisdom of not taking oneself too seriously while still
+            audacity, willing to take calculated risks because they don't attach their entire identity to any single outcome. <br><br>This trait involves the wisdom of not taking oneself too seriously while still
             treating important matters with appropriate gravity. The essence of being playful lies in maintaining humility and keeping the ego in check, which paradoxically allows for greater
             boldness and experimentation. This creates space for authentic expression and genuine connection with others, as playfulness breaks down barriers and invites collaboration.
 
@@ -508,7 +508,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             - What friendships can I foster with people of different ages?
         """,
         "Adaptable": """Adaptability represents the sophisticated skill of flowing with change while maintaining core stability and direction. Adaptable individuals develop resilience through experience, learning
-            to view transitions and disruptions as natural parts of life's. <br>They cultivate patience with processes that unfold slowly and grit to persist through difficult periods, understanding that
+            to view transitions and disruptions as natural parts of life's. <br><br>They cultivate patience with processes that unfold slowly and grit to persist through difficult periods, understanding that
             adaptation often requires sustained effort over time. The adaptable person maintains keen awareness of their physical and emotional wellbeing during periods of change, recognizing
             that self-care becomes even more critical during transitions.
             
@@ -520,7 +520,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             - What belief am I willing to reconsider and how would I demonstrate that?
             """,
         "Charitable": """Charity extends far beyond financial giving to encompass the generous sharing of time, attention, knowledge, and emotional support with others. Charitable individuals operate from
-            an abundance mindset, recognizing that giving creates rather than depletes their resources. <br>They approach interactions with kindness and hope, seeking opportunities to contribute
+            an abundance mindset, recognizing that giving creates rather than depletes their resources. <br><br>They approach interactions with kindness and hope, seeking opportunities to contribute
             positively to their communities and the lives of individuals around them. The charitable person develops a community-minded perspective that sees individual wellbeing as interconnected with collective flourishing.
 
             <br>In order to become more charitable, consider the following questions:
@@ -531,7 +531,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             - What community am I committed to supporting and what can I do today to show this?
         """,
         "Ethical": """Ethics provide the moral foundation that guides decisions and actions according to clear principles of right and wrong. Ethical individuals operate with high integrity, ensuring that
-            their private values align with their public behaviour. <br>They draw wisdom from traditional moral teachings while applying these principles thoughtfully to contemporary situations. This
+            their private values align with their public behaviour. <br><br>They draw wisdom from traditional moral teachings while applying these principles thoughtfully to contemporary situations. This
             trait involves serving as a role model through consistent demonstration of fairness, virtue, and respect for others. The ethical person maintains deep connection to natural systems
             and cycles, recognizing their responsibility as stewards of both human and environmental wellbeing.
             
