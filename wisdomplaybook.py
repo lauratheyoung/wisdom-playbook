@@ -479,7 +479,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             challenges as learning opportunities rather than threats to their competence. They approach learning with genuine enthusiasm rather than mere obligation, finding joy in the process of
             discovery itself. This trait involves the sophisticated ability to synthesize information from various sources, creating new insights through the masterful connection of seemingly unrelated ideas.
             
-            In order to become more curious, consider the following questions:
+            <br>In order to become more curious, consider the following questions:
 
             - What can I learn that is completely new for me?
             - What would I enjoy researching in detail?
@@ -491,7 +491,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             authentic optimism that acknowledges challenges while focusing on possibilities and solutions. They participate actively in their relationships and communities, understanding
             that meaningful connection requires consistent investment of time and energy.
             
-            In order to become more engaged consider the following questions:
+            <br>In order to become more engaged consider the following questions:
 
             - What community activity can I become involved with?
             - Who can I spend time with and support by being a great listener?
@@ -503,7 +503,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             treating important matters with appropriate gravity. The essence of being playful lies in maintaining humility and keeping the ego in check, which paradoxically allows for greater
             boldness and experimentation. This creates space for authentic expression and genuine connection with others, as playfulness breaks down barriers and invites collaboration.
 
-            In order to become more playful, consider the following questions:
+            <br>In order to become more playful, consider the following questions:
 
             - How can I design my life to be less serious? How can I introduce more humour and lightness to my life?
             - What creative activities can I start now, regardless of my aptitude?
@@ -515,7 +515,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             adaptation often requires sustained effort over time. The adaptable person maintains keen awareness of their physical and emotional wellbeing during periods of change, recognizing
             that self-care becomes even more critical during transitions.
             
-            In order to become more adaptable, consider the following questions:
+            <br>In order to become more adaptable, consider the following questions:
 
             - How can I improve my tenacity and resilience?
             - What transitions am I currently facing that could be managed better?
@@ -526,7 +526,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             an abundance mindset, recognizing that giving creates rather than depletes their resources. They approach interactions with kindness and hope, seeking opportunities to contribute
             positively to their communities and the lives of individuals around them. The charitable person develops a community-minded perspective that sees individual wellbeing as interconnected with collective flourishing.
 
-            In order to become more charitable, consider the following questions:
+            <br>In order to become more charitable, consider the following questions:
 
             - Who currently needs my support and how can I be generous to them?
             - Who can I provide useful advice to at the moment?
