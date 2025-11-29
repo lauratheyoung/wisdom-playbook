@@ -658,8 +658,8 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
                     background-color:#F7F7F7;
                     border-radius:1.3rem;
                     padding:1rem;
-                    margin-top:0.5rem;
-                    margin-bottom:1rem;
+                    margin-top:1rem;
+                    margin-bottom:1.5rem;
                     box-shadow:0 4px 8px rgba(0,0,0,0.1);
                     font-family: Inter, sans-serif;
                 '>
