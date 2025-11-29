@@ -617,7 +617,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             xaxis=dict(range=[0, 105],
                        tickvals=[0, 20, 40, 60, 80, 100],
                        ticktext=["0%", "20%", "40%", "60%", "80%", "100%"],
-                       font=dict(color='black')),
+                       tickfont=dict(color='black')),
             yaxis=dict(
                 tickfont=dict(color='black')
             ),
