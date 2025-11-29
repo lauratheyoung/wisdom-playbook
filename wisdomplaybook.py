@@ -451,7 +451,20 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
 
     # Placeholder trait descriptions
     trait_descriptions = {
-        "Purposeful": "You set clear goals and follow through with intention.",
+        # "Purposeful": "You set clear goals and follow through with intention.",
+        "Purposeful": """
+            <p><strong>Being purposeful</strong> means operating with a clear internal compass that guides decisions and actions. 
+            Purposeful individuals cultivate disciplined excellence and pursue mastery driven by intrinsic motivation.</p>
+
+            <p><strong>To become more purposeful, consider:</strong></p>
+
+            <ul>
+                <li>What is the meaning of my life? What brings fulfillment and joy every day?</li>
+                <li>How can I ensure my decisions align with what matters to me?</li>
+                <li>How can I be more intentional about the speed I live my life?</li>
+                <li>What personal rituals and practices can I start to live purposefully?</li>
+            </ul>
+        """,
         "Adventurous": "You enjoy exploring new ideas, people, and experiences.",
         "Curious": "You seek to learn and understand the world around you.",
         "Engaged": "You participate actively and invest attention in tasks.",
