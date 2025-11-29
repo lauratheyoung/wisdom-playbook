@@ -538,7 +538,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             trait involves serving as a role model through consistent demonstration of fairness, virtue, and respect for others. The ethical person maintains deep connection to natural systems
             and cycles, recognizing their responsibility as stewards of both human and environmental wellbeing.
             
-            <br><br> In order to become more ethical, consider the following questions:
+            <br>In order to become more ethical, consider the following questions:
 
             - When have I operated without a clear sense of right and wrong and how can I remedy that situation?
             - How can I demonstrate kindness to someone each day?
