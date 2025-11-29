@@ -402,9 +402,9 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         margin=dict(l=150, r=50, t=90, b=90),
         legend=dict(
             orientation='h',
+            x=1,
             y=-0.2,
-            x=0,
-            xanchor='left',
+            xanchor='right',
             yanchor='bottom'
         ),
         yaxis=dict(
