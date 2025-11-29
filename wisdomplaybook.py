@@ -416,6 +416,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
             categoryorder='array',
             categoryarray=list(reversed(trait_cols))
         ),
+        dragmode=False
     )
 
     return fig
@@ -449,9 +450,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         }
         col_ind_lower += 4
 
-    # Placeholder trait descriptions
     trait_descriptions = {
-        # "Purposeful": "You set clear goals and follow through with intention.",
         "Purposeful": """
             Being purposeful means operating with a clear internal compass that guides decisions and actions. 
             Purposeful individuals cultivate disciplined excellence and pursue mastery driven by intrinsic motivation. 
@@ -627,7 +626,8 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
                 xanchor='right',
                 yanchor='bottom',
                 font=dict(size=13)
-            )
+            ),
+            dragmode=False
         )
 
         def wrap_labels(labels, width=40):
