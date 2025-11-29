@@ -421,11 +421,6 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     return fig
 
 def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
-    import pandas as pd
-    import plotly.graph_objects as go
-    import textwrap
-    import streamlit as st
-
     # Define the custom order
     desired_order = ['Purposeful', 'Adventurous', 'Curious', 'Engaged', 
                      'Playful', 'Adaptable', 'Charitable', 'Ethical']
@@ -542,7 +537,10 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
                 x=1,
                 y=-0.3,
                 xanchor='right',
-                yanchor='bottom'
+                yanchor='bottom',
+                font=dict(
+                    size=13
+                )
             )
         )
 
