@@ -638,7 +638,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             return ["<br>".join(textwrap.wrap(label, width=width)) for label in labels]
         bar_fig.update_traces(y=wrap_labels(question_cols, width=40), hoverinfo='skip')
 
-        st.markdown(f"<div class='trait-window' style='display:flex; flex-wrap:wrap; background-color:#F7F7F7; border-radius:1.3rem; padding: 0.5rem 1rem; margin-bottom:1rem; box-shadow:0 4px 8px rgba(0,0,0,0.1);'>", unsafe_allow_html=True)
+        st.markdown(f"<div class='trait-window' style='display:flex; flex-wrap:wrap; background-color:#F7F7F7; border-radius:1.3rem; padding: 0.8rem 1rem; margin-bottom:1rem; box-shadow:0 4px 8px rgba(0,0,0,0.1);'>", unsafe_allow_html=True)
         col1, col2 = st.columns([1, 2])
         with col1:
             st.plotly_chart(pie_fig, use_container_width=True, config={'displayModeBar':False})
