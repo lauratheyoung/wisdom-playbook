@@ -328,8 +328,8 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     peer_scores_raw = [peer_mean_scores[trait] / 6 for trait in trait_cols] if has_peer_data else None
 
     # Convert to percentages
-    self_scores = [round(s * 100, 1) for s in self_scores_raw]
-    peer_scores = [round(p * 100, 1) for p in peer_scores_raw] if has_peer_data else None
+    self_scores = [int(round(s * 100, 1)) for s in self_scores_raw]
+    peer_scores = [int(round(p * 100, 1)) for p in peer_scores_raw] if has_peer_data else None
 
     
 
