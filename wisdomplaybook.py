@@ -403,7 +403,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         legend=dict(
             orientation='h',
             x=1,
-            y=-0.5,
+            y=-0.3,
             xanchor='right',
             yanchor='bottom'
         ),
