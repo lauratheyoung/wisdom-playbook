@@ -538,9 +538,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
                 y=-0.3,
                 xanchor='right',
                 yanchor='bottom',
-                font=dict(
-                    size=13
-                )
+                font=dict(size=13)
             )
         )
 
