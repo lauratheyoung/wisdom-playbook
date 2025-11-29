@@ -421,6 +421,8 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
     return fig
 
 def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
+    import textwrap
+
     # Define the custom order
     desired_order = ['Purposeful', 'Adventurous', 'Curious', 'Engaged', 
                      'Playful', 'Adaptable', 'Charitable', 'Ethical']
