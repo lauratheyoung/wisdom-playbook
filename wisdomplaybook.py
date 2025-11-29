@@ -501,7 +501,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
         )
         pie_fig.update_layout(
             title=dict(text=f"{trait}", font=dict(family='Inter, sans-serif', size=25, color='black')),
-            legend=dict(orientation='h', yanchor='bottom', xanchor='right', x=1, y=0.3)
+            legend=dict(orientation='h', yanchor='top', xanchor='left', x=0.05)
         )
 
         # --- Create horizontal bar chart ---
