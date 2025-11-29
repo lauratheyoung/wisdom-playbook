@@ -463,13 +463,92 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             - How can I be more intentional about the speed I live my life?
             - What personal rituals and practices can I start to live purposefully?
         """,
-        "Adventurous": "You enjoy exploring new ideas, people, and experiences.",
-        "Curious": "You seek to learn and understand the world around you.",
-        "Engaged": "You participate actively and invest attention in tasks.",
-        "Playful": "You approach life with creativity and joy.",
-        "Adaptable": "You adjust easily to new circumstances.",
-        "Charitable": "You show generosity and care towards others.",
-        "Ethical": "You act with integrity and follow moral principles."
+        "Adventurous": """
+            The adventurous spirit thrives on expanding horizons and embracing the unknown with courage and enthusiasm. Adventurous individuals are courageous and actively seek
+            experiences that challenge their comfort zones, understanding that growth occurs at the intersection of familiarity and uncertainty. This trait involves cultivating the beginner&#39;s
+            mindset that sees fresh possibilities in even familiar situations.
+
+            In order to become more adventurous, consider the following questions:
+
+            - What experiences can I pursue which are out of my comfort zone?
+            - What activities can I start now, regardless of whether I will succeed with them?
+            - How can I take an interest in global issues?
+            - What have I been too scared of trying?
+        """,
+        "Curious": """Curiosity drives the continuous expansion of understanding and the pursuit of knowledge
+            across diverse domains. Curious individuals maintain a growth mindset that treats
+            challenges as learning opportunities rather than threats to their competence. They approach
+            learning with genuine enthusiasm rather than mere obligation, finding joy in the process of
+            discovery itself. This trait involves the sophisticated ability to synthesize information from
+            various sources, creating new insights through the masterful connection of seemingly
+            unrelated ideas.
+            
+            In order to become more curious, consider the following questions:
+
+            - What can I learn that is completely new for me?
+            - What would I enjoy researching in detail?
+            - How can I find time to think deeply about the things I am intrigued by?
+            - What is a future trend which will shape the world which I could learn and become competent in?
+        """,
+        "Engaged": """Being engaged means bringing full presence and committed attention to whatever situation
+            or relationship demands focus. Engaged individuals develop strong emotional intelligence that allows them to read situations accurately and respond appropriately. They maintain
+            authentic optimism that acknowledges challenges while focusing on possibilities and solutions. They participate actively in their relationships and communities, understanding
+            that meaningful connection requires consistent investment of time and energy.
+            
+            In order to become more engaged consider the following questions:
+
+            - What community activity can I become involved with?
+            - Who can I spend time with and support by being a great listener?
+            - How can I improve the way I tell stories?
+            - What activities in my life should I stop, to make space for more impactful engagement?
+        """,
+        "Playful": """ Playfulness represents the art of maintaining lightness and joy while navigating life's challenges and opportunities. A playful person approaches situations with humour and
+            audacity, willing to take calculated risks because they don't attach their entire identity to any single outcome. This trait involves the wisdom of not taking oneself too seriously while still
+            treating important matters with appropriate gravity. The essence of being playful lies in maintaining humility and keeping the ego in check, which paradoxically allows for greater
+            boldness and experimentation. This creates space for authentic expression and genuine connection with others, as playfulness breaks down barriers and invites collaboration.
+
+            In order to become more playful, consider the following questions:
+
+            - How can I design my life to be less serious? How can I introduce more humour and lightness to my life?
+            - What creative activities can I start now, regardless of my aptitude?
+            - Where do I find a sense of awe?
+            - What friendships can I foster with people of different ages?
+        """,
+        "Adaptable": """Adaptability represents the sophisticated skill of flowing with change while maintaining core stability and direction. Adaptable individuals develop resilience through experience, learning
+            to view transitions and disruptions as natural parts of life's. They cultivate patience with processes that unfold slowly and grit to persist through difficult periods, understanding that
+            adaptation often requires sustained effort over time. The adaptable person maintains keen awareness of their physical and emotional wellbeing during periods of change, recognizing
+            that self-care becomes even more critical during transitions.
+            
+            In order to become more adaptable, consider the following questions:
+
+            - How can I improve my tenacity and resilience?
+            - What transitions am I currently facing that could be managed better?
+            - What one change in my life would improve my physical or mental health?
+            - What belief am I willing to reconsider and how would I demonstrate that?
+            """,
+        "Charitable": """Charity extends far beyond financial giving to encompass the generous sharing of time, attention, knowledge, and emotional support with others. Charitable individuals operate from
+            an abundance mindset, recognizing that giving creates rather than depletes their resources. They approach interactions with kindness and hope, seeking opportunities to contribute
+            positively to their communities and the lives of individuals around them. The charitable person develops a community-minded perspective that sees individual wellbeing as interconnected with collective flourishing.
+
+            In order to become more charitable, consider the following questions:
+
+            - Who currently needs my support and how can I be generous to them?
+            - Who can I provide useful advice to at the moment?
+            - How can I demonstrate that I am committed to the wellbeing of future generations?
+            - What community am I committed to supporting and what can I do today to show this?
+        """,
+        "Ethical": """Ethics provide the moral foundation that guides decisions and actions according to clear principles of right and wrong. Ethical individuals operate with high integrity, ensuring that
+            their private values align with their public behaviour. They draw wisdom from traditional moral teachings while applying these principles thoughtfully to contemporary situations. This
+            trait involves serving as a role model through consistent demonstration of fairness, virtue, and respect for others. The ethical person maintains deep connection to natural systems
+            and cycles, recognizing their responsibility as stewards of both human and environmental wellbeing.
+            
+            In order to become more ethical, consider the following questions:
+
+            - When have I operated without a clear sense of right and wrong and how can I remedy that situation?
+            - How can I demonstrate kindness to someone each day?
+            - How can I build spending time in nature into my schedule regularly?
+            - How could I learn more about my ancestors or local indigenous history?  
+        """
     }
 
     # Loop through traits
