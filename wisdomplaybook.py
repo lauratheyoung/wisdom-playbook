@@ -475,13 +475,9 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             - How can I take an interest in global issues?
             - What have I been too scared of trying?
         """,
-        "Curious": """Curiosity drives the continuous expansion of understanding and the pursuit of knowledge
-            across diverse domains. Curious individuals maintain a growth mindset that treats
-            challenges as learning opportunities rather than threats to their competence. They approach
-            learning with genuine enthusiasm rather than mere obligation, finding joy in the process of
-            discovery itself. This trait involves the sophisticated ability to synthesize information from
-            various sources, creating new insights through the masterful connection of seemingly
-            unrelated ideas.
+        "Curious": """Curiosity drives the continuous expansion of understanding and the pursuit of knowledge across diverse domains. Curious individuals maintain a growth mindset that treats
+            challenges as learning opportunities rather than threats to their competence. They approach learning with genuine enthusiasm rather than mere obligation, finding joy in the process of
+            discovery itself. This trait involves the sophisticated ability to synthesize information from various sources, creating new insights through the masterful connection of seemingly unrelated ideas.
             
             In order to become more curious, consider the following questions:
 
