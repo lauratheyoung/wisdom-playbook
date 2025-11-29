@@ -405,7 +405,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
             y=-0.2,
             x=0,
             xanchor='left',
-            yanchor='top'
+            yanchor='bottom'
         ),
         yaxis=dict(
             title='',
