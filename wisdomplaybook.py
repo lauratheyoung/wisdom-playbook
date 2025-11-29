@@ -533,7 +533,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
                        tickvals=[0, 20, 40, 60, 80, 100],
                        ticktext=["0%", "20%", "40%", "60%", "80%", "100%"]),
             barmode='group',
-            margin=dict(b=80, t=50),
+            margin=dict(l=150, r=50, t=90, b=90),
             legend=dict(
                 orientation='h',
                 x=1,
