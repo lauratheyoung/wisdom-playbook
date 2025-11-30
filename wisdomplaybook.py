@@ -593,7 +593,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             legend=dict(orientation='h', yanchor='top', xanchor='left', x=0.05, font=dict(
                 family='Inter, sans-serif', size=13
             )),
-            margin=dict(t=40, b=10, l=0, r=0),
+            margin=dict(t=50, b=10, l=0, r=0),
         )
 
         # --- Create horizontal bar chart ---
