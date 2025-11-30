@@ -388,7 +388,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         #     yanchor='bottom'
         # )
     if not has_peer_data:
-        bar_gap = 1         
+        bar_gap = 0.1         
         bar_group_gap = 0.1
     else:
         bar_gap = 0.15        
