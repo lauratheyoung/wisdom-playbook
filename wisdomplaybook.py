@@ -391,8 +391,8 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         bar_gap = 0.6         
         bar_group_gap = 0.6
     else:
-        bar_gap = 0.15        
-        bar_group_gap = 0.1
+        bar_gap = 0.6        
+        bar_group_gap = 0.6
     
 
     fig.update_layout(
