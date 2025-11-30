@@ -422,8 +422,8 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
             categoryarray=list(reversed(trait_cols))
         ),
         dragmode=False,
-        bar_gap=bar_gap,
-        bar_group_gap=bar_group_gap
+        bargap=bar_gap,
+        bargroupgap=bar_group_gap
     )
 
     return fig
