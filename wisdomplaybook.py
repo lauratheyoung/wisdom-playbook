@@ -620,6 +620,13 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
                 textposition='outside'
             ))
 
+        if not has_peer:
+            bar_gap = 0.3          
+            bar_group_gap = 0.1
+        else:
+            bar_gap = 0.15         
+            bar_group_gap = 0.1
+
         bar_fig.update_layout(
             title_text=f"",
             title_font=dict(family='Inter, sans-serif', size=16, color='black'),
@@ -641,6 +648,8 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
                 font=dict(family='Inter, sans-serif', size=13, color='black')
             ),
             dragmode=False,
+            bargap=bar_gap,
+            bargapgroup=bar_group_gap
         )
 
         def wrap_labels(labels, width=40):
