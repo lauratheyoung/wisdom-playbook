@@ -592,7 +592,8 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             title=dict(text=f"{trait}", font=dict(family='Inter, sans-serif', size=25, color='black')),
             legend=dict(orientation='h', yanchor='top', xanchor='left', x=0.05, font=dict(
                 family='Inter, sans-serif', size=13
-            ))
+            )),
+            margin=dict(t=10, b=10, l=0, r=0),
         )
 
         # --- Create horizontal bar chart ---
@@ -649,7 +650,8 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             ),
             dragmode=False,
             bargap=bar_gap,
-            bargroupgap=bar_group_gap
+            bargroupgap=bar_group_gap,
+            margin=dict(l=80, r=20, t=20, b=40)
         )
 
         def wrap_labels(labels, width=40):
