@@ -649,7 +649,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
             ),
             dragmode=False,
             bargap=bar_gap,
-            bargapgroup=bar_group_gap
+            bargroupgap=bar_group_gap
         )
 
         def wrap_labels(labels, width=40):
