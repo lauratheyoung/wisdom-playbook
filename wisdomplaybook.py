@@ -387,6 +387,13 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
         #     xanchor='right',
         #     yanchor='bottom'
         # )
+    if not has_peer_data:
+        bar_gap = 0.6         
+        bar_group_gap = 0.6
+    else:
+        bar_gap = 0.15        
+        bar_group_gap = 0.1
+    
 
     fig.update_layout(
         barmode='group',
@@ -414,7 +421,9 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
             categoryorder='array',
             categoryarray=list(reversed(trait_cols))
         ),
-        dragmode=False
+        dragmode=False,
+        bar_gap=bar_gap,
+        bar_group_gap=bar_group_gap
     )
 
     return fig
