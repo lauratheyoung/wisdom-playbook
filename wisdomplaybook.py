@@ -639,7 +639,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
                 tickfont=dict(family='Inter, sans-serif', size=14, color='black')
             ),
             barmode='group',
-            margin=dict(l=150, r=50, t=90, b=90),
+            #margin=dict(l=150, r=50, t=90, b=90),
             legend=dict(
                 orientation='h',
                 x=1,
