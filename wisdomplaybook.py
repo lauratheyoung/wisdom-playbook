@@ -354,7 +354,7 @@ def plot_trait_comparison(user_row, peer_mean_scores, trait_cols):
             x=peer_scores,
             name='Peer Average',
             orientation='h',
-            marker_color='#070D2E',
+            marker_color='#11616e',
             text=[f"{p}%" for p in peer_scores],
             textposition='outside',
             hoverinfo='skip'
@@ -611,7 +611,7 @@ def trait_plots(uuid, user_row, TRAIT_COLS, TRAIT_RANGES, user_peer_data):
                 y=question_cols,
                 orientation='h',
                 name='Peer Average',
-                marker_color='#070D2E',
+                marker_color='#11616e',
                 text=[f"{round(s)}%" for s in peer_scores_pct],
                 textposition='outside'
             ))
