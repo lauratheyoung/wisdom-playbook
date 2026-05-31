@@ -215,7 +215,7 @@ def display_dynamic_message(
         with open(image_path,"rb") as img_file:
             return base64.b64encode(img_file.read()).decode()
         
-    img_base64 = get_base64_image("assets/wisdomplaybook-logo.png")
+    img_base64 = get_base64_image("/assets/Wisdomplaybook Esignature.png")
 
     # Main container
     with st.container():
